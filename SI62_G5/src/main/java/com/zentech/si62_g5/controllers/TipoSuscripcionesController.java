@@ -1,8 +1,9 @@
 package com.zentech.si62_g5.controllers;
 
 
-import com.zentech.si62_g5.dtos.CursosDTO;
-import com.zentech.si62_g5.serviceinterfaces.ICursosService;
+import com.zentech.si62_g5.dtos.RolesDTO;
+import com.zentech.si62_g5.dtos.TipoSuscripcionesDTO;
+import com.zentech.si62_g5.serviceinterfaces.ITipoSuscripcionesService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +14,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/cursos")
-public class CursosController {
+@RequestMapping("/suscripciones")
+public class TipoSuscripcionesController {
+
     @Autowired
-    private ICursosService dS;
+    private ITipoSuscripcionesService tS;
 
     @GetMapping
-    public List<CursosDTO> listar(){
-        return dS.list().stream().map(x->{
+    public List<TipoSuscripcionesDTO> listar()
+    {
+        return tS.list().stream().map(x->{
             ModelMapper m= new ModelMapper();
-            return m.map(x, CursosDTO.class);
+            return m.map(x,TipoSuscripcionesDTO.class);
         }).collect(Collectors.toList());
     }
 }
