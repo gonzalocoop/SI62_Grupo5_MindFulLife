@@ -1,32 +1,13 @@
-package com.zentech.si62_g5.entities;
+package com.zentech.si62_g5.dtos;
 
 
-import jakarta.persistence.*;
 
-@Entity
-@Table (name="Cursos")
-public class Cursos {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+public class CursosDTO {
     private int Id;
-    @Column(name="Titulo",nullable=false,length=35)
     private String Titulo;
-
-    @Column(name="Descripcion",nullable=false, columnDefinition="text") //Para que sea texto, osea muy largo
     private String Descripcion;
-    @Column(name="Duracion",nullable=false)
     private int Duracion;
-
-
-    public Cursos() {
-    }
-
-    public Cursos(int id, int duracion, String descripcion, String titulo) {
-        Id = id;
-        Duracion = duracion;
-        Descripcion = descripcion;
-        Titulo = titulo;
-    }
 
     public int getId() {
         return Id;
