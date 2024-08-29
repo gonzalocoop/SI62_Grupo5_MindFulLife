@@ -8,55 +8,55 @@ import jakarta.persistence.*;
 public class Cursos {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int Id;
-    @Column(name="Titulo",nullable=false,length=35)
-    private String Titulo;
+    private int id;
+    @Column(name="titulo",nullable=false,length=35)
+    private String titulo;
 
-    @Column(name="Descripcion",nullable=false, columnDefinition="text") //Para que sea texto, osea muy largo
-    private String Descripcion;
-    @Column(name="Duracion",nullable=false)
-    private int Duracion;
+    @Column(name="descripcion",nullable=false, columnDefinition="text") //Para que sea texto, osea muy largo
+    private String descripcion;
+    @Column(name="duracion",nullable=false)
+    private int duracion;
 
 
     public Cursos() {
     }
 
     public Cursos(int id, int duracion, String descripcion, String titulo) {
-        Id = id;
-        Duracion = duracion;
-        Descripcion = descripcion;
-        Titulo = titulo;
+        this.id = id;
+        this.duracion = duracion;
+        this.descripcion = descripcion;
+        this.titulo = titulo;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
-    }
-
-    public String getTitulo() {
-        return Titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        Titulo = titulo;
-    }
-
-    public String getDescripcion() {
-        return Descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+        this.id = id;
     }
 
     public int getDuracion() {
-        return Duracion;
+        return duracion;
     }
 
     public void setDuracion(int duracion) {
-        Duracion = duracion;
+        this.duracion = duracion;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

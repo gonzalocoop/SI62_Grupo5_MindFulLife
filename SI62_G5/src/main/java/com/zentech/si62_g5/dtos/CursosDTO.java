@@ -4,40 +4,40 @@ package com.zentech.si62_g5.dtos;
 
 
 public class CursosDTO {
-    private int Id;
-    private String Titulo;
-    private String Descripcion;
-    private int Duracion;
+    private int id;
+    private String titulo;
+    private String descripcion;
+    private int duracion;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
     public void setTitulo(String titulo) {
-        Titulo = titulo;
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+        this.descripcion = descripcion;
     }
 
     public int getDuracion() {
-        return Duracion;
+        return duracion;
     }
 
     public void setDuracion(int duracion) {
-        Duracion = duracion;
+        this.duracion = duracion;
     }
 }
