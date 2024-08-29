@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ITipoSuscripcionesService {
 
+    public void insert(TipoSuscripciones suscr);
     public List<TipoSuscripciones> list();
     public void delete(int id);
     public void update(TipoSuscripciones suscr);

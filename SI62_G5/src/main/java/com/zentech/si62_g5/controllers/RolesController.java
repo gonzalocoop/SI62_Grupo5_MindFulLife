@@ -19,6 +19,13 @@ public class RolesController {
     @Autowired
     private IRolesService rS;
 
+   @PostMapping
+    public void registrar(@RequestBody RolesDTO dto){
+        ModelMapper m = new ModelMapper();
+        Roles r= m.map(dto, Roles.class);
+        rS.insert(r);
+    }
+    
     @GetMapping
     public List<RolesDTO> listar()
     {
