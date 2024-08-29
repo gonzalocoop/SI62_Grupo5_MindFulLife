@@ -10,31 +10,31 @@ import java.math.BigDecimal;
 public class TipoSuscripcionesDTO {
 
 
-    private int Id;
-    private String Tipo;
-    private BigDecimal Precio;
+    private int id;
+    private String tipo;
+    private BigDecimal precio;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
-    }
-
-    public BigDecimal getPrecio() {
-        return Precio;
-    }
-
-    public void setPrecio(BigDecimal precio) {
-        Precio = precio;
+        this.id = id;
     }
 
     public String getTipo() {
-        return Tipo;
+        return tipo;
     }
 
     public void setTipo(String tipo) {
-        Tipo = tipo;
+        this.tipo = tipo;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
     }
 }

@@ -18,4 +18,21 @@ public class CursosServiceImplement implements ICursosService {
     public List<Cursos> list() {
         return cR.findAll();
     }
+
+    @Override
+    public void delete(int id) {
+        cR.deleteById(id);
+    }
+
+    @Override
+    public void update(Cursos cur) {
+        cR.save(cur);
+    }
+
+    @Override
+    public List<Cursos> buscar(String titulo) {
+
+        return cR.buscar(titulo);
+    }
+
 }
