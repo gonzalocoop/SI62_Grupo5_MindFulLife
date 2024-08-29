@@ -15,6 +15,11 @@ public class RolesServiceImplements implements IRolesService {
     private IRolesRepository rR;
 
     @Override
+    public void insert(Roles rol) {
+        rR.save(rol);
+    }
+
+    @Override
     public List<Roles> list() {
         return rR.findAll();
     }
