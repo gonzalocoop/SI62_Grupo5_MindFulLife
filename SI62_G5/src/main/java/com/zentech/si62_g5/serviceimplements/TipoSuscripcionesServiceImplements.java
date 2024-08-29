@@ -15,6 +15,11 @@ public class TipoSuscripcionesServiceImplements implements ITipoSuscripcionesSer
     private ITipoSuscripcionesRepositories tR;
 
     @Override
+    public void insert(TipoSuscripciones suscr) {
+        tR.save(suscr);
+    }
+
+    @Override
     public List<TipoSuscripciones> list() {
         return tR.findAll();
     }

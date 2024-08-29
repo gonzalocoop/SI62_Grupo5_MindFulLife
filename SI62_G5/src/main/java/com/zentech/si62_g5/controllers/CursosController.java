@@ -17,6 +17,13 @@ public class CursosController {
     @Autowired
     private ICursosService cS;
 
+    @PostMapping
+    public void registrar(@RequestBody CursosDTO dto){
+        ModelMapper m = new ModelMapper();
+        Cursos c= m .map(dto, Cursos.class);
+        cS.insert(c);
+    }
+
     @GetMapping
     public List<CursosDTO> listar(){
         return cS.list().stream().map(x->{
