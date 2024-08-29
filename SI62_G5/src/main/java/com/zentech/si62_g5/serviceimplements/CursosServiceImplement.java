@@ -13,6 +13,10 @@ public class CursosServiceImplement implements ICursosService {
     @Autowired
     private ICursosRepository cR;
 
+    @Override
+    public void insert(Cursos cur) {
+        cR.save(cur);
+    }
 
     @Override
     public List<Cursos> list() {
