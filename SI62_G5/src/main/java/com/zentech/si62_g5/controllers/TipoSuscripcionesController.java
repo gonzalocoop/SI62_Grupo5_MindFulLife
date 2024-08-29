@@ -20,6 +20,13 @@ public class TipoSuscripcionesController {
     @Autowired
     private ITipoSuscripcionesService tS;
 
+      @PostMapping
+    public void registrar(@RequestBody TipoSuscripcionesDTO dto){
+        ModelMapper m = new ModelMapper();
+        TipoSuscripciones t = m.map(dto, TipoSuscripciones.class);
+        tS.insert(t);
+    }
+
     @GetMapping
     public List<TipoSuscripcionesDTO> listar()
     {
