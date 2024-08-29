@@ -8,4 +8,7 @@ public interface ICursosService {
 
 
     public List<Cursos> list();
+    public void delete(int id);
+    public void update(Cursos cur);
+    public List<Cursos> buscar(String titulo);
 }
