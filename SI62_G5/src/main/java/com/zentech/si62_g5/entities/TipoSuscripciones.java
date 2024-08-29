@@ -10,42 +10,42 @@ import java.math.BigDecimal;
 public class TipoSuscripciones {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int Id;
-    @Column(name="Tipo",nullable=false,length=20)
-    private String Tipo;
-    @Column(name="Precio", nullable=false, precision=5, scale=2)
-    private BigDecimal Precio;
+    private int id;
+    @Column(name="tipo",nullable=false,length=20)
+    private String tipo;
+    @Column(name="precio", nullable=false, precision=5, scale=2)
+    private BigDecimal precio;
 
     public TipoSuscripciones() {
     }
 
     public TipoSuscripciones(int id, String tipo, BigDecimal precio) {
-        Id = id;
-        Tipo = tipo;
-        Precio = precio;
+        this.id = id;
+        this.tipo = tipo;
+        this.precio = precio;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTipo() {
-        return Tipo;
+        return tipo;
     }
 
     public void setTipo(String tipo) {
-        Tipo = tipo;
+        this.tipo = tipo;
     }
 
     public BigDecimal getPrecio() {
-        return Precio;
+        return precio;
     }
 
     public void setPrecio(BigDecimal precio) {
-        Precio = precio;
+        this.precio = precio;
     }
 }

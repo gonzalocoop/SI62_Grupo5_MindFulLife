@@ -18,4 +18,14 @@ public class TipoSuscripcionesServiceImplements implements ITipoSuscripcionesSer
     public List<TipoSuscripciones> list() {
         return tR.findAll();
     }
+
+    @Override
+    public void delete(int id) {
+        tR.deleteById(id);
+    }
+
+    @Override
+    public void update(TipoSuscripciones suscr) {
+        tR.save(suscr);
+    }
 }
