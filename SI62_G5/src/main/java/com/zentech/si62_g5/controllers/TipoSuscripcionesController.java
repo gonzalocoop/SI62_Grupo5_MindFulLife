@@ -3,12 +3,12 @@ package com.zentech.si62_g5.controllers;
 
 import com.zentech.si62_g5.dtos.RolesDTO;
 import com.zentech.si62_g5.dtos.TipoSuscripcionesDTO;
+import com.zentech.si62_g5.entities.Roles;
+import com.zentech.si62_g5.entities.TipoSuscripciones;
 import com.zentech.si62_g5.serviceinterfaces.ITipoSuscripcionesService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,5 +27,18 @@ public class TipoSuscripcionesController {
             ModelMapper m= new ModelMapper();
             return m.map(x,TipoSuscripcionesDTO.class);
         }).collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable("id") Integer id){
+
+        tS.delete(id);
+    }
+
+    @PutMapping
+    public void modificar(@RequestBody TipoSuscripcionesDTO dto){
+        ModelMapper m = new ModelMapper();
+        TipoSuscripciones t = m.map(dto, TipoSuscripciones.class);
+        tS.update(t);
     }
 }

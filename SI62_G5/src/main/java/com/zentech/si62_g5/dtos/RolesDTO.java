@@ -3,22 +3,22 @@ package com.zentech.si62_g5.dtos;
 import jakarta.persistence.Column;
 
 public class RolesDTO {
-    private int Id;
-    private String Nombre;
+    private int id;
+    private String nombre;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 }
