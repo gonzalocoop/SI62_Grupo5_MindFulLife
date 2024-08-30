@@ -1,11 +1,9 @@
 package com.zentech.si62_g5.controllers;
 
 
-import com.zentech.si62_g5.dtos.RolesDTO;
-import com.zentech.si62_g5.dtos.TipoSuscripcionesDTO;
-import com.zentech.si62_g5.entities.Roles;
-import com.zentech.si62_g5.entities.TipoSuscripciones;
-import com.zentech.si62_g5.serviceinterfaces.ITipoSuscripcionesService;
+import com.zentech.si62_g5.dtos.SuscripcionesDTO;
+import com.zentech.si62_g5.entities.Suscripciones;
+import com.zentech.si62_g5.serviceinterfaces.ISuscripcionesService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,24 +13,24 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/suscripciones")
-public class TipoSuscripcionesController {
+public class SuscripcionesController {
 
     @Autowired
-    private ITipoSuscripcionesService tS;
+    private ISuscripcionesService tS;
 
       @PostMapping
-    public void registrar(@RequestBody TipoSuscripcionesDTO dto){
+    public void registrar(@RequestBody SuscripcionesDTO dto){
         ModelMapper m = new ModelMapper();
-        TipoSuscripciones t = m.map(dto, TipoSuscripciones.class);
+        Suscripciones t = m.map(dto, Suscripciones.class);
         tS.insert(t);
     }
 
     @GetMapping
-    public List<TipoSuscripcionesDTO> listar()
+    public List<SuscripcionesDTO> listar()
     {
         return tS.list().stream().map(x->{
             ModelMapper m= new ModelMapper();
-            return m.map(x,TipoSuscripcionesDTO.class);
+            return m.map(x, SuscripcionesDTO.class);
         }).collect(Collectors.toList());
     }
 
@@ -43,9 +41,9 @@ public class TipoSuscripcionesController {
     }
 
     @PutMapping
-    public void modificar(@RequestBody TipoSuscripcionesDTO dto){
+    public void modificar(@RequestBody SuscripcionesDTO dto){
         ModelMapper m = new ModelMapper();
-        TipoSuscripciones t = m.map(dto, TipoSuscripciones.class);
+        Suscripciones t = m.map(dto, Suscripciones.class);
         tS.update(t);
     }
 }
