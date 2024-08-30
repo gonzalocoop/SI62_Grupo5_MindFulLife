@@ -1,17 +1,12 @@
 package com.zentech.si62_g5.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
 import java.math.BigDecimal;
 
-public class TipoSuscripcionesDTO {
+public class SuscripcionesDTO {
 
 
     private int id;
-    private String tipo;
+    private String nombre;
     private BigDecimal precio;
 
     public int getId() {
@@ -22,12 +17,12 @@ public class TipoSuscripcionesDTO {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public BigDecimal getPrecio() {

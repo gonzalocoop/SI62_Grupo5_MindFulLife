@@ -4,7 +4,7 @@ package com.zentech.si62_g5.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table (name="Roles")
 public class Roles {
 
     @Id
