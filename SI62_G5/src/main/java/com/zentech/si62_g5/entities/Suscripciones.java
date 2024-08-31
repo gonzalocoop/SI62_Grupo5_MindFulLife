@@ -6,22 +6,22 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table
-public class TipoSuscripciones {
+@Table (name="Suscripciones")
+public class Suscripciones {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    @Column(name="tipo",nullable=false,length=20)
-    private String tipo;
+    @Column(name="nombre",nullable=false,length=20)
+    private String nombre;
     @Column(name="precio", nullable=false, precision=5, scale=2)
     private BigDecimal precio;
 
-    public TipoSuscripciones() {
+    public Suscripciones() {
     }
 
-    public TipoSuscripciones(int id, String tipo, BigDecimal precio) {
+    public Suscripciones(int id, String nombre, BigDecimal precio) {
         this.id = id;
-        this.tipo = tipo;
+        this.nombre = nombre;
         this.precio = precio;
     }
 
@@ -33,12 +33,12 @@ public class TipoSuscripciones {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public BigDecimal getPrecio() {
