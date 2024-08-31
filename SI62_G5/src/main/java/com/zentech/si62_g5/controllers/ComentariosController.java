@@ -40,14 +40,14 @@ public class ComentariosController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Integer id){
 
-        cS.delete(id);
+        oS.delete(id);
     }
 
     @PutMapping
     public void modificar(@RequestBody ComentariosDTO dto){
         ModelMapper m = new ModelMapper();
         Comentarios o = m.map(dto, Comentarios.class);
-        cS.update(o);
+        oS.update(o);
     }
 
 

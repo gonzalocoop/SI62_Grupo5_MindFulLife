@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="Comentarios")
 public class Comentarios{
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     @Column(name="comentario",nullable=false, columnDefinition="text") 
@@ -24,7 +25,7 @@ public class Comentarios{
 
     }
 
-    public Comentarios(int id, String comentario, LocalDate fecha, int Sesiones ses, int Usuarios usua) {
+    public Comentarios(int id, String comentario, LocalDate fecha, Sesiones ses, Usuarios usua) {
         this.id = id;
         this.comentario = comentario;
         this.fecha = fecha;

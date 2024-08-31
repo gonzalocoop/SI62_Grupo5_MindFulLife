@@ -1,20 +1,22 @@
-import com.zentech.si62_g5.entities;
+package com.zentech.si62_g5.entities;
+import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name="Videos")
 public class Videos{
+    @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     @Column(name="titulo",nullable=false,length=35)
     private String titulo;
     @Column(name="fechaAgregado", nullable=false)
     private LocalDate fechaAgregado;
-    @Column(name="precio", nullable=false, precision=5, scale=2)
-    private BigDecimal precio;
+    @Column(name="duracion", nullable=false, precision=5, scale=2)
+    private BigDecimal duracion;
     @ManyToOne
     @JoinColumn(name= "idSesiones")
     private Sesiones ses;
@@ -23,7 +25,7 @@ public class Videos{
 
     }
 
-    public Cursos(int id, BigDecimal duracion, String titulo, LocalDate fechaAgregado, int Sesiones ses) {
+    public Videos(int id, BigDecimal duracion, String titulo, LocalDate fechaAgregado, Sesiones ses) {
         this.id = id;
         this.duracion = duracion;
         this.titulo = titulo;
