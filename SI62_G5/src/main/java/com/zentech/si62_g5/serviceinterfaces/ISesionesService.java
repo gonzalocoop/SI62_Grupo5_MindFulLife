@@ -10,4 +10,8 @@ public interface ISesionesService {
     public List<Sesiones> list();
     public void delete(int id);
     public void update(Sesiones ses);
+
+
+
+    public List<String[]> avgDuracionVideo();
 }
