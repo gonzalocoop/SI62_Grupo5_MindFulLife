@@ -34,4 +34,9 @@ public class SesionesServiceImplement implements ISesionesService {
     public void update(Sesiones ses) {
         sR.save(ses);
     }
+
+    @Override
+    public List<String[]> avgDuracionVideo() {
+        return sR.promedioDuracionVideos();
+    }
 }
