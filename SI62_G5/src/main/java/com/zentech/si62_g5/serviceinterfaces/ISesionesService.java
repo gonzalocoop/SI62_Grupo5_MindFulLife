@@ -14,4 +14,5 @@ public interface ISesionesService {
 
 
     public List<String[]> avgDuracionVideo();
+    public List<String[]> SesionCantidadVideo();
 }
