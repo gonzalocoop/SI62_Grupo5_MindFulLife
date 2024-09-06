@@ -7,21 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ISesionesRepository extends JpaRepository<Sesiones,Integer> {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Query(value = " SELECT s.titulo AS SesionTitulo, v.titulo AS VideoTitulo, v.duracion AS VideoDuracion\n" +
+            " FROM Videos v\n" +
+            " JOIN Sesiones s\n" +
+            " ON v.id_sesiones = v.id_sesiones\n" +
+            " GROUP BY s.titulo, v.titulo, v.duracion;\n",nativeQuery = true)
+    public List<String[]> SesionCantidadVideo();
 
     @Query(value = " SELECT \n" +
             "    s.id AS sesion_id,\n" +
