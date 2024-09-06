@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.controllers;
 
 
+import com.zentech.si62_g5.dtos.ComentariosUsuarioDTO;
 import com.zentech.si62_g5.dtos.InicioSesionDTO;
 import com.zentech.si62_g5.dtos.SesionesDTO;
 import com.zentech.si62_g5.dtos.UsuariosDTO;
@@ -78,5 +79,18 @@ public class UsuariosController {
     public void cambiarContrasena(@RequestParam String u, @RequestParam String p){
 
         uS.cambioPassword(u,p);
+    }
+
+    @GetMapping("/comentariosusuario")
+    public List<ComentariosUsuarioDTO> comentariosUsuario(@RequestParam String u){
+        List<String[]> lista= uS.comentarioUsuario(u);
+        List<ComentariosUsuarioDTO> listaDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            ComentariosUsuarioDTO dto=new ComentariosUsuarioDTO();
+            dto.setNombre(columna[0]);
+            dto.setComentario(columna[1]);
+            listaDTO.add(dto);
+        }
+        return listaDTO;
     }
 }

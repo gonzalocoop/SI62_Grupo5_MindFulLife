@@ -14,4 +14,6 @@ public interface IUsuariosService {
     List<String[]>inicioDeSesision(String usuario, String contra);
 
     public void cambioPassword(String usuario, String nuevaContra);
+
+    List<String[]>comentarioUsuario(String usuario);
 }
