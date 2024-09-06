@@ -39,4 +39,9 @@ public class CursosServiceImplement implements ICursosService {
         return cR.buscar(titulo);
     }
 
+    @Override
+    public List<String[]> cantSesionesCurso() {
+        return cR.cantidadServicioCurso();
+    }
+
 }

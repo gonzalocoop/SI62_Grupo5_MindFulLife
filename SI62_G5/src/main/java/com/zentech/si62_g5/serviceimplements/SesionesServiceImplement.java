@@ -39,4 +39,8 @@ public class SesionesServiceImplement implements ISesionesService {
     public List<String[]> avgDuracionVideo() {
         return sR.promedioDuracionVideos();
     }
+    @Override
+    public List<String[]> SesionCantidadVideo() {
+        return sR.SesionCantidadVideo();
+    }
 }

@@ -11,4 +11,6 @@ public interface ICursosService {
     public void delete(int id);
     public void update(Cursos cur);
     public List<Cursos> buscar(String titulo);
+    public List<String[]> cantSesionesCurso();
 }
+
