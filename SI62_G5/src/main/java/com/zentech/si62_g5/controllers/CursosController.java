@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.controllers;
 
 
+import com.zentech.si62_g5.dtos.CantSesionesCursoDTO;
 import com.zentech.si62_g5.dtos.CursosDTO;
 import com.zentech.si62_g5.entities.Cursos;
 import com.zentech.si62_g5.serviceinterfaces.ICursosService;
@@ -8,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,5 +53,17 @@ public class CursosController {
             ModelMapper m = new ModelMapper();
             return m.map(x, CursosDTO.class);
         }).collect(Collectors.toList());
+    }
+    @GetMapping("/cantidadSesionesCurso")
+    public List<CantSesionesCursoDTO>cantidadSesionesCurso(){
+        List<String[]> lista=cS.cantSesionesCurso();
+        List<CantSesionesCursoDTO>listaDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            CantSesionesCursoDTO dto=new CantSesionesCursoDTO();
+            dto.setTitulo(columna[0]);
+            dto.setQuatitySesion(Integer.parseInt(columna[1]));
+            listaDTO.add(dto);
+        }
+        return listaDTO;
     }
 }

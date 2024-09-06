@@ -14,4 +14,13 @@ public interface ICursosRepository extends JpaRepository<Cursos,Integer> {
 
     @Query("Select c from Cursos c where c.titulo like %:titulo%")
     public List<Cursos> buscar(@Param("titulo") String titulo);
+
+    @Query(value ="SELECT c.titulo , count(s.id_cursos) \n" +
+            " from cursos c \n" +
+            " join sesiones s\n" +
+            " on c.id = s.id_cursos\n" +
+            " group by c.titulo",nativeQuery = true)
+    public List<String[]>cantidadServicioCurso();
+
 }
+
