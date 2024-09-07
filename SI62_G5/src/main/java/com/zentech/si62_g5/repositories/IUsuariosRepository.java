@@ -37,4 +37,15 @@ public interface IUsuariosRepository extends JpaRepository<Usuarios,Integer> {
     @Transactional
     @Query(value = "UPDATE Usuarios SET password = :nuevaContra WHERE username = :usuario", nativeQuery = true)
     public void cambiarContrasena(@Param("usuario") String usuario, @Param("nuevaContra") String nuevaContra);
+
+    @Query(value = "SELECT \n" +
+            "    Usuarios.username,\n" +
+            "    Comentarios.comentario\n" +
+            "FROM \n" +
+            "    Comentarios\n" +
+            "JOIN \n" +
+            "    Usuarios ON Comentarios.id_usuarios = Usuarios.id\n" +
+            "WHERE \n" +
+            "    Usuarios.username = :usuario;", nativeQuery = true)
+    public List<String[]> comentarioUsuario(@Param("usuario") String usuario);
 }
