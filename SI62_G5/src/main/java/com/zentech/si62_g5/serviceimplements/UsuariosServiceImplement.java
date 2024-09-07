@@ -44,4 +44,9 @@ public class UsuariosServiceImplement implements IUsuariosService {
     public void cambioPassword(String usuario, String nuevaContra) {
         uR.cambiarContrasena(usuario,nuevaContra);
     }
+
+    @Override
+    public List<String[]> comentarioUsuario(String usuario) {
+        return uR.comentarioUsuario(usuario);
+    }
 }
