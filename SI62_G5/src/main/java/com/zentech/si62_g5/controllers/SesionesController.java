@@ -53,7 +53,7 @@ public class SesionesController {
         Sesiones s = m.map(dto, Sesiones.class);
         sS.update(s);
     }
-    @GetMapping ("/Sesionvideoduracion")
+    @GetMapping ("/sesionvideoduracion")
     public List<SesionCantidadVideoDTO> SesionVideoDuracion()
     {
 
@@ -70,7 +70,7 @@ public class SesionesController {
     };
 
     @GetMapping ("/promediovideos")
-    public List<PromedioVideosDTO> montoTotalDispositivoMantenimiento()
+    public List<PromedioVideosDTO> promedioDeVideos()
     {
 
         List<String[]> lista= sS.avgDuracionVideo();

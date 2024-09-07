@@ -2,12 +2,8 @@ package com.zentech.si62_g5.controllers;
 
 
 import com.zentech.si62_g5.dtos.ComentariosUsuarioDTO;
-import com.zentech.si62_g5.dtos.InicioSesionDTO;
-import com.zentech.si62_g5.dtos.SesionesDTO;
 import com.zentech.si62_g5.dtos.UsuariosDTO;
-import com.zentech.si62_g5.entities.Sesiones;
 import com.zentech.si62_g5.entities.Usuarios;
-import com.zentech.si62_g5.serviceinterfaces.ISesionesService;
 import com.zentech.si62_g5.serviceinterfaces.IUsuariosService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,20 +55,7 @@ public class UsuariosController {
 
 
 
-    @GetMapping ("/iniciosesion")
-    public List<InicioSesionDTO> montoTotalDispositivoMantenimiento(@RequestParam String u, @RequestParam String p)
-    {
-        List<String[]> lista= uS.inicioDeSesision(u,p);
-        List<InicioSesionDTO> listaDTO=new ArrayList<>();
-        for(String[] columna:lista){
-            InicioSesionDTO dto=new InicioSesionDTO();
-            dto.setUsuario(columna[0]);
-            dto.setPassword(columna[1]);
-            dto.setEstado(columna[2]);
-            listaDTO.add(dto);
-        }
-        return listaDTO;
-    };
+
 
 
     @PutMapping("/cambiocoontraseña")

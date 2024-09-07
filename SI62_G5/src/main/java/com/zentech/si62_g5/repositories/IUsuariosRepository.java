@@ -15,22 +15,7 @@ public interface IUsuariosRepository extends JpaRepository<Usuarios,Integer> {
 
 
 
-    @Query(value = "SELECT " +
-            "username, " +
-            "password, " +
-            "CASE " +
-            "    WHEN username IS NOT NULL THEN 'valido' " +
-            "    ELSE 'invalido' " +
-            "END AS status " +
-            "FROM ( " +
-            "    SELECT username, password " +
-            "    FROM Usuarios " +
-            "    WHERE username = :usuario AND password = :contra " +
-            "    LIMIT 1 " +
-            ") AS resultado " +
-            "RIGHT JOIN (SELECT 1) AS dummy ON 1 = 1;",
-            nativeQuery = true)
-    public List<String[]> inicioSesion(@Param("usuario") String usuario, @Param("contra") String contra);
+
 
 
     @Modifying
