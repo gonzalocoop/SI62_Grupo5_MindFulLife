@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.dtos;
 
 import com.zentech.si62_g5.entities.Cursos;
+import com.zentech.si62_g5.entities.CursosUsuarios;
 import com.zentech.si62_g5.entities.Sesiones;
 import com.zentech.si62_g5.entities.Usuarios;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 public class CronogramasDTO {
+
 
 
     private int id;
@@ -18,9 +20,7 @@ public class CronogramasDTO {
 
     private String estado;
 
-    private Cursos cur;
-
-    private Usuarios usua;
+    private CursosUsuarios curUsu;
 
     private Sesiones ses;
 
@@ -56,20 +56,12 @@ public class CronogramasDTO {
         this.estado = estado;
     }
 
-    public Cursos getCur() {
-        return cur;
+    public CursosUsuarios getCurUsu() {
+        return curUsu;
     }
 
-    public void setCur(Cursos cur) {
-        this.cur = cur;
-    }
-
-    public Usuarios getUsua() {
-        return usua;
-    }
-
-    public void setUsua(Usuarios usua) {
-        this.usua = usua;
+    public void setCurUsu(CursosUsuarios curUsu) {
+        this.curUsu = curUsu;
     }
 
     public Sesiones getSes() {
