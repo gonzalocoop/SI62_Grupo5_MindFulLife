@@ -7,6 +7,7 @@ import com.zentech.si62_g5.entities.Cursos;
 import com.zentech.si62_g5.serviceinterfaces.ICursosService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CursosController {
     private ICursosService cS;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void registrar(@RequestBody CursosDTO dto){
         ModelMapper m = new ModelMapper();
         Cursos c= m .map(dto, Cursos.class);
@@ -27,6 +29,7 @@ public class CursosController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<CursosDTO> listar(){
         return cS.list().stream().map(x->{
             ModelMapper m= new ModelMapper();
@@ -35,12 +38,14 @@ public class CursosController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void eliminar(@PathVariable("id") Integer id){
 
         cS.delete(id);
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void modificar(@RequestBody CursosDTO dto){
         ModelMapper m = new ModelMapper();
         Cursos c = m.map(dto, Cursos.class);
@@ -48,6 +53,7 @@ public class CursosController {
     }
 
     @GetMapping ("/busquedas")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<CursosDTO> BuscarTitulo(@RequestParam String tit) {
         return cS.buscar(tit).stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -55,6 +61,7 @@ public class CursosController {
         }).collect(Collectors.toList());
     }
     @GetMapping("/cantidadSesionesCurso")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<CantSesionesCursoDTO>cantidadSesionesCurso(){
         List<String[]> lista=cS.cantSesionesCurso();
         List<CantSesionesCursoDTO>listaDTO=new ArrayList<>();
