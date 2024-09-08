@@ -9,6 +9,7 @@ import com.zentech.si62_g5.serviceinterfaces.IVideosService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class VideosController {
     private IVideosService vS;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void registrar(@RequestBody VideosDTO dto){
         ModelMapper m = new ModelMapper();
         Videos v = m.map(dto, Videos.class);
@@ -29,6 +31,7 @@ public class VideosController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<VideosDTO> listar()
     {
         return vS.list().stream().map(x->{
@@ -38,12 +41,14 @@ public class VideosController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void eliminar(@PathVariable("id") Integer id){
 
         vS.delete(id);
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void modificar(@RequestBody VideosDTO dto){
         ModelMapper m = new ModelMapper();
         Videos v = m.map(dto, Videos.class);

@@ -17,11 +17,8 @@ public class Cronogramas {
     @Column(name="estado", nullable=false, length=20)
     private String estado;
     @ManyToOne
-    @JoinColumn(name= "idCursos")
-    private Cursos cur;
-    @ManyToOne
-    @JoinColumn(name= "idUsuarios")
-    private Usuarios usua;
+    @JoinColumn(name= "idCursosUsuarios")
+    private CursosUsuarios curUsu;
     @ManyToOne
     @JoinColumn(name= "idSesiones")
     private Sesiones ses;
@@ -29,13 +26,12 @@ public class Cronogramas {
     public Cronogramas() {
     }
 
-    public Cronogramas(int id, String detalle, LocalDate fechaLimite, String estado, Cursos cur, Usuarios usua, Sesiones ses) {
+    public Cronogramas(int id, String detalle, LocalDate fechaLimite, String estado, CursosUsuarios curUsu, Sesiones ses) {
         this.id = id;
         this.detalle = detalle;
         this.fechaLimite = fechaLimite;
         this.estado = estado;
-        this.cur = cur;
-        this.usua = usua;
+        this.curUsu = curUsu;
         this.ses = ses;
     }
 
@@ -71,20 +67,12 @@ public class Cronogramas {
         this.estado = estado;
     }
 
-    public Cursos getCur() {
-        return cur;
+    public CursosUsuarios getCurUsu() {
+        return curUsu;
     }
 
-    public void setCur(Cursos cur) {
-        this.cur = cur;
-    }
-
-    public Usuarios getUsua() {
-        return usua;
-    }
-
-    public void setUsua(Usuarios usua) {
-        this.usua = usua;
+    public void setCurUsu(CursosUsuarios curUsu) {
+        this.curUsu = curUsu;
     }
 
     public Sesiones getSes() {
