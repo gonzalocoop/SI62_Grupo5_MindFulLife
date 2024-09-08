@@ -12,6 +12,7 @@ public class UsuariosDTO {
     private String password;
 
     private String email;
+    private Boolean activo;
 
     private Roles rol;
 
@@ -45,6 +46,14 @@ public class UsuariosDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     public Roles getRol() {
