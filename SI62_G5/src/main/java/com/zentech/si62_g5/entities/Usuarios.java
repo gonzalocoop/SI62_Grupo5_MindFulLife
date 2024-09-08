@@ -10,10 +10,14 @@ public class Usuarios {
     private int id;
     @Column(name="username", nullable=false, length=20)
     private String username;
-    @Column(name="password", nullable=false, length=25)
+    @Column(name="password", nullable=false, length=200)
     private String password;
     @Column(name="email", nullable=false, length=40)
     private String email;
+    @Column(name="activo", nullable=false)
+    private Boolean activo;
+
+
     @ManyToOne
     @JoinColumn(name= "idRoles") //esto es el nombre con el que saldra en esta tabla
     private Roles rol;
@@ -22,11 +26,12 @@ public class Usuarios {
     public Usuarios() {
     }
 
-    public Usuarios(int id, String username, String password, String email, Roles rol) {
+    public Usuarios(int id, String username, String password, String email, Boolean activo, Roles rol) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.activo = activo;
         this.rol = rol;
     }
 
@@ -60,6 +65,14 @@ public class Usuarios {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     public Roles getRol() {
