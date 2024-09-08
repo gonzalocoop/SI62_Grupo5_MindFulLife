@@ -8,6 +8,7 @@ import com.zentech.si62_g5.serviceinterfaces.IUsuariosSuscripcionesService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class UsuariosSuscripcionesController {
     private IUsuariosSuscripcionesService bS;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void registrar(@RequestBody UsuariosSuscripcionesDTO dto){
         ModelMapper m=new ModelMapper();
         UsuariosSuscripciones b=m.map(dto, UsuariosSuscripciones.class);
@@ -28,6 +30,7 @@ public class UsuariosSuscripcionesController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<UsuariosSuscripcionesDTO> listar()
     {
         return bS.list().stream().map(x->{
@@ -37,12 +40,14 @@ public class UsuariosSuscripcionesController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void eliminar(@PathVariable("id") Integer id){
 
         bS.delete(id);
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void modificar(@RequestBody UsuariosSuscripcionesDTO dto){
         ModelMapper m = new ModelMapper();
         UsuariosSuscripciones b = m.map(dto, UsuariosSuscripciones.class);

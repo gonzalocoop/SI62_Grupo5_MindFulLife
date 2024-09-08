@@ -9,6 +9,7 @@ import com.zentech.si62_g5.serviceinterfaces.IComentariosService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,35 +20,39 @@ import java.util.stream.Collectors;
 public class ComentariosController {
 
     @Autowired
-    private IComentariosService oS;
+    private IComentariosService cS;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void registrar(@RequestBody ComentariosDTO dto){
         ModelMapper m = new ModelMapper();
         Comentarios o = m.map(dto, Comentarios.class);
-        oS.insert(o);
+        cS.insert(o);
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<ComentariosDTO> listar()
     {
-        return oS.list().stream().map(x->{
+        return cS.list().stream().map(x->{
             ModelMapper m= new ModelMapper();
             return m.map(x, ComentariosDTO.class);
         }).collect(Collectors.toList());
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void eliminar(@PathVariable("id") Integer id){
 
-        oS.delete(id);
+        cS.delete(id);
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void modificar(@RequestBody ComentariosDTO dto){
         ModelMapper m = new ModelMapper();
         Comentarios o = m.map(dto, Comentarios.class);
-        oS.update(o);
+        cS.update(o);
     }
 
 

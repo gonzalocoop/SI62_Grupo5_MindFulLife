@@ -11,7 +11,7 @@ public interface IUsuariosService {
     public List<Usuarios> list();
     public void delete(int id);
     public void update(Usuarios usuar);
-    List<String[]>inicioDeSesision(String usuario, String contra);
+
 
     public void cambioPassword(String usuario, String nuevaContra);
 

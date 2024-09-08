@@ -35,10 +35,7 @@ public class UsuariosServiceImplement implements IUsuariosService {
         uR.save(usuar);
     }
 
-    @Override
-    public List<String[]> inicioDeSesision(String usuario, String contra) {
-        return uR.inicioSesion(usuario,contra);
-    }
+
 
     @Override
     public void cambioPassword(String usuario, String nuevaContra) {
