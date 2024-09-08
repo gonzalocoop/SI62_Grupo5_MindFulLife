@@ -29,7 +29,7 @@ public class CursosController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<CursosDTO> listar(){
         return cS.list().stream().map(x->{
             ModelMapper m= new ModelMapper();
