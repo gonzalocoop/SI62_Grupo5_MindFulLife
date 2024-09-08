@@ -8,6 +8,7 @@ import com.zentech.si62_g5.serviceinterfaces.IVideosFavoritosService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class VideosFavoritosController {
     private IVideosFavoritosService fS;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void registrar(@RequestBody VideosFavoritosDTO dto){
         ModelMapper m = new ModelMapper();
         VideosFavoritos f = m.map(dto, VideosFavoritos.class);
@@ -27,6 +29,7 @@ public class VideosFavoritosController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<VideosFavoritosDTO> listar()
     {
         return fS.list().stream().map(x->{
@@ -36,12 +39,14 @@ public class VideosFavoritosController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void eliminar(@PathVariable("id") Integer id){
 
         fS.delete(id);
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void modificar(@RequestBody VideosFavoritosDTO dto){
         ModelMapper m = new ModelMapper();
         VideosFavoritos f = m.map(dto, VideosFavoritos.class);

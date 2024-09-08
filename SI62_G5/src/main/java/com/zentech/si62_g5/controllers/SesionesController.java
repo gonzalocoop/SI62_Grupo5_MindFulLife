@@ -11,6 +11,7 @@ import com.zentech.si62_g5.entities.Sesiones;
 import com.zentech.si62_g5.serviceinterfaces.ISesionesService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -26,6 +27,7 @@ public class SesionesController {
     private ISesionesService sS;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void registrar(@RequestBody SesionesDTO dto){
         ModelMapper m = new ModelMapper();
         Sesiones s= m.map(dto, Sesiones.class);
@@ -33,6 +35,7 @@ public class SesionesController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<SesionesDTO> listar()
     {
         return sS.list().stream().map(x->{
@@ -42,18 +45,21 @@ public class SesionesController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void eliminar(@PathVariable("id") Integer id){
 
         sS.delete(id);
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void modificar(@RequestBody SesionesDTO dto){
         ModelMapper m = new ModelMapper();
         Sesiones s = m.map(dto, Sesiones.class);
         sS.update(s);
     }
-    @GetMapping ("/Sesionvideoduracion")
+    @GetMapping ("/sesionvideoduracion")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<SesionCantidadVideoDTO> SesionVideoDuracion()
     {
 
@@ -70,7 +76,8 @@ public class SesionesController {
     };
 
     @GetMapping ("/promediovideos")
-    public List<PromedioVideosDTO> montoTotalDispositivoMantenimiento()
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    public List<PromedioVideosDTO> promedioDeVideos()
     {
 
         List<String[]> lista= sS.avgDuracionVideo();

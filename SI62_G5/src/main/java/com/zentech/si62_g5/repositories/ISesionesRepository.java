@@ -3,9 +3,12 @@ package com.zentech.si62_g5.repositories;
 import com.zentech.si62_g5.entities.Sesiones;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
+@Repository
 public interface ISesionesRepository extends JpaRepository<Sesiones,Integer> {
     @Query(value = " SELECT s.titulo AS SesionTitulo, v.titulo AS VideoTitulo, v.duracion AS VideoDuracion\n" +
             " FROM Videos v\n" +
