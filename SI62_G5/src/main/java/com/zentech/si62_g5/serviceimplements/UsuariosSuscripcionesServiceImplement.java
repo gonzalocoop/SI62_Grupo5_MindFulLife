@@ -33,4 +33,9 @@ public class UsuariosSuscripcionesServiceImplement implements IUsuariosSuscripci
     public void update(UsuariosSuscripciones usus) {
         bR.save(usus);
     }
+
+    @Override
+    public List<String[]> usuariosSuscripcion(String nombresuscripcion) {
+        return bR.usuariosSuscripcion(nombresuscripcion);
+    }
 }
