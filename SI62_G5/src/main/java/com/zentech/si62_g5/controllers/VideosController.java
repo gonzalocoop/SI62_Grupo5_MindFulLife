@@ -1,8 +1,10 @@
 package com.zentech.si62_g5.controllers;
 
 
+import com.zentech.si62_g5.dtos.UsuariosTipoSuscripcionDTO;
 import com.zentech.si62_g5.dtos.VideosDTO;
 
+import com.zentech.si62_g5.entities.Sesiones;
 import com.zentech.si62_g5.entities.Videos;
 
 import com.zentech.si62_g5.serviceinterfaces.IVideosService;
@@ -12,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -55,5 +60,12 @@ public class VideosController {
         vS.update(v);
     }
 
-
+    @GetMapping("/videostitulosesion")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    public List<VideosDTO> videostitulosesion(@RequestParam String titulo) {
+        return vS.videostitulosesion(titulo).stream().map(x->{
+            ModelMapper m=new ModelMapper();
+            return m.map(x,VideosDTO.class);
+        }).collect(Collectors.toList());
+    }
 }
