@@ -92,7 +92,7 @@ public class SesionesController {
         return listaDTO;
     };
 
-    @GetMapping("/buscarSesionesPorCurso")
+    @GetMapping("/buscarsesionesporcurso")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<SesionesDTO>listarPorCursoSesion(@RequestParam String c){
         return sS.findAllSesionByCurso(c).stream().map(x->{
