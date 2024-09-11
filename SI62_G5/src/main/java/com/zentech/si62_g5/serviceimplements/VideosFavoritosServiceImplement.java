@@ -33,4 +33,9 @@ public class VideosFavoritosServiceImplement implements IVideosFavoritosService 
     public void update(VideosFavoritos vfav) {
         fR.save(vfav);
     }
+
+    @Override
+    public List<VideosFavoritos> findAllVideoFavByUsuario(String username) {
+        return fR.listaUsuarioCursoFav(username);
+    }
 }

@@ -9,4 +9,7 @@ public interface IComentariosService {
     public List<Comentarios> list();
     public void delete(int id);
     public void update(Comentarios com);
+    List<Comentarios> buscarComentariosPorTituloSesion(String tituloSesion);
 }
+
+
