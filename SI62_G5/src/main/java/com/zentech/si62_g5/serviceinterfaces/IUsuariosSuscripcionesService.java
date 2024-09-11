@@ -9,4 +9,5 @@ public interface IUsuariosSuscripcionesService {
     public List<UsuariosSuscripciones> list();
     public void delete(int id);
     public void update(UsuariosSuscripciones usus);
+    public List<String[]> usuariosSuscripcion( String nombresuscripcion);
 }

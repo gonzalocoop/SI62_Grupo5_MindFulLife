@@ -13,7 +13,7 @@ public class CursosUsuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "duracion", nullable = false, precision = 5, scale = 2)
+    @Column(name = "progreso", nullable = false, precision = 5, scale = 2)
     private BigDecimal progreso;
     @Column(name = "fechaInicio", nullable = false)
     private LocalDate fechaInicio;

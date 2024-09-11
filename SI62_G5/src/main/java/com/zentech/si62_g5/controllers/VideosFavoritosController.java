@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.controllers;
 
+import com.zentech.si62_g5.dtos.SesionesDTO;
 import com.zentech.si62_g5.dtos.VideosFavoritosDTO;
 
 import com.zentech.si62_g5.entities.VideosFavoritos;
@@ -51,5 +52,14 @@ public class VideosFavoritosController {
         ModelMapper m = new ModelMapper();
         VideosFavoritos f = m.map(dto, VideosFavoritos.class);
         fS.update(f);
+    }
+
+    @PutMapping("/buscarUsuarioVideoFav")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    public List<VideosFavoritosDTO>listarPorUsuarioVideoFav(@RequestParam String u){
+        return fS.findAllVideoFavByUsuario(u).stream().map(x->{
+            ModelMapper m= new ModelMapper();
+            return m.map(x, VideosFavoritosDTO.class);
+        }).collect(Collectors.toList());
     }
 }
