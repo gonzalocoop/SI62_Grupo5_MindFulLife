@@ -43,4 +43,9 @@ public class SesionesServiceImplement implements ISesionesService {
     public List<String[]> SesionCantidadVideo() {
         return sR.SesionCantidadVideo();
     }
+
+    @Override
+    public List<Sesiones> findAllSesionByCurso(String titulo) {
+        return sR.listaSesionesCurso(titulo);
+    }
 }
