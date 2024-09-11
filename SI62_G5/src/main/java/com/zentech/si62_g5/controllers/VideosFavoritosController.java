@@ -54,7 +54,7 @@ public class VideosFavoritosController {
         fS.update(f);
     }
 
-    @PutMapping("/buscarUsuarioVideoFav")
+    @GetMapping("/buscarusuariovideofav")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<VideosFavoritosDTO>listarPorUsuarioVideoFav(@RequestParam String u){
         return fS.findAllVideoFavByUsuario(u).stream().map(x->{

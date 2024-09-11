@@ -62,7 +62,7 @@ public class CursosController {
     }
     @GetMapping("/cantidadSesionesCurso")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
-    public List<CantSesionesCursoDTO>cantidadSesionesCurso(){
+    public List<CantSesionesCursoDTO>cantidadsesionessurso(){
         List<String[]> lista=cS.cantSesionesCurso();
         List<CantSesionesCursoDTO>listaDTO=new ArrayList<>();
         for(String[] columna:lista){

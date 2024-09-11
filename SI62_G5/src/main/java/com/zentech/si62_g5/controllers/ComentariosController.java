@@ -63,7 +63,7 @@ public class ComentariosController {
         cS.update(o);
     }
 
-    @GetMapping("/sesiontituloComentario")
+    @GetMapping("/sesiontitulocomentario")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<SesionTituloComentarioDTO> buscarComentariosPorTituloSesion(@RequestParam String tituloSesion) {
         List<Comentarios> comentarios = cS.buscarComentariosPorTituloSesion(tituloSesion);
