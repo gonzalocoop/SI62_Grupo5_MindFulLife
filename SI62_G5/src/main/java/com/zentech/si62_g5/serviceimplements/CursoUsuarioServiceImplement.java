@@ -34,4 +34,11 @@ public class CursoUsuarioServiceImplement implements ICursoUsuarioService {
     public void update(CursosUsuarios cus) {
         cuR.save(cus);
     }
+
+    @Override
+    public List<String[]> ObtenerUrl(String nombreUsuario, String nombreCurso) {
+        return cuR.ObtenerUrl(nombreUsuario,nombreCurso);
+    }
+
+
 }
