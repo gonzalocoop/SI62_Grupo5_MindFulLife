@@ -13,7 +13,6 @@ public class ComentariosServiceImplement implements IComentariosService {
     @Autowired
     private IComentariosRepository oR;
 
-
     @Override
     public void insert(Comentarios com) {
         oR.save(com);
@@ -33,4 +32,13 @@ public class ComentariosServiceImplement implements IComentariosService {
     public void update(Comentarios com) {
         oR.save(com);
     }
+
+    @Override
+    public List<Comentarios> buscarComentariosPorTituloSesion(String tituloSesion) {
+        return oR.buscarComentariosPorTituloSesion(tituloSesion);
+    }
+
+
 }
+
+

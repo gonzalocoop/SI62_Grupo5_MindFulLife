@@ -12,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,5 +60,13 @@ public class CronogramasController {
         cS.update(c);
     }
 
+    @GetMapping("buscarcronogramaxusernameusuario")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public List<CronogramasDTO> buscarPorUsuario(@RequestParam String username) {
+        return cS.findByUsername(username).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, CronogramasDTO.class);
+        }).collect(Collectors.toList());
+    }
 
 }

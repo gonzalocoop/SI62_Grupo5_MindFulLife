@@ -34,4 +34,10 @@ public class CronogramasServiceImplement implements ICronogramasService {
     public void update(Cronogramas cron) {
         cR.save(cron);
     }
+
+    @Override
+    public List<Cronogramas> findByUsername(String username) {
+        return cR.findByUsername(username);
+    }
+
 }

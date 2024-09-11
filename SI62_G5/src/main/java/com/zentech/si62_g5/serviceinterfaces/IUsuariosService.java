@@ -2,7 +2,6 @@ package com.zentech.si62_g5.serviceinterfaces;
 
 
 import com.zentech.si62_g5.entities.Usuarios;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
