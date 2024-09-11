@@ -20,7 +20,7 @@ public interface ISesionesRepository extends JpaRepository<Sesiones,Integer> {
 
     @Query(value = " SELECT \n" +
             "    s.id AS sesion_id,\n" +
-            "    s.titulo AS sesion_titulo,\n" +
+            "    s.titulo AS sesion_titulo,\n" +    
             "    AVG(v.duracion) AS promedio_duracion_videos\n" +
             " FROM \n" +
             "    Sesiones s\n" +
