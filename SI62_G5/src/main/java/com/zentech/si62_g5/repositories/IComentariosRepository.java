@@ -28,5 +28,5 @@ public interface IComentariosRepository extends JpaRepository<Comentarios, Integ
             "  ORDER BY \n" +
             "    CantidadComentarios DESC\n" +
             "  LIMIT 3;",nativeQuery = true)
-    public List<String[]> mejoresCursos();
+    public List<String[]> topComentariosCursos();
 }
