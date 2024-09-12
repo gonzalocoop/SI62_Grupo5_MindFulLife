@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(title = "Your API Title", version = "1.0", description = "Your API Description"),
+        info = @Info(title = "ZenTech", version = "1.0", description = "Bienvenido al backend de ZenTech. Startup MindFulLife. Grupo 5. Sesión SI62."),
         security = @SecurityRequirement(name = "bearerAuth")
 )
 @SecurityScheme(
