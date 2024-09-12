@@ -38,6 +38,11 @@ public class ComentariosServiceImplement implements IComentariosService {
         return oR.buscarComentariosPorTituloSesion(tituloSesion);
     }
 
+    @Override
+    public List<String[]> mejoresCursos() {
+        return oR.mejoresCursos();
+    }
+
 
 }
 

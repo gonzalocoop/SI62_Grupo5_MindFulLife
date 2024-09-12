@@ -1,10 +1,8 @@
 package com.zentech.si62_g5.controllers;
 
 
-import com.zentech.si62_g5.dtos.ComentariosDTO;
+import com.zentech.si62_g5.dtos.*;
 
-import com.zentech.si62_g5.dtos.SesionCantidadVideoDTO;
-import com.zentech.si62_g5.dtos.SesionTituloComentarioDTO;
 import com.zentech.si62_g5.entities.Comentarios;
 
 import com.zentech.si62_g5.entities.Sesiones;
@@ -76,5 +74,20 @@ public class ComentariosController {
         }
         System.out.println("Comentarios encontrados: " + list.size());
         return list;
+    }
+
+
+    @GetMapping("/top3cursosmascomentarios")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public List<CursoCantComentariosDTO> top3Cursos(){
+        List<String[]> lista= cS.mejoresCursos();
+        List<CursoCantComentariosDTO> listaDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            CursoCantComentariosDTO dto=new CursoCantComentariosDTO();
+            dto.setTitulo(columna[0]);
+            dto.setCantidad(Integer.parseInt(columna[1]));
+            listaDTO.add(dto);
+        }
+        return listaDTO;
     }
 }
