@@ -80,7 +80,7 @@ public class ComentariosController {
     @GetMapping("/top3cursosmascomentarios")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<CursoCantComentariosDTO> top3Cursos(){
-        List<String[]> lista= cS.mejoresCursos();
+        List<String[]> lista= cS.topComentariosCursos();
         List<CursoCantComentariosDTO> listaDTO=new ArrayList<>();
         for(String[] columna:lista){
             CursoCantComentariosDTO dto=new CursoCantComentariosDTO();

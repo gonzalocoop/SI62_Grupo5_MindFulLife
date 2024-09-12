@@ -10,7 +10,7 @@ public interface IComentariosService {
     public void delete(int id);
     public void update(Comentarios com);
     List<Comentarios> buscarComentariosPorTituloSesion(String tituloSesion);
-    public List<String[]> mejoresCursos();
+    public List<String[]> topComentariosCursos();
 }
 
 

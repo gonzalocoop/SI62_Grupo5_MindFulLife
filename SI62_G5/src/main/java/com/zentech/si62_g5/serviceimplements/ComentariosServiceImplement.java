@@ -39,8 +39,8 @@ public class ComentariosServiceImplement implements IComentariosService {
     }
 
     @Override
-    public List<String[]> mejoresCursos() {
-        return oR.mejoresCursos();
+    public List<String[]> topComentariosCursos() {
+        return oR.topComentariosCursos();
     }
 
 
