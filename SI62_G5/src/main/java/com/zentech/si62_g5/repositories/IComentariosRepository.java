@@ -29,4 +29,18 @@ public interface IComentariosRepository extends JpaRepository<Comentarios, Integ
             "    CantidadComentarios DESC\n" +
             "  LIMIT 3;",nativeQuery = true)
     public List<String[]> topComentariosCursos();
+
+    @Query("SELECT c  \n" +
+            "         FROM Comentarios c \n" +
+            "         JOIN Sesiones s ON c.ses.id=s.id\n" +
+            "         WHERE s.titulo like %:titulovid% \n" +
+            "         AND (\n" +
+            "            c.comentario LIKE '%mal%' \n" +
+            "          OR c.comentario LIKE '%malo%'\n" +
+            "            OR c.comentario LIKE '%horrible%' \n" +
+            "            OR c.comentario LIKE '%terrible%')")
+    public List<Comentarios> listaComentariosMalos(@Param("titulovid") String titulovid);
+
+
+
 }
