@@ -21,4 +21,12 @@ public interface ICursoUsuarioRepository extends JpaRepository<CursosUsuarios,In
                 "   AND cu.estado = 'completado';", nativeQuery = true)
         public List<String[]> ObtenerUrl(@Param("nombreUsuario") String nombreUsuario,
                                          @Param("nombreCurso") String nombreCurso);
+
+        @Query(value ="SELECT u.username,\n" +
+                "       SUM(CASE WHEN cu.estado = 'completado' THEN 1 ELSE 0 END) AS cursos_completados,\n" +
+                "       SUM(CASE WHEN cu.estado = 'no completado' THEN 1 ELSE 0 END) AS cursos_no_completados\n" +
+                "FROM usuarios u\n" +
+                "JOIN cursos_usuarios cu ON u.id = cu.id_usuario\n" +
+                "GROUP BY u.username;\n",nativeQuery = true)
+        public List<String[]>cantidadDeCursosCompletadosYNoCompletados();
         }

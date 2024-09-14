@@ -1,11 +1,6 @@
 package com.zentech.si62_g5.controllers;
 
-import com.zentech.si62_g5.dtos.CantSesionesCursoDTO;
-import com.zentech.si62_g5.dtos.CronogramasDTO;
-import com.zentech.si62_g5.dtos.CursoUsuarioDTO;
-import com.zentech.si62_g5.dtos.ObtenerUrlDTO;
-import com.zentech.si62_g5.entities.Comentarios;
-import com.zentech.si62_g5.entities.Cronogramas;
+import com.zentech.si62_g5.dtos.*;
 import com.zentech.si62_g5.entities.CursosUsuarios;
 import com.zentech.si62_g5.serviceinterfaces.ICursoUsuarioService;
 import org.modelmapper.ModelMapper;
@@ -66,6 +61,21 @@ public class CursoUsuarioController {
             dto.setTitulo(columna[1]);  // Asignar el título del curso
             dto.setEstado(columna[2]);  // Asignar el estado del curso
             dto.setUrl(columna[3]);  // Asignar la URL del curso
+
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+    @GetMapping("/cantidaddecursoscompletadosynocompletados")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    public List<CantCursCompleNoCompleDTO>CantidadCursosCompletadosNoCompletados(){
+        List<String[]> lista= cuS.cantidadDeCursosCompletadosYNoCompletados();
+        List<CantCursCompleNoCompleDTO>listaDTO=new ArrayList<>();
+        for (String[] columna : lista) {
+            CantCursCompleNoCompleDTO dto = new CantCursCompleNoCompleDTO();
+            dto.setUsername(columna[0]);
+            dto.setCursosCompletados(Integer.parseInt(columna[1]));
+            dto.setCursosNoCompletados(Integer.parseInt(columna[2]));
 
             listaDTO.add(dto);
         }
