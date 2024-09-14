@@ -10,4 +10,6 @@ public interface ICronogramasService {
     public List<Cronogramas> list();
     public void delete(int id);
     public void update(Cronogramas cron);
+
+    List<Cronogramas> findByUsername(String username);
 }
