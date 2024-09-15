@@ -1,11 +1,15 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.dtos.RecaudacionSuscripcionDTO;
 import com.zentech.si62_g5.entities.UsuariosSuscripciones;
 import com.zentech.si62_g5.repositories.IUsuariosSuscripcionesRepository;
 import com.zentech.si62_g5.serviceinterfaces.IUsuariosSuscripcionesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,4 +42,21 @@ public class UsuariosSuscripcionesServiceImplement implements IUsuariosSuscripci
     public List<String[]> usuariosSuscripcion(String nombresuscripcion) {
         return bR.usuariosSuscripcion(nombresuscripcion);
     }
+
+    @Override
+    public List<RecaudacionSuscripcionDTO> obtenerRecaudacionPorSuscripcion(String nombreSuscripcion, LocalDate fechaInicio, LocalDate fechaFin) {
+        List<Object[]> resultados = bR.obtenerRecaudacionPorSuscripcion(nombreSuscripcion, fechaInicio, fechaFin);
+        List<RecaudacionSuscripcionDTO> listaDTO = new ArrayList<>();
+
+        for (Object[] resultado : resultados) {
+            RecaudacionSuscripcionDTO dto = new RecaudacionSuscripcionDTO();
+            dto.setNombreSuscripcion((String) resultado[0]);
+            dto.setRecaudacionTotal((BigDecimal) resultado[1]);
+            listaDTO.add(dto);
+        }
+
+        return listaDTO;
+    }
+
+
 }

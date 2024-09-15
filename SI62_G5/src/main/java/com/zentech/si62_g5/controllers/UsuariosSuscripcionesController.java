@@ -8,9 +8,11 @@ import com.zentech.si62_g5.serviceinterfaces.IUsuariosSuscripcionesService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,4 +70,14 @@ public class UsuariosSuscripcionesController {
         }
         return listaDTO;
     }
+
+    @GetMapping("/recaudacion")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public List<RecaudacionSuscripcionDTO> obtenerRecaudacionPorTipoSuscripcion(
+            @RequestParam String nombreSuscripcion,
+            @RequestParam LocalDate fechaInicio,
+            @RequestParam LocalDate fechaFin) {
+        return bS.obtenerRecaudacionPorSuscripcion(nombreSuscripcion, fechaInicio, fechaFin);
+    }
+
 }
