@@ -63,13 +63,6 @@ public class UsuariosController {
 
 
 
-
-
-
-
-
-
-
     @PutMapping("/cambiocoontraseña")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public void cambiarContrasena(@RequestParam String u, @RequestParam String p){
