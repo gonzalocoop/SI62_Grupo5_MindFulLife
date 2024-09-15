@@ -11,6 +11,8 @@ public interface IComentariosService {
     public void update(Comentarios com);
     List<Comentarios> buscarComentariosPorTituloSesion(String tituloSesion);
     public List<String[]> topComentariosCursos();
+    public List<Comentarios> listBadComents(String titulovid);
+
 }
 
 
