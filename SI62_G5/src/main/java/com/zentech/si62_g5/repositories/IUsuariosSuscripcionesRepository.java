@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -25,4 +26,16 @@ public interface IUsuariosSuscripcionesRepository extends JpaRepository<Usuarios
             "ORDER BY \n" +
             "    u.username;", nativeQuery = true)
     public List<String[]> usuariosSuscripcion(@Param("nombresuscripcion") String nombresuscripcion);
+
+    @Query(value = "SELECT s.nombre AS nombreSuscripcion, SUM(s.precio) AS recaudacionTotal " +
+            "FROM Usuarios_Suscripciones us " +
+            "JOIN Suscripciones s ON us.id_suscripciones = s.id " +
+            "WHERE us.fecha_inicio BETWEEN :fechaInicio AND :fechaFin " +
+            "AND s.nombre = :nombreSuscripcion " +
+            "GROUP BY s.nombre", nativeQuery = true)
+    public List<Object[]> obtenerRecaudacionPorSuscripcion(
+            @Param("nombreSuscripcion") String nombreSuscripcion,
+            @Param("fechaInicio") LocalDate fechaInicio,
+            @Param("fechaFin") LocalDate fechaFin);
+
 }
