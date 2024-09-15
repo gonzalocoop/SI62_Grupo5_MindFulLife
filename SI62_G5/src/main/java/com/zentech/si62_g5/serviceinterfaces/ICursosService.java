@@ -12,5 +12,6 @@ public interface ICursosService {
     public void update(Cursos cur);
     public List<Cursos> buscar(String titulo);
     public List<String[]> cantSesionesCurso();
+    public List<String[]> MaxyMinUsuarioCursos();
 }
 
