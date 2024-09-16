@@ -40,5 +40,10 @@ public class CursoUsuarioServiceImplement implements ICursoUsuarioService {
         return cuR.ObtenerUrl(nombreUsuario,nombreCurso);
     }
 
+    @Override
+    public List<String[]> cantidadDeCursosCompletadosYNoCompletados() {
+        return cuR.cantidadDeCursosCompletadosYNoCompletados();
+    }
+
 
 }

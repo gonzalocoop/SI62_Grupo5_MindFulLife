@@ -59,7 +59,7 @@ public class UsuariosSuscripcionesController {
 
     @GetMapping("/usuariostiposuscripcion")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public List<UsuariosTipoSuscripcionDTO> usuariostiposuscripcion(@RequestParam String s){
+    public List<UsuariosTipoSuscripcionDTO> usuariosTipoSuscripcion(@RequestParam String s){
         List<String[]> lista= bS.usuariosSuscripcion(s);
         List<UsuariosTipoSuscripcionDTO> listaDTO=new ArrayList<>();
         for(String[] columna:lista){
