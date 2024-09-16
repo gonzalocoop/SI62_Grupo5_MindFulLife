@@ -12,4 +12,5 @@ public interface ICursoUsuarioService {
     public void delete(int id);
     public void update(CursosUsuarios cus);
     public List<String[]>ObtenerUrl(String nombreUsuario,String nombreCurso);
+    public List<String[]>cantidadDeCursosCompletadosYNoCompletados();
 }

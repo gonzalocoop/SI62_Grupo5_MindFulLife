@@ -90,9 +90,9 @@ public class ComentariosController {
         }
         return listaDTO;
     }
-    @GetMapping("/listarMalosComentarios")
+    @GetMapping("/listarmaloscomentarios")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
-    public List<ComentariosDTO>listarmaloscomentarios(@RequestParam String titulo){
+    public List<ComentariosDTO>listarMalosComentarios(@RequestParam String titulo){
         return cS.listBadComents(titulo).stream().map(x->{
             ModelMapper m= new ModelMapper();
             return m.map(x, ComentariosDTO.class);
