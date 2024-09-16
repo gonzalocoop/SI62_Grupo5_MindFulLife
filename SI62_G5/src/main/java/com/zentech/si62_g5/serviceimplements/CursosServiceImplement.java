@@ -44,4 +44,10 @@ public class CursosServiceImplement implements ICursosService {
         return cR.cantidadServicioCurso();
     }
 
+    @Override
+    public List<String[]> MaxyMinUsuarioCursos() {
+        return cR.MaxyMinUsuarioCursos();
+    }
+
+
 }

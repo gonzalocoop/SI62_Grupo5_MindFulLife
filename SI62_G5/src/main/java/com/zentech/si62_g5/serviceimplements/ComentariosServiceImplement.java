@@ -43,6 +43,11 @@ public class ComentariosServiceImplement implements IComentariosService {
         return oR.topComentariosCursos();
     }
 
+    @Override
+    public List<Comentarios> listBadComents(String titulovid) {
+        return oR.listaComentariosMalos(titulovid);
+    }
+
 
 }
 
