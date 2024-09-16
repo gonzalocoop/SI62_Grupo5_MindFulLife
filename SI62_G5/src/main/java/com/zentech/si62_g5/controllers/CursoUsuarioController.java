@@ -52,7 +52,7 @@ public class CursoUsuarioController {
     }
     @GetMapping("/obtenerurl")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
-    public List<ObtenerUrlDTO>ObtenerConUsuarioUrl(@RequestParam String nombreUsuario,@RequestParam String nombreCurso){
+    public List<ObtenerUrlDTO>obtenerConUsuarioUrl(@RequestParam String nombreUsuario,@RequestParam String nombreCurso){
         List<String[]> lista= cuS.ObtenerUrl(nombreUsuario,nombreCurso);
         List<ObtenerUrlDTO>listaDTO=new ArrayList<>();
         for (String[] columna : lista) {
@@ -68,7 +68,7 @@ public class CursoUsuarioController {
     }
     @GetMapping("/cantidaddecursoscompletadosynocompletados")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
-    public List<CantCursCompleNoCompleDTO>CantidadCursosCompletadosNoCompletados(){
+    public List<CantCursCompleNoCompleDTO>cantidadCursosCompletadosNoCompletados(){
         List<String[]> lista= cuS.cantidadDeCursosCompletadosYNoCompletados();
         List<CantCursCompleNoCompleDTO>listaDTO=new ArrayList<>();
         for (String[] columna : lista) {

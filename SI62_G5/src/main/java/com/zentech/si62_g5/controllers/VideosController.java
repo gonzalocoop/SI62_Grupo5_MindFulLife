@@ -62,7 +62,7 @@ public class VideosController {
 
     @GetMapping("/videostitulosesion")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
-    public List<VideosDTO> videostitulosesion(@RequestParam String titulo) {
+    public List<VideosDTO> videosTituloSesion(@RequestParam String titulo) {
         return vS.videostitulosesion(titulo).stream().map(x->{
             ModelMapper m=new ModelMapper();
             return m.map(x,VideosDTO.class);
