@@ -63,9 +63,9 @@ public class CursosController {
             return m.map(x, CursosDTO.class);
         }).collect(Collectors.toList());
     }
-    @GetMapping("/cantidadSesionesCurso")
+    @GetMapping("/cantidadsesionescurso")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
-    public List<CantSesionesCursoDTO>cantidadsesionessurso(){
+    public List<CantSesionesCursoDTO>cantidadSesionesCurso(){
         List<String[]> lista=cS.cantSesionesCurso();
         List<CantSesionesCursoDTO>listaDTO=new ArrayList<>();
         for(String[] columna:lista){
@@ -77,7 +77,7 @@ public class CursosController {
         return listaDTO;
     }
 
-    @GetMapping ("/MaxyMinUsuarioCursos")
+    @GetMapping ("/maxyminwsuariocursos")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<MaxMinUsuarioCursosDTO> MaxyMinUsuarioCursos()
     {

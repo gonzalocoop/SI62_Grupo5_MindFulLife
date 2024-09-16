@@ -60,7 +60,7 @@ public class SesionesController {
     }
     @GetMapping ("/sesionvideoduracion")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
-    public List<SesionCantidadVideoDTO> SesionVideoDuracion()
+    public List<SesionCantidadVideoDTO> sesionVideoDuracion()
     {
 
         List<String[]> lista= sS.SesionCantidadVideo();
