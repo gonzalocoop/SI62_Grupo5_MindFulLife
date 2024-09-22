@@ -72,7 +72,6 @@ public class ComentariosController {
             dto.setTituloSesion(comentario.getSes().getTitulo());
             list.add(dto);
         }
-        System.out.println("Comentarios encontrados: " + list.size());
         return list;
     }
 
