@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.entities.Comentarios;
 import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.repositories.ICronogramasRepository;
 
@@ -38,6 +39,11 @@ public class CronogramasServiceImplement implements ICronogramasService {
     @Override
     public List<Cronogramas> findByUsername(String username) {
         return cR.findByUsername(username);
+    }
+
+    @Override
+    public Cronogramas listId(int id) {
+        return cR.findById(id).orElse(new Cronogramas());
     }
 
 }

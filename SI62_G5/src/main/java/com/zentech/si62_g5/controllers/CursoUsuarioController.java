@@ -50,7 +50,7 @@ public class CursoUsuarioController {
         CursosUsuarios cu = m.map(dto, CursosUsuarios.class);
         cuS.update(cu);
     }
-    @GetMapping("/obtenerurl")
+    @GetMapping("/obtenerurlparacompartirla")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
     public List<ObtenerUrlDTO>obtenerConUsuarioUrl(@RequestParam String nombreUsuario,@RequestParam String nombreCurso){
         List<String[]> lista= cuS.ObtenerUrl(nombreUsuario,nombreCurso);
@@ -80,5 +80,11 @@ public class CursoUsuarioController {
             listaDTO.add(dto);
         }
         return listaDTO;
+    }
+    @GetMapping("/{id}")
+    public CursoUsuarioDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        CursoUsuarioDTO dto=m.map(cuS.listId(id),CursoUsuarioDTO.class);
+        return dto;
     }
 }

@@ -52,4 +52,10 @@ public class RolesController {
         Roles r = m.map(dto, Roles.class);
         rS.update(r);
     }
+    @GetMapping("/{id}")
+    public RolesDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        RolesDTO dto=m.map(rS.listId(id),RolesDTO.class);
+        return dto;
+    }
 }
