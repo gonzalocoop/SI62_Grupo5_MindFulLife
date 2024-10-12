@@ -102,6 +102,7 @@ public class SesionesController {
         }).collect(Collectors.toList());
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public SesionesDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         SesionesDTO dto=m.map(sS.listId(id),SesionesDTO.class);

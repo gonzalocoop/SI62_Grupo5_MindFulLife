@@ -71,6 +71,7 @@ public class CronogramasController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public CronogramasDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         CronogramasDTO dto=m.map(cS.listId(id),CronogramasDTO.class);
