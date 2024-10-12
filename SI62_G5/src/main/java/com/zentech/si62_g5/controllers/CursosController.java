@@ -1,10 +1,7 @@
 package com.zentech.si62_g5.controllers;
 
 
-import com.zentech.si62_g5.dtos.CantSesionesCursoDTO;
-import com.zentech.si62_g5.dtos.CursosDTO;
-import com.zentech.si62_g5.dtos.MaxMinUsuarioCursosDTO;
-import com.zentech.si62_g5.dtos.PromedioVideosDTO;
+import com.zentech.si62_g5.dtos.*;
 import com.zentech.si62_g5.entities.Cursos;
 import com.zentech.si62_g5.serviceinterfaces.ICursosService;
 import org.modelmapper.ModelMapper;
@@ -94,4 +91,11 @@ public class CursosController {
         }
         return listaDTO;
     };
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public CursosDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        CursosDTO dto=m.map(cS.listId(id),CursosDTO.class);
+        return dto;
+    }
 }

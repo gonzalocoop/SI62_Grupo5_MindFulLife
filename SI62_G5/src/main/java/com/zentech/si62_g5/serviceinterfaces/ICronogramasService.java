@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceinterfaces;
 
+import com.zentech.si62_g5.entities.Comentarios;
 import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.entities.Roles;
 
@@ -12,4 +13,5 @@ public interface ICronogramasService {
     public void update(Cronogramas cron);
 
     List<Cronogramas> findByUsername(String username);
+    public Cronogramas listId(int id);
 }
