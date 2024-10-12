@@ -92,6 +92,7 @@ public class CursosController {
         return listaDTO;
     };
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public CursosDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         CursosDTO dto=m.map(cS.listId(id),CursosDTO.class);
