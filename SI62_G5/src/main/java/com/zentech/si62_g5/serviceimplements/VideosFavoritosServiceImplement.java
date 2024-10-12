@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.entities.UsuariosSuscripciones;
 import com.zentech.si62_g5.entities.VideosFavoritos;
 import com.zentech.si62_g5.repositories.IVideosFavoritosRepository;
 import com.zentech.si62_g5.serviceinterfaces.IVideosFavoritosService;
@@ -27,6 +28,11 @@ public class VideosFavoritosServiceImplement implements IVideosFavoritosService 
     @Override
     public void delete(int id) {
         fR.deleteById(id);
+    }
+
+    @Override
+    public VideosFavoritos listId(int id) {
+        return fR.findById(id).orElse(new VideosFavoritos());
     }
 
     @Override

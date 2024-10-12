@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.entities.Sesiones;
 import com.zentech.si62_g5.repositories.ICursosRepository;
 import com.zentech.si62_g5.repositories.ISesionesRepository;
@@ -47,5 +48,10 @@ public class SesionesServiceImplement implements ISesionesService {
     @Override
     public List<Sesiones> findAllSesionByCurso(String titulo) {
         return sR.listaSesionesCurso(titulo);
+    }
+
+    @Override
+    public Sesiones listId(int id) {
+        return sR.findById(id).orElse(new Sesiones());
     }
 }

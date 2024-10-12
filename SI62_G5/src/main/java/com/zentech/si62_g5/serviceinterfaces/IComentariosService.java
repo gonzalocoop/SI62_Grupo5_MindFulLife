@@ -12,7 +12,7 @@ public interface IComentariosService {
     List<Comentarios> buscarComentariosPorTituloSesion(String tituloSesion);
     public List<String[]> topComentariosCursos();
     public List<Comentarios> listBadComents(String titulovid);
-
+    public Comentarios listId(int id);
 }
 
 

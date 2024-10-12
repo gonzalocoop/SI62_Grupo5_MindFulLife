@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.entities.Suscripciones;
 import com.zentech.si62_g5.entities.Usuarios;
 import com.zentech.si62_g5.repositories.ICursosRepository;
 import com.zentech.si62_g5.repositories.IUsuariosRepository;
@@ -35,7 +36,10 @@ public class UsuariosServiceImplement implements IUsuariosService {
         uR.save(usuar);
     }
 
-
+    @Override
+    public Usuarios listId(int id) {
+        return uR.findById(id).orElse(new Usuarios());
+    }
 
     @Override
     public void cambioPassword(String usuario, String nuevaContra) {

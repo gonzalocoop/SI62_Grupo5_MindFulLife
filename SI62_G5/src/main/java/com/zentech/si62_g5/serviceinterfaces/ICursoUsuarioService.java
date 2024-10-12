@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.serviceinterfaces;
 
 
+import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.entities.CursosUsuarios;
 import org.springframework.data.repository.query.Param;
 
@@ -13,4 +14,5 @@ public interface ICursoUsuarioService {
     public void update(CursosUsuarios cus);
     public List<String[]>ObtenerUrl(String nombreUsuario,String nombreCurso);
     public List<String[]>cantidadDeCursosCompletadosYNoCompletados();
+    public CursosUsuarios listId(int id);
 }

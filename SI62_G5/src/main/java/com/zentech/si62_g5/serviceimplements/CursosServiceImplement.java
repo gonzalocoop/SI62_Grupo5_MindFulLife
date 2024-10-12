@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.entities.Cursos;
 import com.zentech.si62_g5.repositories.ICursosRepository;
 import com.zentech.si62_g5.serviceinterfaces.ICursosService;
@@ -47,6 +48,11 @@ public class CursosServiceImplement implements ICursosService {
     @Override
     public List<String[]> MaxyMinUsuarioCursos() {
         return cR.MaxyMinUsuarioCursos();
+    }
+
+    @Override
+    public Cursos listId(int id) {
+        return cR.findById(id).orElse(new Cursos());
     }
 
 

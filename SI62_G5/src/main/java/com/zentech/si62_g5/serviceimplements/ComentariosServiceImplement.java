@@ -48,6 +48,11 @@ public class ComentariosServiceImplement implements IComentariosService {
         return oR.listaComentariosMalos(titulovid);
     }
 
+    @Override
+    public Comentarios listId(int id) {
+        return oR.findById(id).orElse(new Comentarios());
+    }
+
 
 }
 

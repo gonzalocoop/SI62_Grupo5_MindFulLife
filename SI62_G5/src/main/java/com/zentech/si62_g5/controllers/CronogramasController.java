@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.controllers;
 
 
+import com.zentech.si62_g5.dtos.ComentariosDTO;
 import com.zentech.si62_g5.dtos.CronogramasDTO;
 
 import com.zentech.si62_g5.entities.Cronogramas;
@@ -69,4 +70,11 @@ public class CronogramasController {
         }).collect(Collectors.toList());
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public CronogramasDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        CronogramasDTO dto=m.map(cS.listId(id),CronogramasDTO.class);
+        return dto;
+    }
 }

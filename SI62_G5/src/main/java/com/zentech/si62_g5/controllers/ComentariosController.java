@@ -97,5 +97,11 @@ public class ComentariosController {
             return m.map(x, ComentariosDTO.class);
         }).collect(Collectors.toList());
     }
-
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public ComentariosDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        ComentariosDTO dto=m.map(cS.listId(id),ComentariosDTO.class);
+        return dto;
+    }
 }
