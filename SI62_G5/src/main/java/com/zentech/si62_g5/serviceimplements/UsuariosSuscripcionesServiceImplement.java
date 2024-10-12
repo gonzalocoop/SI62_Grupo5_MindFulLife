@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.serviceimplements;
 
 import com.zentech.si62_g5.dtos.RecaudacionSuscripcionDTO;
+import com.zentech.si62_g5.entities.Usuarios;
 import com.zentech.si62_g5.entities.UsuariosSuscripciones;
 import com.zentech.si62_g5.repositories.IUsuariosSuscripcionesRepository;
 import com.zentech.si62_g5.serviceinterfaces.IUsuariosSuscripcionesService;
@@ -31,6 +32,11 @@ public class UsuariosSuscripcionesServiceImplement implements IUsuariosSuscripci
     @Override
     public void delete(int id) {
         bR.deleteById(id);
+    }
+
+    @Override
+    public UsuariosSuscripciones listId(int id) {
+        return bR.findById(id).orElse(new UsuariosSuscripciones());
     }
 
     @Override

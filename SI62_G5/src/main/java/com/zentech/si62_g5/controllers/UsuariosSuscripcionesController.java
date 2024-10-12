@@ -49,6 +49,15 @@ public class UsuariosSuscripcionesController {
         bS.delete(id);
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public UsuariosSuscripcionesDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        UsuariosSuscripcionesDTO dto=m.map(bS.listId(id),UsuariosSuscripcionesDTO.class);
+        return dto;
+    }
+
+
     @PutMapping
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void modificar(@RequestBody UsuariosSuscripcionesDTO dto){

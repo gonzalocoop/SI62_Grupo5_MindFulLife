@@ -16,12 +16,12 @@ public interface IComentariosRepository extends JpaRepository<Comentarios, Integ
 
     @Query(value ="SELECT \n" +
             "    c.titulo AS Curso,\n" +
-            "    COUNT(cm.id) AS CantidadComentarios\n" +
+            "    COALESCE(COUNT(cm.id), 0) AS CantidadComentarios\n" +
             "  FROM \n" +
             "    Cursos c\n" +
-            "  JOIN \n" +
+            "  LEFT JOIN \n" +
             "    Sesiones s ON c.id = s.id_cursos\n" +
-            "  JOIN \n" +
+            "  LEFT JOIN \n" +
             "    Comentarios cm ON s.id = cm.id_sesiones\n" +
             "  GROUP BY \n" +
             "    c.titulo\n" +

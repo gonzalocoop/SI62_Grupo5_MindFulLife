@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.entities.CursosUsuarios;
 import com.zentech.si62_g5.repositories.ICursoUsuarioRepository;
 import com.zentech.si62_g5.serviceinterfaces.ICursoUsuarioService;
@@ -43,6 +44,11 @@ public class CursoUsuarioServiceImplement implements ICursoUsuarioService {
     @Override
     public List<String[]> cantidadDeCursosCompletadosYNoCompletados() {
         return cuR.cantidadDeCursosCompletadosYNoCompletados();
+    }
+
+    @Override
+    public CursosUsuarios listId(int id) {
+        return cuR.findById(id).orElse(new CursosUsuarios());
     }
 
 
