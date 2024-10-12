@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceinterfaces;
 
+import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.entities.Sesiones;
 
 
@@ -16,4 +17,5 @@ public interface ISesionesService {
     public List<String[]> avgDuracionVideo();
     public List<String[]> SesionCantidadVideo();
     public List<Sesiones> findAllSesionByCurso(String titulo);
+    public Sesiones listId(int id);
 }

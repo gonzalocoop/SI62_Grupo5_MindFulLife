@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.serviceimplements;
 
+import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.entities.Roles;
 import com.zentech.si62_g5.repositories.IRolesRepository;
 import com.zentech.si62_g5.serviceinterfaces.IRolesService;
@@ -33,4 +34,10 @@ public class RolesServiceImplement implements IRolesService {
     public void update(Roles rol) {
         rR.save(rol);
     }
+
+    @Override
+    public Roles listId(int id) {
+        return rR.findById(id).orElse(new Roles());
+    }
+
 }
