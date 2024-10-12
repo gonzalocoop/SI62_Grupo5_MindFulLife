@@ -2,6 +2,7 @@ package com.zentech.si62_g5.serviceimplements;
 
 import com.zentech.si62_g5.dtos.VideosDTO;
 import com.zentech.si62_g5.entities.Videos;
+import com.zentech.si62_g5.entities.VideosFavoritos;
 import com.zentech.si62_g5.repositories.IVideosRepository;
 import com.zentech.si62_g5.serviceinterfaces.IVideosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class VideosServiceImplement implements IVideosService {
     @Override
     public void delete(int id) {
         vR.deleteById(id);
+    }
+
+    @Override
+    public Videos listId(int id) {
+        return vR.findById(id).orElse(new Videos());
     }
 
     @Override
