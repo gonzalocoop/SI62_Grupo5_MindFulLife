@@ -30,6 +30,11 @@ public class SuscripcionesServiceImplement implements ISuscripcionesService {
     }
 
     @Override
+    public Suscripciones listId(int id) {
+        return tR.findById(id).orElse(new Suscripciones());
+    }
+
+    @Override
     public void update(Suscripciones suscr) {
         tR.save(suscr);
     }

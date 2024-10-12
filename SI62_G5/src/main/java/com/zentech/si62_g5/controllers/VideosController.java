@@ -4,6 +4,7 @@ package com.zentech.si62_g5.controllers;
 import com.zentech.si62_g5.dtos.UsuariosTipoSuscripcionDTO;
 import com.zentech.si62_g5.dtos.VideosDTO;
 
+import com.zentech.si62_g5.dtos.VideosFavoritosDTO;
 import com.zentech.si62_g5.entities.Sesiones;
 import com.zentech.si62_g5.entities.Videos;
 
@@ -50,6 +51,14 @@ public class VideosController {
     public void eliminar(@PathVariable("id") Integer id){
 
         vS.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public VideosDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        VideosDTO dto=m.map(vS.listId(id),VideosDTO.class);
+        return dto;
     }
 
     @PutMapping
