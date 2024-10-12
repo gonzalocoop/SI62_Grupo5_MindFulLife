@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.controllers;
 
 import com.zentech.si62_g5.dtos.SesionesDTO;
+import com.zentech.si62_g5.dtos.UsuariosSuscripcionesDTO;
 import com.zentech.si62_g5.dtos.VideosFavoritosDTO;
 
 import com.zentech.si62_g5.entities.VideosFavoritos;
@@ -44,6 +45,14 @@ public class VideosFavoritosController {
     public void eliminar(@PathVariable("id") Integer id){
 
         fS.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public VideosFavoritosDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        VideosFavoritosDTO dto=m.map(fS.listId(id),VideosFavoritosDTO.class);
+        return dto;
     }
 
     @PutMapping

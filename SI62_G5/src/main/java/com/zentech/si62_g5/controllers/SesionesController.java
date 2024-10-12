@@ -3,6 +3,7 @@ package com.zentech.si62_g5.controllers;
 
 
 import com.zentech.si62_g5.dtos.PromedioVideosDTO;
+import com.zentech.si62_g5.dtos.RolesDTO;
 import com.zentech.si62_g5.dtos.SesionCantidadVideoDTO;
 import com.zentech.si62_g5.dtos.SesionesDTO;
 
@@ -100,7 +101,13 @@ public class SesionesController {
             return m.map(x, SesionesDTO.class);
         }).collect(Collectors.toList());
     }
-
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public SesionesDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        SesionesDTO dto=m.map(sS.listId(id),SesionesDTO.class);
+        return dto;
+    }
 
 
 }

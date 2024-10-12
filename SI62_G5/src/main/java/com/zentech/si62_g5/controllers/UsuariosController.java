@@ -2,6 +2,7 @@ package com.zentech.si62_g5.controllers;
 
 
 import com.zentech.si62_g5.dtos.ComentariosUsuarioDTO;
+import com.zentech.si62_g5.dtos.SuscripcionesDTO;
 import com.zentech.si62_g5.dtos.UsuariosDTO;
 import com.zentech.si62_g5.entities.Usuarios;
 import com.zentech.si62_g5.serviceinterfaces.IUsuariosService;
@@ -49,6 +50,14 @@ public class UsuariosController {
     public void eliminar(@PathVariable("id") Integer id){
 
         uS.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public UsuariosDTO listarId(@PathVariable("id") Integer id){
+        ModelMapper m=new ModelMapper();
+        UsuariosDTO dto=m.map(uS.listId(id),UsuariosDTO.class);
+        return dto;
     }
 
     @PutMapping
