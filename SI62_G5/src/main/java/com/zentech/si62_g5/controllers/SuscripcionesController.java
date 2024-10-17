@@ -45,7 +45,7 @@ public class SuscripcionesController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public SuscripcionesDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         SuscripcionesDTO dto=m.map(tS.listId(id),SuscripcionesDTO.class);

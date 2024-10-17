@@ -25,7 +25,7 @@ public class UsuariosSuscripcionesController {
     private IUsuariosSuscripcionesService bS;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void registrar(@RequestBody UsuariosSuscripcionesDTO dto){
         ModelMapper m=new ModelMapper();
         UsuariosSuscripciones b=m.map(dto, UsuariosSuscripciones.class);
@@ -50,7 +50,7 @@ public class UsuariosSuscripcionesController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public UsuariosSuscripcionesDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         UsuariosSuscripcionesDTO dto=m.map(bS.listId(id),UsuariosSuscripcionesDTO.class);

@@ -20,7 +20,7 @@ public class CursoUsuarioController {
     private ICursoUsuarioService cuS;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void registrar(@RequestBody CursoUsuarioDTO dto){
         ModelMapper m = new ModelMapper();
         CursosUsuarios cu= m.map(dto, CursosUsuarios.class);
@@ -51,7 +51,7 @@ public class CursoUsuarioController {
         cuS.update(cu);
     }
     @GetMapping("/obtenerurlparacompartirla")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<ObtenerUrlDTO>obtenerConUsuarioUrl(@RequestParam String nombreUsuario,@RequestParam String nombreCurso){
         List<String[]> lista= cuS.ObtenerUrl(nombreUsuario,nombreCurso);
         List<ObtenerUrlDTO>listaDTO=new ArrayList<>();
@@ -67,7 +67,7 @@ public class CursoUsuarioController {
         return listaDTO;
     }
     @GetMapping("/cantidaddecursoscompletadosynocompletados")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<CantCursCompleNoCompleDTO>cantidadCursosCompletadosNoCompletados(){
         List<String[]> lista= cuS.cantidadDeCursosCompletadosYNoCompletados();
         List<CantCursCompleNoCompleDTO>listaDTO=new ArrayList<>();
@@ -82,7 +82,7 @@ public class CursoUsuarioController {
         return listaDTO;
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public CursoUsuarioDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         CursoUsuarioDTO dto=m.map(cuS.listId(id),CursoUsuarioDTO.class);
