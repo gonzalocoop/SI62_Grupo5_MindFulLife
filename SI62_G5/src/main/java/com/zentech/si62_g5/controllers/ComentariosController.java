@@ -29,7 +29,7 @@ public class ComentariosController {
     private IComentariosService cS;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void registrar(@RequestBody ComentariosDTO dto){
         ModelMapper m = new ModelMapper();
         Comentarios o = m.map(dto, Comentarios.class);
@@ -47,14 +47,14 @@ public class ComentariosController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void eliminar(@PathVariable("id") Integer id){
 
         cS.delete(id);
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void modificar(@RequestBody ComentariosDTO dto){
         ModelMapper m = new ModelMapper();
         Comentarios o = m.map(dto, Comentarios.class);
@@ -62,7 +62,7 @@ public class ComentariosController {
     }
 
     @GetMapping("/sesiontitulocomentario")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<SesionTituloComentarioDTO> buscarComentariosPorTituloSesion(@RequestParam String tituloSesion) {
         List<Comentarios> comentarios = cS.buscarComentariosPorTituloSesion(tituloSesion);
         List<SesionTituloComentarioDTO> list = new ArrayList<>();
@@ -90,7 +90,7 @@ public class ComentariosController {
         return listaDTO;
     }
     @GetMapping("/listarmaloscomentarios")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<ComentariosDTO>listarMalosComentarios(@RequestParam String titulo){
         return cS.listBadComents(titulo).stream().map(x->{
             ModelMapper m= new ModelMapper();
@@ -98,7 +98,7 @@ public class ComentariosController {
         }).collect(Collectors.toList());
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public ComentariosDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         ComentariosDTO dto=m.map(cS.listId(id),ComentariosDTO.class);
