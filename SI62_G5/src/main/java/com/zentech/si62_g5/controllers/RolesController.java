@@ -53,7 +53,7 @@ public class RolesController {
         rS.update(r);
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public RolesDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         RolesDTO dto=m.map(rS.listId(id),RolesDTO.class);

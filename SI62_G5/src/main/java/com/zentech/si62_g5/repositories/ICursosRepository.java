@@ -55,7 +55,7 @@ public interface ICursosRepository extends JpaRepository<Cursos,Integer> {
             "\n" +
             "    UNION ALL\n" +
             "\n" +
-            "    SELECT NULL AS id_curso, NULL AS titulo, NULL AS num_usuarios, 'No existe un menor' AS categoria\n" +
+            "    SELECT 0 AS id_curso, ' ' AS titulo, 0 AS num_usuarios, 'No existe un menor' AS categoria\n" +
             "    WHERE NOT EXISTS (SELECT 1 FROM conteo_categorias WHERE categoria = 'Menor')\n" +
             ")\n" +
             "SELECT * \n" +

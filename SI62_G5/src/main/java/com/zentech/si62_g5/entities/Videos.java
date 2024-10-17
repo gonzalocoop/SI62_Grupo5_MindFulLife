@@ -17,6 +17,8 @@ public class Videos{
     private LocalDate fechaAgregado;
     @Column(name="duracion", nullable=false, precision=5, scale=2)
     private BigDecimal duracion;
+    @Column(name="url",nullable=false)
+    private String url;
     @ManyToOne
     @JoinColumn(name= "idSesiones")
     private Sesiones ses;
@@ -25,11 +27,12 @@ public class Videos{
 
     }
 
-    public Videos(int id, BigDecimal duracion, String titulo, LocalDate fechaAgregado, Sesiones ses) {
+    public Videos(int id, String titulo, LocalDate fechaAgregado, BigDecimal duracion, String url, Sesiones ses) {
         this.id = id;
-        this.duracion = duracion;
         this.titulo = titulo;
         this.fechaAgregado = fechaAgregado;
+        this.duracion = duracion;
+        this.url = url;
         this.ses = ses;
     }
 
@@ -65,6 +68,14 @@ public class Videos{
         this.duracion = duracion;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Sesiones getSes() {
         return ses;
     }
@@ -72,6 +83,4 @@ public class Videos{
     public void setSes(Sesiones ses) {
         this.ses = ses;
     }
-
-
 }

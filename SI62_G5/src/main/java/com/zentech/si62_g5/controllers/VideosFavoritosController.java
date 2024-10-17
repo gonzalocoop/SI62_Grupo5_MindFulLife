@@ -23,7 +23,7 @@ public class VideosFavoritosController {
     private IVideosFavoritosService fS;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void registrar(@RequestBody VideosFavoritosDTO dto){
         ModelMapper m = new ModelMapper();
         VideosFavoritos f = m.map(dto, VideosFavoritos.class);
@@ -41,14 +41,14 @@ public class VideosFavoritosController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void eliminar(@PathVariable("id") Integer id){
 
         fS.delete(id);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public VideosFavoritosDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         VideosFavoritosDTO dto=m.map(fS.listId(id),VideosFavoritosDTO.class);
@@ -56,7 +56,7 @@ public class VideosFavoritosController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void modificar(@RequestBody VideosFavoritosDTO dto){
         ModelMapper m = new ModelMapper();
         VideosFavoritos f = m.map(dto, VideosFavoritos.class);
@@ -64,7 +64,7 @@ public class VideosFavoritosController {
     }
 
     @GetMapping("/buscarusuariovideofav")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<VideosFavoritosDTO>listarPorUsuarioVideoFav(@RequestParam String u){
         return fS.findAllVideoFavByUsuario(u).stream().map(x->{
             ModelMapper m= new ModelMapper();
