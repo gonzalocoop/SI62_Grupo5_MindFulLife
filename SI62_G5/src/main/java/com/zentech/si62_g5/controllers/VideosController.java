@@ -54,7 +54,7 @@ public class VideosController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public VideosDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         VideosDTO dto=m.map(vS.listId(id),VideosDTO.class);
@@ -70,7 +70,7 @@ public class VideosController {
     }
 
     @GetMapping("/videostitulosesion")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<VideosDTO> videosTituloSesion(@RequestParam String titulo) {
         return vS.videostitulosesion(titulo).stream().map(x->{
             ModelMapper m=new ModelMapper();

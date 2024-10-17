@@ -29,7 +29,7 @@ public class CursosController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<CursosDTO> listar(){
         return cS.list().stream().map(x->{
             ModelMapper m= new ModelMapper();
@@ -53,7 +53,7 @@ public class CursosController {
     }
 
     @GetMapping ("/busquedas")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<CursosDTO> BuscarTitulo(@RequestParam String tit) {
         return cS.buscar(tit).stream().map(x -> {
             ModelMapper m = new ModelMapper();
@@ -61,7 +61,7 @@ public class CursosController {
         }).collect(Collectors.toList());
     }
     @GetMapping("/cantidadsesionescurso")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<CantSesionesCursoDTO>cantidadSesionesCurso(){
         List<String[]> lista=cS.cantSesionesCurso();
         List<CantSesionesCursoDTO>listaDTO=new ArrayList<>();
@@ -75,15 +75,14 @@ public class CursosController {
     }
 
     @GetMapping ("/maxyminwsuariocursos")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<MaxMinUsuarioCursosDTO> MaxyMinUsuarioCursos()
     {
-
         List<String[]> lista= cS.MaxyMinUsuarioCursos();
         List<MaxMinUsuarioCursosDTO> listaDTO=new ArrayList<>();
         for(String[] columna:lista){
             MaxMinUsuarioCursosDTO dto=new MaxMinUsuarioCursosDTO();
-            dto.setIdCurso(columna[0]);
+            dto.setIdCurso(Integer.parseInt(columna[0]));
             dto.setNombreCurso(columna[1]);
             dto.setNumUsuarios(Integer.parseInt(columna[2]));
             dto.setCategoria(columna[3]);
@@ -92,7 +91,7 @@ public class CursosController {
         return listaDTO;
     };
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public CursosDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         CursosDTO dto=m.map(cS.listId(id),CursosDTO.class);

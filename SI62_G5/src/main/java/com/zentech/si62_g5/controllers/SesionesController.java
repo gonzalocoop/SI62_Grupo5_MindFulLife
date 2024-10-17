@@ -60,7 +60,7 @@ public class SesionesController {
         sS.update(s);
     }
     @GetMapping ("/sesionvideoduracion")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<SesionCantidadVideoDTO> sesionVideoDuracion()
     {
 
@@ -77,7 +77,7 @@ public class SesionesController {
     };
 
     @GetMapping ("/promediovideos")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<PromedioVideosDTO> promedioDeVideos()
     {
 
@@ -94,7 +94,7 @@ public class SesionesController {
     };
 
     @GetMapping("/buscarsesionesporcurso")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<SesionesDTO>listarPorCursoSesion(@RequestParam String c){
         return sS.findAllSesionByCurso(c).stream().map(x->{
             ModelMapper m= new ModelMapper();
@@ -102,7 +102,7 @@ public class SesionesController {
         }).collect(Collectors.toList());
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public SesionesDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         SesionesDTO dto=m.map(sS.listId(id),SesionesDTO.class);
