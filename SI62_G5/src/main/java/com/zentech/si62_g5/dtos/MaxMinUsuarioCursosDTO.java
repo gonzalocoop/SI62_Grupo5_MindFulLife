@@ -1,16 +1,16 @@
 package com.zentech.si62_g5.dtos;
 
 public class MaxMinUsuarioCursosDTO {
-    private String idCurso;
+    private int idCurso;
     private String nombreCurso;
     private int numUsuarios;
     private String categoria;
 
-    public String getIdCurso() {
+    public int getIdCurso() {
         return idCurso;
     }
 
-    public void setIdCurso(String idCurso) {
+    public void setIdCurso(int idCurso) {
         this.idCurso = idCurso;
     }
 

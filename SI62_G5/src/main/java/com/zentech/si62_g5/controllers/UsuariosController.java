@@ -26,7 +26,7 @@ public class UsuariosController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void registrar(@RequestBody UsuariosDTO dto){
         ModelMapper m = new ModelMapper();
         Usuarios s= m.map(dto, Usuarios.class);
@@ -46,14 +46,14 @@ public class UsuariosController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void eliminar(@PathVariable("id") Integer id){
 
         uS.delete(id);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public UsuariosDTO listarId(@PathVariable("id") Integer id){
         ModelMapper m=new ModelMapper();
         UsuariosDTO dto=m.map(uS.listId(id),UsuariosDTO.class);
@@ -61,7 +61,7 @@ public class UsuariosController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void modificar(@RequestBody UsuariosDTO dto){
         ModelMapper m = new ModelMapper();
         Usuarios s = m.map(dto, Usuarios.class);
@@ -73,14 +73,14 @@ public class UsuariosController {
 
 
     @PutMapping("/cambiocoontraseña")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void cambiarContrasena(@RequestParam String u, @RequestParam String p){
         String encodedPassword = passwordEncoder.encode(p);
         uS.cambioPassword(u,encodedPassword);
     }
 
     @GetMapping("/comentariosusuario")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','USUARIO')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<ComentariosUsuarioDTO> comentariosUsuario(@RequestParam String u){
         List<String[]> lista= uS.comentarioUsuario(u);
         List<ComentariosUsuarioDTO> listaDTO=new ArrayList<>();
