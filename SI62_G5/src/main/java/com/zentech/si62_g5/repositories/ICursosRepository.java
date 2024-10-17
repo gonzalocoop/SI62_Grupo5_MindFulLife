@@ -36,10 +36,31 @@ public interface ICursosRepository extends JpaRepository<Cursos,Integer> {
             "               WHEN num_usuarios = (SELECT MIN(num_usuarios) FROM cursos_agrupados) THEN 'Menor'\n" +
             "           END AS categoria\n" +
             "    FROM cursos_agrupados\n" +
+            "),\n" +
+            "conteo_categorias AS (\n" +
+            "    SELECT categoria, COUNT(*) AS cantidad\n" +
+            "    FROM max_min\n" +
+            "    WHERE categoria IS NOT NULL\n" +
+            "    GROUP BY categoria\n" +
+            "),\n" +
+            "categorias_completas AS (\n" +
+            "    SELECT id_curso, titulo, num_usuarios,\n" +
+            "           CASE \n" +
+            "               WHEN categoria = 'Mayor' AND (SELECT cantidad FROM conteo_categorias WHERE categoria = 'Mayor') > 1 THEN 'Hay más de un mayor'\n" +
+            "               WHEN categoria = 'Menor' AND (SELECT cantidad FROM conteo_categorias WHERE categoria = 'Menor') > 1 THEN 'Hay más de un menor'\n" +
+            "               ELSE categoria\n" +
+            "           END AS categoria\n" +
+            "    FROM max_min\n" +
+            "    WHERE categoria IS NOT NULL\n" +
+            "\n" +
+            "    UNION ALL\n" +
+            "\n" +
+            "    SELECT NULL AS id_curso, NULL AS titulo, NULL AS num_usuarios, 'No existe un menor' AS categoria\n" +
+            "    WHERE NOT EXISTS (SELECT 1 FROM conteo_categorias WHERE categoria = 'Menor')\n" +
             ")\n" +
-            "SELECT id_curso, titulo, num_usuarios, categoria\n" +
-            "FROM max_min\n" +
-            "WHERE categoria IS NOT NULL;", nativeQuery = true)
+            "SELECT * \n" +
+            "FROM categorias_completas\n" +
+            "ORDER BY categoria, num_usuarios DESC;", nativeQuery = true)
     public List<String[]> MaxyMinUsuarioCursos();
 
 
