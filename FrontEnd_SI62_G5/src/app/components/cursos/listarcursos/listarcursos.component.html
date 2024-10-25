@@ -1,0 +1,61 @@
+<div>
+    <div><h1>Tabla De Cursos</h1></div>
+    <div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="c1">  
+           
+             <th mat-header-cell *matHeaderCellDef> Id </th>  
+           
+             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+           
+            </ng-container>
+           
+           
+           
+           
+           
+            <ng-container matColumnDef="c2">
+           
+             <th mat-header-cell *matHeaderCellDef> Titulo </th>
+           
+             <td mat-cell *matCellDef="let element"> {{element.titulo}}  </td>
+           
+            </ng-container>
+           
+           
+           
+            
+        
+           
+            <ng-container matColumnDef="c3">
+           
+             <th mat-header-cell *matHeaderCellDef> Descripcón </th>
+           
+             <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+           
+            </ng-container>
+           
+           
+           
+            
+           
+            <ng-container matColumnDef="c4">
+           
+             <th mat-header-cell *matHeaderCellDef> Duracion (Semanas) </th>
+           
+             <td mat-cell *matCellDef="let element"> {{element.duracion}} </td>
+           
+            </ng-container>
+           
+           
+           
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>  
+           
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+           </table>
+           <br>
+        
+    </div>
+</div>
