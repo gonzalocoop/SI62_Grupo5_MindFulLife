@@ -1,4 +1,15 @@
-<router-outlet></router-outlet>
+
+<mat-toolbar class="custom-toolbar" >
+  <mat-icon >menu</mat-icon>
+  <div>
+  <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >Cursos</button>
+  </div>
+ </mat-toolbar>
+ <mat-menu #menuG5="matMenu">
+  <button mat-menu-item routerLink="/cursos" >Listar</button>
+  <button mat-menu-item routerLink="/cursos/nuevo">Registrar</button>
+ </mat-menu>
 <div [hidden]="route.children.length !== 0">
   <app-listarcursos></app-listarcursos>
 </div>
+<router-outlet></router-outlet>
