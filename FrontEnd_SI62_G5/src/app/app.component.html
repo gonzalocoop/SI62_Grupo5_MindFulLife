@@ -1,2 +1,14 @@
-<app-cursos></app-cursos>
-<app-video-player></app-video-player>
+<mat-toolbar class="custom-toolbar" >
+    <mat-icon >menu</mat-icon>
+    <div>
+    <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >Sección</button>
+    </div>
+   </mat-toolbar>
+   <mat-menu #menuG5="matMenu">
+    <button mat-menu-item routerLink="/landing" >Salir a Landing Page</button>
+    <button mat-menu-item routerLink="/video" >VideoPrueba</button>
+    <button mat-menu-item routerLink="/cursos" >Cursos</button>
+    <button mat-menu-item routerLink="/roles">Roles</button>
+    <button mat-menu-item routerLink="/suscripciones">Suscripciones</button>
+   </mat-menu>
+   <router-outlet></router-outlet>
