@@ -1,33 +1,37 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Cursos } from '../models/Cursos';
 import { Subject } from 'rxjs';
+import { Suscripciones } from '../models/Suscripciones';
 
 const base_url=environment.base
 
 @Injectable({
   providedIn: 'root'
 })
-export class CursosService {
-  private url=`${base_url}/cursos`
-  private listaCambio=new Subject<Cursos[]>()
+export class SuscripcionService {
+
+  private url=`${base_url}/suscripciones`
+  private listaCambio=new Subject<Suscripciones[]>()
   constructor(private http:HttpClient) { }
 
+  
+ 
+
   list(){
-    return this.http.get<Cursos[]>(this.url)
+    return this.http.get<Suscripciones[]>(this.url)
   }
 
   //insert, get y set para el registrar
-  insert(cu:Cursos){
-    return this.http.post(this.url,cu);
+  insert(sus:Suscripciones){
+    return this.http.post(this.url,sus);
   }
   //get y set
   getList(){
     return this.listaCambio.asObservable();
   }
 
-  setList(listaNueva:Cursos[]){
+  setList(listaNueva:Suscripciones[]){
     this.listaCambio.next(listaNueva); 
   }
 
@@ -36,9 +40,9 @@ export class CursosService {
   }
 
   listId(id:number){
-    return this.http.get<Cursos>(`${this.url}/${id}`)
+    return this.http.get<Suscripciones>(`${this.url}/${id}`)
   }
-  update(d:Cursos){
+  update(d:Suscripciones){
     return this.http.put(this.url,d)
   }
 
