@@ -106,7 +106,23 @@ section {
     align-items: center;
     text-align: center;
 }
+.precio {
+    display: flex;
+    align-items: baseline;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
 
+.precio .valor {
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-right: 0.5rem;
+}
+
+.precio .extra {
+    font-size: 1rem;
+    color: #555;
+}
 .card.contacto{
     height:18vw;
 }
