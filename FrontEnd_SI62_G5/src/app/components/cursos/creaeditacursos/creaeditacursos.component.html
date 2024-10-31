@@ -21,6 +21,9 @@
         <mat-error *ngIf="form.controls['htitulo'].hasError('maxlength') && form.controls['htitulo'].touched">
           Máximo 35 caracteres
         </mat-error>
+        <mat-error *ngIf="form.controls['htitulo'].hasError('tituloRepetido') && form.controls['htitulo'].touched">
+          El título ya existe. Por favor, elige uno diferente
+        </mat-error>
       </mat-form-field>
 
       <br>

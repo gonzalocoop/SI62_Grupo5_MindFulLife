@@ -11,6 +11,7 @@ import { SuscripcionesComponent } from './components/suscripciones/suscripciones
 import { CreaeditasuscripcionesComponent } from './components/suscripciones/creaeditasuscripciones/creaeditasuscripciones.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { CreaeditarolesComponent } from './components/roles/creaeditaroles/creaeditaroles.component';
+import { VerdescripcionComponent } from './components/cursos/verdescripcion/verdescripcion.component';
 
 export const routes: Routes = [
     {
@@ -43,6 +44,9 @@ export const routes: Routes = [
             },
             {
                 path:'ediciones/:id',component:CreaeditacursosComponent
+            },
+            {
+                path:'descripciones/:id',component:VerdescripcionComponent
             }
         ]
     },
