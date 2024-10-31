@@ -10,7 +10,7 @@ import {provideNativeDateAdapter, setLines} from '@angular/material/core';
 //para el uso de boton
 import {MatButtonModule} from '@angular/material/button';
 //form builder -> validacion de campos, FormGroup -> para los grupos, ReactiveFormsModule -> para trabajar con el formulario y que reconzoca sus elementos, Validator ->para la validacion
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 //Para el model y el service
 
 //Para rutear a otro componente
@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common';  // Asegúrate de importar Commo
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Cursos } from '../../../models/Cursos';
 import { CursosService } from '../../../services/cursos.service';
+import { map, Observable, of, startWith } from 'rxjs';
 
 
 // Define el nuevo formato de fecha DD/MM/YYYY
@@ -74,9 +75,10 @@ export class CreaeditacursosComponent {
       hdescripcion:['',Validators.required],
       hduracion: ['',[Validators.required, Validators.pattern('^[0-9]{1,2}$')]
     ]
-
-      
     })
+    // Asigna el validador asíncrono al control del título
+    this.form.get('htitulo')?.setAsyncValidators(this.tituloRepetido.bind(this));
+    this.form.get('htitulo')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
   }
   aceptar(){
     if(this.form.valid){
@@ -122,7 +124,30 @@ export class CreaeditacursosComponent {
           hduracion: new FormControl(data.duracion,[Validators.required, Validators.pattern('^[0-9]{1,2}$')]
         )
         })
+        // Agrega el validador asíncrono después de la creación
+        this.form.get('htitulo')?.setAsyncValidators(this.tituloRepetido.bind(this)); // Asigna el validador asíncrono al campo del título
+        this.form.get('htitulo')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
       })
     }
+  }
+
+
+  tituloRepetido(control: AbstractControl): Observable<ValidationErrors | null> {
+    // Verifica si el valor del control está vacío; si es así, no hay error, retorna null
+    if (!control.value) {
+      return of(null); // Si el campo está vacío, se considera válido
+    }
+  
+    // Llama al servicio para obtener la lista de cursos
+    return this.dS.list().pipe(
+      // Utiliza el operador map para transformar la respuesta
+      map(cursos => {
+        // Verifica si alguno de los cursos tiene el mismo título que el control
+        const existe = cursos.some(curso => curso.titulo === control.value);
+        
+        // Si el título existe, retorna un objeto de error; de lo contrario, retorna null
+        return existe ? { tituloRepetido: true } : null; // Indica que el título ya está en uso
+      })
+    );
   }
 }
