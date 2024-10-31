@@ -55,7 +55,7 @@ export class CreaeditarolesComponent {
 
     this.form = this.formBuilder.group({
       hcodigo: [''],
-      hnombre: ['', Validators.required],
+      hnombre: ['', [Validators.required, Validators.maxLength(20)]],
     });
   }
 
@@ -92,7 +92,7 @@ export class CreaeditarolesComponent {
         this.form.markAllAsTouched();
           this.form=new FormGroup({
             hcodigo: new FormControl(data.id, Validators.required),
-            hnombre: new FormControl(data.nombre, Validators.required),
+            hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(35)]),
           })
       })
     }
