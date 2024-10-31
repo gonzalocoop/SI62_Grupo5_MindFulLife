@@ -11,15 +11,13 @@
 
 
             <mat-form-field class="example-full-width">
-                <mat-label>Nombre</mat-label>
-
-                <mat-select  formControlName="hnombre">
-                    @for (m of listaPlanes; track m) {
-                    <mat-option [value]="m.value">{{ m.viewValue }}</mat-option>
-                    }
-                  </mat-select>
-
-              </mat-form-field>
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="Nombre" formControlName="hnombre">
+              <!-- Mostrar mensaje de error si el campo no es válido -->
+              <mat-error *ngIf="form.controls['hnombre'].invalid && form.controls['hnombre'].touched">
+                Llenar campo titulo correctamente
+              </mat-error>
+            </mat-form-field>
             <br>
               <mat-form-field class="example-full-width">
                 <mat-label>Precio</mat-label>
