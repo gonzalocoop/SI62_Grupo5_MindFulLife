@@ -70,9 +70,11 @@ export class CreaeditacursosComponent {
 
     this.form=this.formBuilder.group({
       hcodigo:[''], //para el modificar
-      htitulo:['',Validators.required],
+      htitulo: ['', [Validators.required, Validators.maxLength(35)]],
       hdescripcion:['',Validators.required],
-      hduracion:['',[Validators.required, Validators.pattern('^[0-9]*$')]]
+      hduracion: ['',[Validators.required, Validators.pattern('^[0-9]{1,2}$')]
+    ]
+
       
     })
   }
@@ -115,9 +117,10 @@ export class CreaeditacursosComponent {
       this.form.markAllAsTouched();
         this.form=new FormGroup({
           hcodigo:new FormControl(data.id, Validators.required),
-          htitulo:new FormControl(data.titulo, Validators.required),
+          htitulo: new FormControl(data.titulo, [Validators.required, Validators.maxLength(35)]),
           hdescripcion:new FormControl(data.descripcion, Validators.required),
-          hduracion:new FormControl(data.duracion, [Validators.required, Validators.pattern('^[0-9]*$')])
+          hduracion: new FormControl(data.duracion,[Validators.required, Validators.pattern('^[0-9]{1,2}$')]
+        )
         })
       })
     }

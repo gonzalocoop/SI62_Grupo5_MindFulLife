@@ -26,11 +26,6 @@ export class CreaeditasuscripcionesComponent {
   id:number=0
   edicion:boolean=false
 
-  listaPlanes: { value: string; viewValue: string }[] = [
-    { value: 'Free', viewValue: 'Free' },
-    { value: 'Premiun', viewValue: 'Premiun' },
-  ];
-
 
   constructor(private formBuilder:FormBuilder,private dS:SuscripcionService, private router:Router, private route:ActivatedRoute){}
   ngOnInit(): void {
@@ -44,8 +39,8 @@ export class CreaeditasuscripcionesComponent {
 
     this.form = this.formBuilder.group({
       hcodigo: [''], // para el modificar
-      hnombre: ['', Validators.required],
-      hprecio: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+      hnombre: ['', [Validators.required, Validators.maxLength(20)]],
+      hprecio: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]]
     });
     
   
@@ -89,8 +84,8 @@ export class CreaeditasuscripcionesComponent {
       this.form.markAllAsTouched();
         this.form=new FormGroup({
           hcodigo:new FormControl(data.id, Validators.required),
-          hnombre:new FormControl(data.nombre, Validators.required),
-          hprecio:new FormControl(data.precio, [Validators.required, Validators.pattern('^[0-9]*$')])
+          hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(20)]),
+          hprecio: new FormControl(data.precio, [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')])
          
         })
       })
