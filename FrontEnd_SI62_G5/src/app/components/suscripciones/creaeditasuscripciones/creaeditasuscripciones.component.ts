@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Suscripciones } from '../../../models/Suscripciones';
 import { SuscripcionService } from '../../../services/suscripcion.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-creaeditasuscripciones',
@@ -39,10 +40,12 @@ export class CreaeditasuscripcionesComponent {
 
     this.form = this.formBuilder.group({
       hcodigo: [''], // para el modificar
-      hnombre: ['', Validators.required],
-      hprecio: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]]
+      hnombre: ['', [Validators.required, Validators.maxLength(20)]],
+      hprecio: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)]]
     });
-    
+    // Agrega el validador asíncrono después de la creación
+    this.form.get('hnombre')?.setAsyncValidators(this.tituloRepetido.bind(this)); // Asigna el validador asíncrono al campo del título
+    this.form.get('hnombre')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
   
   }
   aceptar(){
@@ -84,12 +87,34 @@ export class CreaeditasuscripcionesComponent {
       this.form.markAllAsTouched();
         this.form=new FormGroup({
           hcodigo:new FormControl(data.id, Validators.required),
-          hnombre:new FormControl(data.nombre, Validators.required),
-          hprecio: new FormControl(data.precio, [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')])
+          hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(20)]),
+          hprecio: new FormControl(data.precio, [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)])
          
         })
+        // Agrega el validador asíncrono después de la creación
+        this.form.get('hnombre')?.setAsyncValidators(this.tituloRepetido.bind(this)); // Asigna el validador asíncrono al campo del título
+        this.form.get('hnombre')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
       })
     }
   }
 
+
+  tituloRepetido(control: AbstractControl): Observable<ValidationErrors | null> {
+    // Verifica si el valor del control está vacío; si es así, no hay error, retorna null
+    if (!control.value) {
+      return of(null); // Si el campo está vacío, se considera válido
+    }
+  
+    // Llama al servicio para obtener la lista de cursos
+    return this.dS.list().pipe(
+      // Utiliza el operador map para transformar la respuesta
+      map(suscripciones => {
+        // Verifica si alguno de los cursos tiene el mismo título que el control
+        const existe = suscripciones.some(suscripcion => suscripcion.nombre === control.value);
+        
+        // Si el título existe, retorna un objeto de error; de lo contrario, retorna null
+        return existe ? { tituloRepetido: true } : null; // Indica que el título ya está en uso
+      })
+    );
+  }
 }

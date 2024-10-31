@@ -13,39 +13,26 @@ h1 {
     margin-bottom: 20px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.curso-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrar las tarjetas */
+    gap: 16px; /* Espaciado entre las tarjetas */
 }
 
-th {
-    background-color: #0d47a1; 
-    color: rgb(0, 0, 0); 
-    font-weight: bold;
-    padding: 12px;
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
-    border-bottom: 3px solid #1565c0; 
+.curso-card {
+    width: calc(33% - 16px); /* Ajustar el ancho de las tarjetas */
 }
 
-td {
-    padding: 12px;
-    color: #424242; 
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-    border-bottom: 1px solid #1565c0; 
+.curso-card__content {
+    background-color: white; /* Fondo blanco para las tarjetas */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
-tr:nth-child(even) {
-    background-color: #bbdefb; 
-}
-
-tr:nth-child(odd) {
-    background-color: #e3f2fd; 
-}
-
-tr:hover {
-    background-color: #90caf9;
-    cursor: pointer;
+.curso-card-header {
+    background-color: #b7d0f5 !important; /* Fondo celeste para el encabezado */
+    border-top-left-radius: 8px; /* Bordes redondeados */
+    border-top-right-radius: 8px; /* Bordes redondeados */
+    padding: 16px; /* Espaciado interno */
 }
