@@ -14,9 +14,13 @@
               <mat-label>Nombre</mat-label>
               <input matInput placeholder="Nombre" formControlName="hnombre">
               <!-- Mostrar mensaje de error si el campo no es válido -->
+              <mat-error *ngIf="form.controls['hnombre'].hasError('maxLength') && form.controls['hnombre'].touched">
+                Máximo 20 caracteres
+              </mat-error>
               <mat-error *ngIf="form.controls['hnombre'].invalid && form.controls['hnombre'].touched">
                 Llenar campo titulo correctamente
               </mat-error>
+          
             </mat-form-field>
             <br>
               <mat-form-field class="example-full-width">
@@ -28,7 +32,7 @@
                 </mat-error>
                 <!-- Mostrar mensaje de error si no es un número -->
                 <mat-error *ngIf="form.controls['hprecio'].hasError('pattern') && form.controls['hprecio'].touched">
-                    Solo se permiten números
+                    Solo se permiten decimales positivos
                 </mat-error>
               </mat-form-field>
               <div class>

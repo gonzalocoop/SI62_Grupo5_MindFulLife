@@ -16,6 +16,9 @@
                 <mat-error *ngIf="form.controls['hnombre'].invalid && form.controls['hnombre'].touched">
                   Llenar campo nombre correctamente
                 </mat-error>
+                <mat-error *ngIf="form.controls['hnombre'].hasError('maxlength') && form.controls['hnombre'].touched">
+                  Máximo 20 caracteres
+                </mat-error>
               </mat-form-field>
             <br>
               <div class>
