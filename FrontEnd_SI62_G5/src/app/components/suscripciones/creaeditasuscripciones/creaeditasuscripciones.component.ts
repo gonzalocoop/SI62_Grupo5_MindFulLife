@@ -40,12 +40,10 @@ export class CreaeditasuscripcionesComponent {
 
     this.form = this.formBuilder.group({
       hcodigo: [''], // para el modificar
-      hnombre: ['', [Validators.required, Validators.maxLength(20)]],
+      hnombre: ['', [Validators.required, Validators.maxLength(20)], [this.tituloRepetido.bind(this)]],
       hprecio: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)]]
     });
-    // Agrega el validador asíncrono después de la creación
-    this.form.get('hnombre')?.setAsyncValidators(this.tituloRepetido.bind(this)); // Asigna el validador asíncrono al campo del título
-    this.form.get('hnombre')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
+    
   
   }
   aceptar(){
@@ -87,34 +85,29 @@ export class CreaeditasuscripcionesComponent {
       this.form.markAllAsTouched();
         this.form=new FormGroup({
           hcodigo:new FormControl(data.id, Validators.required),
-          hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(20)]),
+          hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(20)], [this.tituloRepetido.bind(this)]),
           hprecio: new FormControl(data.precio, [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)])
          
         })
-        // Agrega el validador asíncrono después de la creación
-        this.form.get('hnombre')?.setAsyncValidators(this.tituloRepetido.bind(this)); // Asigna el validador asíncrono al campo del título
-        this.form.get('hnombre')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
+        
       })
     }
   }
 
 
   tituloRepetido(control: AbstractControl): Observable<ValidationErrors | null> {
-    // Verifica si el valor del control está vacío; si es así, no hay error, retorna null
+    // Si el campo está vacío, se considera válido
     if (!control.value) {
-      return of(null); // Si el campo está vacío, se considera válido
+        return of(null); // Retorna válido si el campo está vacío
     }
-  
-    // Llama al servicio para obtener la lista de cursos
+
+    // Llama a la lista de cursos y verifica si hay títulos repetidos
     return this.dS.list().pipe(
-      // Utiliza el operador map para transformar la respuesta
-      map(suscripciones => {
-        // Verifica si alguno de los cursos tiene el mismo título que el control
-        const existe = suscripciones.some(suscripcion => suscripcion.nombre === control.value);
-        
-        // Si el título existe, retorna un objeto de error; de lo contrario, retorna null
-        return existe ? { tituloRepetido: true } : null; // Indica que el título ya está en uso
-      })
+        map(suscripciones => {
+            // Compara títulos y excluye el curso en edición usando this.id
+            const existe = suscripciones.some(suscripcion => suscripcion.nombre === control.value && suscripcion.id != this.id);
+            return existe ? { tituloRepetido: true } : null;
+        })
     );
-  }
+}
 }
