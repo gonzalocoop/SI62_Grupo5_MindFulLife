@@ -11,8 +11,8 @@
 
             <mat-form-field class="example-full-width">
                 <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Nombre" formControlName="hnombre">
-                <mat-hint>Todo se guardara en mayus</mat-hint>
+                <input matInput placeholder="Nombre del rol" formControlName="hnombre">
+                <mat-hint>Todo se guardará en mayus</mat-hint>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hnombre'].invalid && form.controls['hnombre'].touched">
                   Llenar campo nombre correctamente
