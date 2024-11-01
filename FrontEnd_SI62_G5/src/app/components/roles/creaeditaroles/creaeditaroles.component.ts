@@ -57,11 +57,9 @@ export class CreaeditarolesComponent {
 
     this.form = this.formBuilder.group({
       hcodigo: [''],
-      hnombre: ['', [Validators.required, Validators.maxLength(20)]],
+      hnombre: ['', [Validators.required, Validators.maxLength(20)],[this.tituloRepetido.bind(this)]],
     });
-    // Agrega el validador asíncrono después de la creación
-    this.form.get('hnombre')?.setAsyncValidators(this.tituloRepetido.bind(this)); // Asigna el validador asíncrono al campo del título
-    this.form.get('hnombre')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
+    
   }
 
   aceptar() {
@@ -101,32 +99,28 @@ export class CreaeditarolesComponent {
         this.form.markAllAsTouched();
           this.form=new FormGroup({
             hcodigo: new FormControl(data.id, Validators.required),
-            hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(20)]),
+            hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(20)],[this.tituloRepetido.bind(this)]),
           })
-          // Agrega el validador asíncrono después de la creación
-          this.form.get('hnombre')?.setAsyncValidators(this.tituloRepetido.bind(this)); // Asigna el validador asíncrono al campo del título
-          this.form.get('hnombre')?.updateValueAndValidity(); // Asegúrate de que el valor y la validez se actualicen
+         
       })
     }
   }
 
   tituloRepetido(control: AbstractControl): Observable<ValidationErrors | null> {
-    // Verifica si el valor del control está vacío; si es así, no hay error, retorna null
+    // Si el campo está vacío, se considera válido
     if (!control.value) {
-        return of(null); // Si el campo está vacío, se considera válido
+        return of(null); // Retorna válido si el campo está vacío
     }
 
-    // Llama al servicio para obtener la lista de roles
+    // Llama a la lista de cursos y verifica si hay títulos repetidos
     return this.dS.list().pipe(
-        // Utiliza el operador map para transformar la respuesta
         map(roles => {
-            // Verifica si alguno de los roles tiene el mismo nombre que el control
-            // Convertimos ambos a minúsculas para una comparación insensible a mayúsculas/minúsculas
-            const existe = roles.some(rol => rol.nombre.toLowerCase() === control.value.toLowerCase());
-
-            // Si el título existe, retorna un objeto de error; de lo contrario, retorna null
-            return existe ? { tituloRepetido: true } : null; // Indica que el título ya está en uso
+            // Compara títulos sin considerar mayúsculas y minúsculas
+            const existe = roles.some(rol => 
+                rol.nombre.toLowerCase() === control.value.toLowerCase() && rol.id != this.id
+            );
+            return existe ? { tituloRepetido: true } : null;
         })
     );
-  }
+}
 }
