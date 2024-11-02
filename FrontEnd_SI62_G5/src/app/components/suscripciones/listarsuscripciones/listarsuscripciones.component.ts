@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { Suscripciones } from '../../../models/Suscripciones';
 import { SuscripcionService } from '../../../services/suscripcion.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-listarsuscripciones',
@@ -14,9 +15,10 @@ import { SuscripcionService } from '../../../services/suscripcion.service';
   templateUrl: './listarsuscripciones.component.html',
   styleUrl: './listarsuscripciones.component.css'
 })
-export class ListarsuscripcionesComponent {
+export class ListarsuscripcionesComponent implements OnInit{
 
   dataSource: MatTableDataSource<Suscripciones> = new MatTableDataSource();
+  mensaje:string="";
   displayedColumns:string[]=['c1','c2','c3','accion01','accion02'] //para indicar que es un conjunto o arreglo
   @ViewChild(MatPaginator) paginator!: MatPaginator;  // Referencia al paginator
   //ngOnInit: El segundo metodo en ejecutarse, luego del constructor, segun angular . material
@@ -39,10 +41,22 @@ export class ListarsuscripcionesComponent {
   }
 
   eliminar(id:number){
-    this.sS.delete(id).subscribe((data)=>{ //Despues de eliminar, me devuelve la data con el elemento ya eliminado, se usa subscribe en las funciones que tienen un return
+    this.sS.delete(id).pipe(
+      catchError((error)=>{
+        this.mensaje='No se puede eliminar, tiene usuarios registrados en esta suscripcion';
+        this.ocultarMensaje()
+        return of(null);
+      })
+    ).subscribe((data)=>{
       this.sS.list().subscribe((data)=>{
         this.sS.setList(data);
-      })
-    })
+      });
+    });
+  }
+  
+  ocultarMensaje(){
+    setTimeout(()=>{
+      this.mensaje='';
+    }, 3000);
   }
 }

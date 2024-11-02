@@ -36,7 +36,7 @@
                 </mat-error>
                 <!-- Mostrar mensaje de error si no es un número -->
                 <mat-error *ngIf="form.controls['hprecio'].hasError('pattern') && form.controls['hprecio'].touched">
-                    Solo se permiten decimales positivos
+                    Solo se permiten decimales positivos de dos decimales
                 </mat-error>
                 <mat-error *ngIf="form.controls['hprecio'].hasError('maxlength') && form.controls['hprecio'].touched">
                   Máximo 6 caracateres 
