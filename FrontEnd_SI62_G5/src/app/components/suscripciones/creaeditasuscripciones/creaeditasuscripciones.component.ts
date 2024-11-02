@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,12 +13,11 @@ import { map, Observable, of } from 'rxjs';
 @Component({
   selector: 'app-creaeditasuscripciones',
   standalone: true,
-  providers:[provideNativeDateAdapter(),{provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
-  imports: [MatFormFieldModule,MatInputModule, MatSelectModule,MatDatepickerModule,MatButtonModule,ReactiveFormsModule,CommonModule],
+  imports: [MatFormFieldModule,MatInputModule, MatSelectModule,MatButtonModule,ReactiveFormsModule,CommonModule],
   templateUrl: './creaeditasuscripciones.component.html',
   styleUrl: './creaeditasuscripciones.component.css'
 })
-export class CreaeditasuscripcionesComponent {
+export class CreaeditasuscripcionesComponent implements OnInit{
   form:FormGroup= new FormGroup({})
   suscripciones:Suscripciones=new Suscripciones()
   //variables para trabajar el editar

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { Cursos } from '../../../models/Cursos';
 import { CursosService } from '../../../services/cursos.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-listarcursos',
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
   templateUrl: './listarcursos.component.html',
   styleUrls: ['./listarcursos.component.css']
 })
-export class ListarcursosComponent implements OnInit, AfterViewInit {
+export class ListarcursosComponent implements OnInit {
+  mensaje:string="";
   cursos: Cursos[] = []; // Arreglo que contiene todos los cursos
   pagedCursos: Cursos[] = []; // Cursos de la página actual para mostrar en las tarjetas
   
@@ -51,14 +53,20 @@ export class ListarcursosComponent implements OnInit, AfterViewInit {
       const endIndex = startIndex + this.paginator.pageSize; // Calcular índice final
       this.pagedCursos = this.cursos.slice(startIndex, endIndex); // Extraer cursos paginados
     } else {
-      // Si el paginador no está disponible, mostrar todos los cursos
-      this.pagedCursos = this.cursos; 
+      // Mostrar los primeros 10 cursos si el paginador no está disponible
+      this.pagedCursos = this.cursos.slice(0, 10);
     }
   }
 
   // Llama al servicio para eliminar un curso por ID y actualiza la lista de cursos y la vista de la página actual
   eliminar(id: number): void {
-    this.cS.delete(id).subscribe(() => {
+    this.cS.delete(id).pipe(
+      catchError((error)=>{
+        this.mensaje='No se puede eliminar, tiene usuarios registrados en esta suscripcion';
+        this.ocultarMensaje()
+        return of(null);
+      })
+    ).subscribe(() => {
       // Actualizar la lista después de la eliminación
       this.cS.list().subscribe(data => {
         this.cursos = data;
@@ -68,5 +76,10 @@ export class ListarcursosComponent implements OnInit, AfterViewInit {
         this.paginator.length = this.cursos.length; // Actualizar la longitud del paginador
       });
     });
+  }
+  ocultarMensaje(){
+    setTimeout(()=>{
+      this.mensaje='';
+    }, 3000);
   }
 }

@@ -21,5 +21,5 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './cursos.component.css',
 })
 export class CursosComponent {
-  constructor(public route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute) {}//Para usar el children
 }

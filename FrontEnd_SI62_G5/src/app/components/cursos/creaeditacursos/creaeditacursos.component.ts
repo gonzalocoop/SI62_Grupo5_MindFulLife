@@ -4,52 +4,33 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 //para el combo box
 import {MatSelectModule} from '@angular/material/select';
-//para el input de fecha
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {provideNativeDateAdapter, setLines} from '@angular/material/core';
+
 //para el uso de boton
 import {MatButtonModule} from '@angular/material/button';
 //form builder -> validacion de campos, FormGroup -> para los grupos, ReactiveFormsModule -> para trabajar con el formulario y que reconzoca sus elementos, Validator ->para la validacion
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-//Para el model y el service
 
 //Para rutear a otro componente
 import { ActivatedRoute, Params, Router } from '@angular/router';
 //para el if que se usa en errores en este caso
 import { CommonModule } from '@angular/common';  // Asegúrate de importar CommonModule
-//Para adaptar la fecha
-import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+//Para el model y el service
 import { Cursos } from '../../../models/Cursos';
 import { CursosService } from '../../../services/cursos.service';
 import { map, Observable, of, startWith } from 'rxjs';
 
 
-// Define el nuevo formato de fecha DD/MM/YYYY
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MM YYYY',
-    dateA11yLabel: 'DD/MM/YYYY',
-    monthYearA11yLabel: 'MM YYYY',
-  },
-};
+
 
 @Component({
   selector: 'app-creaeditacursos',
   standalone: true,
-  providers:[
-    provideNativeDateAdapter(),  // Mantén el proveedor de adaptador de fechas nativo
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },  // Establece el idioma a español
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS } // Define el formato de fecha DD/MM/YYYY
-  ],
-  imports: [MatFormFieldModule,MatInputModule, MatSelectModule,MatDatepickerModule,MatButtonModule,ReactiveFormsModule,CommonModule],
+  imports: [MatFormFieldModule,MatInputModule, MatSelectModule,MatButtonModule,ReactiveFormsModule,CommonModule],
   templateUrl: './creaeditacursos.component.html',
   styleUrl: './creaeditacursos.component.css'
 })
-export class CreaeditacursosComponent {
+export class CreaeditacursosComponent implements OnInit{
   form:FormGroup= new FormGroup({})
   curso:Cursos=new Cursos()
   //variables para trabajar el editar
@@ -82,7 +63,6 @@ export class CreaeditacursosComponent {
     if(this.form.valid){
       //Para el modificar
       this.curso.id=this.form.value.hcodigo;
-
       this.curso.titulo=this.form.value.htitulo;
       this.curso.descripcion=this.form.value.hdescripcion;
       this.curso.duracion=this.form.value.hduracion;
