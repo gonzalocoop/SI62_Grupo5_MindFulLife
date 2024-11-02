@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -34,7 +34,7 @@ import { from, map, Observable, of } from 'rxjs';
   templateUrl: './creaeditaroles.component.html',
   styleUrl: './creaeditaroles.component.css',
 })
-export class CreaeditarolesComponent {
+export class CreaeditarolesComponent implements OnInit{
   form: FormGroup = new FormGroup({});
   rol: Roles = new Roles();
 

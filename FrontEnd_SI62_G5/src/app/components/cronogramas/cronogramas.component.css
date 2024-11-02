@@ -1,0 +1,21 @@
+.custom-toolbar {
+
+    background-color: #9fc5ff; 
+  
+    color: white; 
+  
+   }
+  
+  
+  
+   .custom-menu-item {  
+  
+    color: white; 
+  
+    &:hover {
+  
+     color: rgb(99, 12, 12); 
+  
+    }
+  
+   }
