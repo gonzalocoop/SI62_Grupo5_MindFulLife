@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { Roles } from '../../../models/Roles';
 import { RolesService } from '../../../services/roles.service';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-listarroles',
@@ -14,8 +15,9 @@ import { RolesService } from '../../../services/roles.service';
   templateUrl: './listarroles.component.html',
   styleUrl: './listarroles.component.css'
 })
-export class ListarrolesComponent {
+export class ListarrolesComponent implements OnInit {
   dataSource: MatTableDataSource<Roles>= new MatTableDataSource();
+  mensaje:string="";
   displayedColumns:string[]=['c1','c2', 'accion01', 'accion02']
   @ViewChild(MatPaginator) paginator!:MatPaginator;
 
@@ -38,10 +40,22 @@ ngAfterViewInit(): void {
 }
 
 eliminar(id:number){
-  this.cS.delete(id).subscribe((data)=>{ //Despues de eliminar, me devuelve la data con el elemento ya eliminado, se usa subscribe en las funciones que tienen un return
+  this.cS.delete(id).pipe(
+    catchError((error)=>{
+      this.mensaje='No se puede eliminar, tiene usuarios registrados';
+      this.ocultarMensaje()
+      return of(null);
+    })
+  ).subscribe((data)=>{
     this.cS.list().subscribe((data)=>{
       this.cS.setList(data);
-    })
-  })
+    });
+  });
+}
+
+ocultarMensaje(){
+  setTimeout(()=>{
+    this.mensaje='';
+  }, 3000);
 }
 }

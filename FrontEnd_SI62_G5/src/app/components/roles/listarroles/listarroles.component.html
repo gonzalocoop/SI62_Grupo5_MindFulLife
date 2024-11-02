@@ -49,6 +49,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             
            </table>
+           <div *ngIf="mensaje" style="color: red;">{{ mensaje }}</div>
            <br>
            <!-- Paginator -->
            <mat-paginator [length]="dataSource.data.length"
