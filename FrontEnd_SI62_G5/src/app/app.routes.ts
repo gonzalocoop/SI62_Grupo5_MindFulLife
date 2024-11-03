@@ -30,6 +30,8 @@ import { ComentariosComponent } from './components/comentarios/comentarios.compo
 import { CreaeditacomentariosComponent } from './components/comentarios/creaeditacomentarios/creaeditacomentarios.component';
 import { VerdescripcionsesComponent } from './components/sesiones/verdescripcionses/verdescripcionses.component';
 import { VercomentarioComponent } from './components/comentarios/vercomentario/vercomentario.component';
+import { VercursosComponent } from './components/cursosusuarios/vercursos/vercursos.component';
+import { IniciosesionComponent } from './components/iniciosesion/iniciosesion.component';
 
 export const routes: Routes = [
     {
@@ -145,6 +147,9 @@ export const routes: Routes = [
             },
             {
                 path:'ediciones/:id',component:CreaeditacursosusuariosComponent
+            },
+            {
+                path:'vercursos/:id',component:VercursosComponent
             }
         ]
     },
@@ -186,6 +191,9 @@ export const routes: Routes = [
     },
     {
         path:'video',component:VideoPlayerComponent,
+    },
+    {
+        path:'iniciosesion',component:IniciosesionComponent,
     }
     
 ];
