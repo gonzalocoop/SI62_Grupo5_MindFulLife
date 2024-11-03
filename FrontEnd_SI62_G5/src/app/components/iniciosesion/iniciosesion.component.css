@@ -1,0 +1,90 @@
+/* Estilo general */
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f2f6fc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative; /* Para posicionar el rectángulo */
+  overflow: hidden;
+}
+
+/* Rectángulo celeste en la parte superior */
+.header-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #a3d2f7; /* Color celeste */
+  z-index: 1; /* Para asegurarse de que esté encima */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+h1 {
+  color: #2a71d0;
+  font-size: 24px;
+  margin-bottom: 20px;
+  margin-top: 60px; /* Separar el contenido del rectángulo */
+  position: relative;
+  z-index: 2; /* Para asegurar que el título esté encima del rectángulo */
+}
+
+.example-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Estilos para los campos de formulario */
+mat-form-field {
+  width: 100%;
+}
+
+mat-label {
+  color: #2a71d0;
+  font-weight: bold;
+}
+
+.mat-select, mat-select::placeholder {
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #2a71d0;
+}
+
+.mat-form-field-underline {
+  background-color: #2a71d0;
+}
+
+.mat-form-field-ripple {
+  background-color: #2a71d0;
+}
+
+/* Botón de aceptar */
+button[mat-flat-button] {
+  background-color: #2a71d0;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button[mat-flat-button]:hover {
+  background-color: #1d4f91;
+}
+
+
+.error-message {
+  color: red; /* Color rojo para el texto */
+  margin-top: 10px; /* Espacio superior para separación */
+  font-weight: bold; /* Opcional: texto en negrita */
+}
