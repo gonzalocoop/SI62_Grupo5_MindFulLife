@@ -51,5 +51,14 @@ public class CursoUsuarioServiceImplement implements ICursoUsuarioService {
         return cuR.findById(id).orElse(new CursosUsuarios());
     }
 
+    @Override
+    public void registrarUsuarioEnCurso(int idCurso, int idUsuario) {
+        if (cuR.existeRegistro(idUsuario, idCurso)) {
+            // Lanza una excepción si ya existe el registro
+            throw new IllegalArgumentException("Usted ya está registrado en este curso");
+        } else {
+            cuR.registrarCurso(idCurso, idUsuario);
 
+        }
+    }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Videos } from '../models/Videos';
 
@@ -42,5 +42,14 @@ export class VideosService {
   }
   update(d:Videos){
     return this.http.put(this.url,d)
+  }
+
+
+  // Función para buscar sesiones por título
+  listPorSesion(titulo: string): Observable<any> {
+    // Asegúrate de codificar el título para que sea seguro para la URL
+    const encodedTitulo = encodeURIComponent(titulo);
+    const urll = `${this.url}/videostitulosesion?titulo=${encodedTitulo}`;
+    return this.http.get(urll);
   }
 }

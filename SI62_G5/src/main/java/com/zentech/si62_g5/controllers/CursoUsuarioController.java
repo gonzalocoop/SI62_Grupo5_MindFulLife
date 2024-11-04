@@ -5,6 +5,8 @@ import com.zentech.si62_g5.entities.CursosUsuarios;
 import com.zentech.si62_g5.serviceinterfaces.ICursoUsuarioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,5 +89,21 @@ public class CursoUsuarioController {
         ModelMapper m=new ModelMapper();
         CursoUsuarioDTO dto=m.map(cuS.listId(id),CursoUsuarioDTO.class);
         return dto;
+    }
+
+    @PostMapping("/registrarcurso")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public ResponseEntity<MensajeDTO> registrarUsuarioEnCurso(@RequestParam int idCurso, @RequestParam int idUsuario) {
+        try {
+            cuS.registrarUsuarioEnCurso(idCurso, idUsuario);
+            MensajeDTO dto = new MensajeDTO();
+            dto.setMensaje("Curso registrado. Felicidades!");
+            return ResponseEntity.ok(dto); // Respuesta de éxito
+        } catch (IllegalArgumentException e) {
+            // Maneja el caso donde el usuario ya está registrado
+            MensajeDTO dto = new MensajeDTO();
+            dto.setMensaje(e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(dto); // 409 Conflict
+        }
     }
 }
