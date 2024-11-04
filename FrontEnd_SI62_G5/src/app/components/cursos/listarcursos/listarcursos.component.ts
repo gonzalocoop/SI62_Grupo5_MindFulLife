@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import { CompartiruserService } from '../../../services/compartiruser.service';
+import { Usuarios } from '../../../models/Usuarios';
+import { CursosUsuariosService } from '../../../services/cursos-usuarios.service';
 
 @Component({
   selector: 'app-listarcursos',
@@ -23,8 +26,9 @@ export class ListarcursosComponent implements OnInit {
   
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
+  selectedUser: Usuarios | null = null;
   // Inyecta el servicio `CursosService` para acceder a los datos de cursos
-  constructor(private cS: CursosService) {}
+  constructor(private cS: CursosService,  private usuariocompartido: CompartiruserService, private cuS: CursosUsuariosService) {}
 
   ngOnInit(): void {
     // Suscripción para obtener la lista completa de cursos y actualizar `pagedCursos`
@@ -37,6 +41,10 @@ export class ListarcursosComponent implements OnInit {
     this.cS.getList().subscribe(data => {
       this.cursos = data;       // Guarda todos los cursos actualizados
       this.updatePagedCursos(); // Actualiza la vista con la página actual
+    });
+    // Suscribirse al usuario seleccionado desde el servicio compartido
+    this.usuariocompartido.selectedUser$.subscribe(user => {
+      this.selectedUser = user; // Asignar el usuario seleccionado a la variable
     });
   }
 
@@ -62,7 +70,7 @@ export class ListarcursosComponent implements OnInit {
   eliminar(id: number): void {
     this.cS.delete(id).pipe(
       catchError((error)=>{
-        this.mensaje='No se puede eliminar, tiene usuarios registrados en esta suscripcion';
+        this.mensaje='No se puede eliminar, tiene componentes ligados a este curso';
         this.ocultarMensaje()
         return of(null);
       })
@@ -77,9 +85,47 @@ export class ListarcursosComponent implements OnInit {
       });
     });
   }
+
+
+
   ocultarMensaje(){
     setTimeout(()=>{
       this.mensaje='';
     }, 3000);
   }
+
+
+  
+  postular(id: number): void {
+    let usuario_id: number;
+
+    if (this.selectedUser?.id !== undefined) {
+        usuario_id = this.selectedUser.id; // Asignar si no es undefined
+    } else {
+        usuario_id = 0; // Manejo del caso donde `id` es undefined
+    }
+
+    this.cuS.registrarUsuarioEnCurso(id, usuario_id).pipe(
+        catchError((error) => {
+            // Manejo de errores basado en el código de estado
+            if (error.status === 409) { // El código que devuelve el backend para conflictos
+                this.mensaje = 'Ya estás registrado en este curso';
+            } else {
+                this.mensaje = 'Error al intentar registrar en el curso'; // Mensaje genérico para otros errores
+            }
+            this.ocultarMensaje(); // Llamar a la función para ocultar el mensaje después de un tiempo
+            return of(null);
+        })
+    ).subscribe(response => {
+        // Si la operación fue exitosa
+        if (response) {
+            this.cS.list().subscribe(data => {
+                this.cursos = data;
+                this.updatePagedCursos();
+                this.paginator.pageIndex = 0; // Reiniciar a la primera página
+                this.paginator.length = this.cursos.length; // Actualizar la longitud del paginador
+            });
+        }
+    });
+}
 }
