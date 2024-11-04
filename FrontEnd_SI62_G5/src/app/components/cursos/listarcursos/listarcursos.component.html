@@ -1,6 +1,7 @@
 <div>
     <div>
         <h1>Tabla De Cursos</h1>
+        <p><strong>Usuario Seleccionado:</strong> {{ selectedUser?.username }}</p>
     </div>
     <div class="curso-container">
         <div *ngFor="let curso of pagedCursos" class="curso-card">
@@ -21,6 +22,9 @@
                     </button>
                     <button mat-icon-button color="warn" [routerLink]="['descripciones', curso.id]">
                         <mat-icon>drag_indicator</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="postular(curso.id)">
+                        <mat-icon>all_out</mat-icon>
                     </button>
                 </mat-card-actions>
             </mat-card>
