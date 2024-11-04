@@ -37,7 +37,7 @@ export class CreaeditacursosusuariosComponent implements OnInit{
   listaUsuarios: Usuarios[] = [];
   listaEstados:{value:string,viewValue:string}[]=[
     {value:'completado',viewValue:'completado'},
-    {value:'incompleto',viewValue:'incompleto'}
+    {value:'no completado',viewValue:'no completado'}
   ];
 
 
@@ -58,7 +58,7 @@ export class CreaeditacursosusuariosComponent implements OnInit{
       hfechaInicio: ['', Validators.required],
       hfechaFinal: ['', Validators.required],
       hestado: ['', Validators.required ],
-      hurl: ['', [Validators.required, Validators.maxLength(50)]],
+      hurl: ['', [Validators.required, Validators.maxLength(80)]],
       hcurso: ['', Validators.required],
       husuario: ['', Validators.required],
     })
@@ -120,7 +120,7 @@ export class CreaeditacursosusuariosComponent implements OnInit{
           hfechaInicio: new FormControl(data.fechaInicio, Validators.required),
           hfechaFinal: new FormControl(data.fechaFin, Validators.required),
           hestado: new FormControl(data.estado, Validators.required),
-          hurl: new FormControl(data.url, [Validators.required, Validators.maxLength(50)]),
+          hurl: new FormControl(data.url, [Validators.required, Validators.maxLength(80)]),
           hcurso:new FormControl(data.cur.id, Validators.required),
           husuario:new FormControl(data.usua.id, Validators.required),
         })

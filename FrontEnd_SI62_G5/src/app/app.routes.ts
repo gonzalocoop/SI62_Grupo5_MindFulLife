@@ -32,6 +32,8 @@ import { VerdescripcionsesComponent } from './components/sesiones/verdescripcion
 import { VercomentarioComponent } from './components/comentarios/vercomentario/vercomentario.component';
 import { VercursosComponent } from './components/cursosusuarios/vercursos/vercursos.component';
 import { IniciosesionComponent } from './components/iniciosesion/iniciosesion.component';
+import { VervideosdesesionesComponent } from './components/cursosusuarios/vervideosdesesiones/vervideosdesesiones.component';
+import { ObtenerurlComponent } from './components/cursosusuarios/obtenerurl/obtenerurl.component';
 
 export const routes: Routes = [
     {
@@ -149,8 +151,16 @@ export const routes: Routes = [
                 path:'ediciones/:id',component:CreaeditacursosusuariosComponent
             },
             {
-                path:'vercursos/:id',component:VercursosComponent
+                path:'vercursos/:id',component:VercursosComponent,
+                
+            },
+            {
+                path: 'vervideos/:idCursoUsuario/:idSesion', component: VervideosdesesionesComponent 
+            },
+            {
+                path: 'obtenerurl/:idCursoUsuario', component: ObtenerurlComponent 
             }
+
         ]
     },
     {

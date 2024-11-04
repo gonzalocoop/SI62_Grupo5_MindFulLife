@@ -3,9 +3,11 @@ package com.zentech.si62_g5.repositories;
 import com.zentech.si62_g5.entities.CursosUsuarios;
 import com.zentech.si62_g5.entities.Sesiones;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,4 +31,21 @@ public interface ICursoUsuarioRepository extends JpaRepository<CursosUsuarios,In
                 "JOIN cursos_usuarios cu ON u.id = cu.id_usuario\n" +
                 "GROUP BY u.username;\n",nativeQuery = true)
         public List<String[]>cantidadDeCursosCompletadosYNoCompletados();
-        }
+
+
+        // Verificar si ya existe el registro con consulta nativa
+        @Query(value = "SELECT COUNT(*) > 0 FROM cursos_usuarios cu WHERE cu.id_usuario = :idUsuario AND cu.id_curso = :idCurso",
+                nativeQuery = true)
+        public boolean existeRegistro(@Param("idUsuario") int idUsuario, @Param("idCurso") int idCurso);
+
+        // Método para insertar el registro
+        @Modifying
+        @Transactional
+        @Query(value = "INSERT INTO cursos_usuarios (estado,id_curso, id_usuario, fecha_inicio, fecha_fin, progreso, url) " +
+                "VALUES ('no completado',:idCurso, :idUsuario, CURRENT_DATE, CURRENT_DATE + INTERVAL '3 weeks', 0, " +
+                "CONCAT('https://mindfullife.com/curso/', :idCurso, '/', :idUsuario, '/', gen_random_uuid()))",
+                nativeQuery = true)
+        public void registrarCurso(@Param("idCurso") int idCurso, @Param("idUsuario") int idUsuario);
+
+
+}
