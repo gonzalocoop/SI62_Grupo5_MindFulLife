@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface IVideosRepository extends JpaRepository<Videos,Integer> {
 
-    @Query("SELECT v from Videos v join Sesiones se on v.ses.id=se.id where se.titulo like %:titulo%")
+    @Query("SELECT v from Videos v join Sesiones se on v.ses.id=se.id where se.titulo =:titulo")
     public List<Videos> videostitulosesion(@Param("titulo") String titulo);
 }

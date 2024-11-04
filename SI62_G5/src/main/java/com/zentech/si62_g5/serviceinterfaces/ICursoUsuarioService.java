@@ -15,4 +15,7 @@ public interface ICursoUsuarioService {
     public List<String[]>ObtenerUrl(String nombreUsuario,String nombreCurso);
     public List<String[]>cantidadDeCursosCompletadosYNoCompletados();
     public CursosUsuarios listId(int id);
+
+    public void registrarUsuarioEnCurso(int idCurso, int idUsuario);
+
 }

@@ -42,4 +42,13 @@ export class CursosUsuariosService {
   update(cu:CursosUsuarios){
     return this.http.put(this.url,cu)
   }
+
+ // Nueva función para registrar un usuario en un curso usando parámetros de consulta
+  registrarUsuarioEnCurso(idCurso: number, idUsuario: number) {
+  // Construir la URL con los parámetros de consulta
+  const urll = `${this.url}/registrarcurso?idCurso=${idCurso}&idUsuario=${idUsuario}`;
+  return this.http.post(urll, null); // Se envía null porque no hay cuerpo en la solicitud
+    
+  }
+  
 }

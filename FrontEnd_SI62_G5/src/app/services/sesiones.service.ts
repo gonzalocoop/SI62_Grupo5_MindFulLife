@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Sesiones } from '../models/Sesiones';
 
 const base_url=environment.base
@@ -41,5 +41,13 @@ export class SesionesService {
   }
   update(d:Sesiones){
     return this.http.put(this.url,d)
+  }
+
+  // Función para buscar sesiones por título
+  listPorCurso(titulo: string): Observable<any> {
+    // Asegúrate de codificar el título para que sea seguro para la URL
+    const encodedTitulo = encodeURIComponent(titulo);
+    const urll = `${this.url}/buscarsesionesporcurso?c=${encodedTitulo}`;
+    return this.http.get(urll);
   }
 }
