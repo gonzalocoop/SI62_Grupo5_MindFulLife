@@ -32,14 +32,14 @@
                 <mat-hint>Se debe usar "." Ejm: 15.59</mat-hint>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hprecio'].hasError('required') && form.controls['hprecio'].touched">
-                  Llenar campo duracion correctamente
+                  Llenar campo precio correctamente
                 </mat-error>
                 <!-- Mostrar mensaje de error si no es un número -->
                 <mat-error *ngIf="form.controls['hprecio'].hasError('pattern') && form.controls['hprecio'].touched">
-                    Solo se permiten decimales positivos de dos decimales
+                    Solo se permiten números positivos de dos decimales
                 </mat-error>
                 <mat-error *ngIf="form.controls['hprecio'].hasError('maxlength') && form.controls['hprecio'].touched">
-                  Máximo 6 caracateres 
+                  Máximo 6 caracateres (incluido la coma)
                 </mat-error>
               </mat-form-field>
               <div class>
