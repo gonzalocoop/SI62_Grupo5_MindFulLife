@@ -43,7 +43,7 @@ export class ListarsuscripcionesComponent implements OnInit{
   eliminar(id:number){
     this.sS.delete(id).pipe(
       catchError((error)=>{
-        this.mensaje='No se puede eliminar, tiene usuarios registrados en esta suscripcion';
+        this.mensaje='No se puede eliminar, tiene usuarios registrados en esta suscripción';
         this.ocultarMensaje()
         return of(null);
       })

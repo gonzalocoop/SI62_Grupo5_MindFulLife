@@ -16,7 +16,7 @@
         <input matInput placeholder="Titulo" formControlName="htitulo">
         <!-- Mostrar mensaje de error si el campo no es válido -->
         <mat-error *ngIf="form.controls['htitulo'].hasError('required') && form.controls['htitulo'].touched">
-          Llenar campo titulo correctamente
+          Llenar campo título correctamente
         </mat-error>
         <mat-error *ngIf="form.controls['htitulo'].hasError('maxlength') && form.controls['htitulo'].touched">
           Máximo 35 caracteres

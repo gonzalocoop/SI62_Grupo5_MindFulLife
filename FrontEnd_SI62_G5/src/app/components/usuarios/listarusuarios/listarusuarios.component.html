@@ -12,6 +12,7 @@
                 <mat-card-content>
                     <p><strong>Password:</strong> {{ usuario.password }}</p>
                     <p><strong>Email:</strong> {{ usuario.email }}</p>
+                    <p><strong>Rol:</strong> {{ usuario.rol.nombre }}</p>
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-icon-button color="warn" (click)="eliminar(usuario.id)">
@@ -19,9 +20,6 @@
                     </button>
                     <button mat-icon-button color="primary" [routerLink]="['ediciones', usuario.id]">
                         <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button color="warn" [routerLink]="['descripciones', usuario.id]">
-                        <mat-icon>drag_indicator</mat-icon>
                     </button>
                 </mat-card-actions>
             </mat-card>

@@ -12,50 +12,50 @@
   
   
         <mat-form-field class="example-full-width">
-          <mat-label>Username</mat-label>
+          <mat-label>Nombre de Usuario</mat-label>
           <input matInput placeholder="Username" formControlName="husername">
           <!-- Mostrar mensaje de error si el campo no es válido -->
           <mat-error *ngIf="form.controls['husername'].hasError('required') && form.controls['husername'].touched">
-            Llenar campo username correctamente
+            Llenar campo nombre de usuario correctamente
           </mat-error>
           <mat-error *ngIf="form.controls['husername'].hasError('maxlength') && form.controls['husername'].touched">
-            Máximo 35 caracteres
+            Máximo 20 caracteres
           </mat-error>
           <mat-error *ngIf="form.controls['husername'].hasError('usernameRepetido') && form.controls['husername'].touched">
-            El username ya existe. Por favor, elija uno diferente
+            El nombre de usuario ya existe. Por favor, elija uno diferente
           </mat-error>
         </mat-form-field>
   
         <br>
         <mat-form-field class="example-full-width">
-          <mat-label>Password</mat-label>
-          <textarea matInput placeholder="Password" formControlName="hpassword"></textarea>
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Password" formControlName="hpassword">
           <!-- Mostrar mensaje de error si el campo no es válido -->
-          <mat-error *ngIf="form.controls['hpassword'].invalid && form.controls['hpassword'].touched">
-            Llenar campo password correctamente
+          <mat-error *ngIf="form.controls['hpassword'].hasError('required') && form.controls['hpassword'].touched">
+            Llenar campo contraseña correctamente
           </mat-error>
         </mat-form-field>
         <br>
 
         <mat-form-field class="example-full-width">
-            <mat-label>Email</mat-label>
+            <mat-label>Correo</mat-label>
             <textarea matInput placeholder="Email" formControlName="hemail"></textarea>
             <!-- Mostrar mensaje de error si el campo no es válido -->
             <mat-error *ngIf="form.controls['hemail'].invalid && form.controls['hemail'].touched">
-              Llenar campo email correctamente
+              Llenar campo correo correctamente
             </mat-error>
           </mat-form-field>
           <br>
   
         <mat-form-field>
-            <mat-label>Roles</mat-label>
+            <mat-label>Rol</mat-label>
             <mat-select formControlName="hrol">
               @for (m of listaRoles; track m) {
                 <mat-option [value]="m.id">{{m.nombre}}</mat-option>
               }   
             </mat-select>
             <mat-error *ngIf="form.controls['hrol'].hasError('required') && form.controls['hrol'].touched">
-                Llenar campo roles correctamente
+                Llenar campo rol correctamente
               </mat-error>
         </mat-form-field>
   
