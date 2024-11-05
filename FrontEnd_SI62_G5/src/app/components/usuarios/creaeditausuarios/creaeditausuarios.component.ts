@@ -144,7 +144,7 @@ export class CreaeditausuariosComponent implements OnInit {
           (usuario) =>
             usuario.username === control.value && usuario.id != this.id
         );
-        return existe ? { usuarioRepetido: true } : null;
+        return existe ? { usernameRepetido: true } : null;
       })
     );
   }
