@@ -34,7 +34,7 @@
                 <mat-datepicker #picker></mat-datepicker>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hfecha'].invalid && form.controls['hfecha'].touched">
-                  Llenar campo fecha
+                  Llenar campo fecha correctamente
                 </mat-error>
             </mat-form-field>
 
@@ -46,14 +46,14 @@
                 <mat-hint>Se debe usar "." si se quiere especificar segundos. Ejm: 50.45 es 50 minutos con 45 segundos</mat-hint>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hduracion'].hasError('required') && form.controls['hduracion'].touched">
-                  Llenar campo duracion correctamente
+                  Llenar campo duración correctamente
                 </mat-error>
                 <!-- Mostrar mensaje de error si no es un número -->
                 <mat-error *ngIf="form.controls['hduracion'].hasError('pattern') && form.controls['hduracion'].touched">
-                    Solo se permiten decimales positivos de dos decimales
+                  Solo se permiten números positivos de dos decimales
                 </mat-error>
                 <mat-error *ngIf="form.controls['hduracion'].hasError('maxlength') && form.controls['hduracion'].touched">
-                  Máximo 6 caracateres 
+                  Máximo 6 caracateres (incluido la coma)
                 </mat-error>
             </mat-form-field>
             <br>
@@ -70,12 +70,15 @@
             </mat-form-field>  
             <br>
             <mat-form-field>
-                <mat-label>Sesiones</mat-label>
+                <mat-label>Sesión</mat-label>
                 <mat-select formControlName="hsesion">
                   @for (m of listaSesiones; track m) {
                     <mat-option [value]="m.id">{{m.titulo}}</mat-option>
                   }   
                 </mat-select>
+                <mat-error *ngIf="form.controls['hsesion'].hasError('required') && form.controls['hsesion'].touched">
+                  Llenar campo sesión correctamente
+                </mat-error>
             </mat-form-field>
             <br>
               

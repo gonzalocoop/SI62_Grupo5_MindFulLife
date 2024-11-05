@@ -46,7 +46,7 @@ export class CreaeditavideosComponent implements OnInit{
       hcodigo: [''], // para el modificar
       htitulo: ['', [Validators.required, Validators.maxLength(35)], [this.tituloRepetido.bind(this)]],
       hfecha: ['', Validators.required],
-      hduracion: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)]],
+      hduracion: ['', [Validators.required, Validators.pattern('^[0-9]+\\.[0-9]{2}$'), Validators.maxLength(6)]],
       hurl: ['', [Validators.required, Validators.maxLength(20)], [this.tituloRepetido.bind(this)]],
       hsesion: ['', Validators.required],
     })
@@ -100,7 +100,7 @@ export class CreaeditavideosComponent implements OnInit{
           hcodigo:new FormControl(data.id, Validators.required),
           htitulo: new FormControl(data.titulo, [Validators.required, Validators.maxLength(35)], [this.tituloRepetido.bind(this)]),
           hfecha: new FormControl(data.fechaAgregado, Validators.required),
-          hduracion: new FormControl(data.duracion, [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)]),
+          hduracion: new FormControl(data.duracion, [Validators.required, Validators.pattern('^[0-9]+\\.[0-9]{2}$'), Validators.maxLength(6)]),
           hurl: new FormControl(data.url, [Validators.required, Validators.maxLength(20)]),
           hsesion:new FormControl(data.ses.id, Validators.required),
         })

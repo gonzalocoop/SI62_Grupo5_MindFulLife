@@ -19,7 +19,7 @@
                 <mat-datepicker #pickerInicio1></mat-datepicker>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hfechaInicio'].invalid && form.controls['hfechaInicio'].touched">
-                  Llenar campo fecha
+                  Llenar campo fecha de inicio correctamente
                 </mat-error>
             </mat-form-field>
             <br>
@@ -31,14 +31,14 @@
                 <mat-datepicker #pickerFinal2></mat-datepicker>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hfechaFin'].invalid && form.controls['hfechaFin'].touched">
-                  Llenar campo fecha
+                  Llenar campo fecha final correctamente
                 </mat-error>
             </mat-form-field>
           <br>
 
             
             <mat-form-field>
-                <mat-label>Suscripciones</mat-label>
+                <mat-label>Suscripción</mat-label>
                 <mat-select formControlName="hsuscripciones">
                   @for (m of listaSuscripciones; track m) {
                     <mat-option [value]="m.id">{{m.nombre}}</mat-option>
@@ -50,7 +50,7 @@
             </mat-form-field>
             <br>
             <mat-form-field>
-                <mat-label>Usuarios</mat-label>
+                <mat-label>Usuario</mat-label>
                 <mat-select formControlName="husuario">
                   @for (m of listaUsuarios; track m) {
                     <mat-option [value]="m.id">{{m.username}}</mat-option>
