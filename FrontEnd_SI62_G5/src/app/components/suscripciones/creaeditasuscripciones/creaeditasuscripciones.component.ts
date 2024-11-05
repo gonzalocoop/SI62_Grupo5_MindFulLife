@@ -38,7 +38,7 @@ export class CreaeditasuscripcionesComponent implements OnInit{
     this.form = this.formBuilder.group({
       hcodigo: [''], // para el modificar
       hnombre: ['', [Validators.required, Validators.maxLength(20)], [this.tituloRepetido.bind(this)]],
-      hprecio: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)]]
+      hprecio: ['', [Validators.required, Validators.pattern('^[0-9]+\\.[0-9]{2}$'), Validators.maxLength(6)]]
     });
     
   
@@ -83,7 +83,7 @@ export class CreaeditasuscripcionesComponent implements OnInit{
         this.form=new FormGroup({
           hcodigo:new FormControl(data.id, Validators.required),
           hnombre: new FormControl(data.nombre, [Validators.required, Validators.maxLength(20)], [this.tituloRepetido.bind(this)]),
-          hprecio: new FormControl(data.precio, [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$'), Validators.maxLength(6)])
+          hprecio: new FormControl(data.precio, [Validators.required, Validators.pattern('^[0-9]+\\.[0-9]{2}$'), Validators.maxLength(6)])
          
         })
         

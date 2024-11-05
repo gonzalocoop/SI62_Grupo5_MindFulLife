@@ -62,7 +62,7 @@ export class ListarcursosusuariosComponent implements OnInit{
   eliminar(id: number): void {
     this.cS.delete(id).pipe(
       catchError((error)=>{
-        this.mensaje='No se puede eliminar, tiene cronogramas registrados en esta sesión';
+        this.mensaje='No se puede eliminar, tiene cronogramas registrados en este curso de usuario';
         this.ocultarMensaje()
         return of(null);
       })

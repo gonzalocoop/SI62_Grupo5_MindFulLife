@@ -9,8 +9,8 @@
         <h1><strong>Username del Usuario:</strong> {{ cursousuario.usua.username }}</h1>
         <h2><strong>ID del Usuario:</strong> {{ cursousuario.usua.id }} </h2>
         <p><strong>Progreso:</strong> {{ cursousuario.progreso }} %</p>
-        <p><strong>Fecha de Inicio:</strong> {{ cursousuario.fechaInicio }} </p>
-        <p><strong>Fecha de Final:</strong> {{ cursousuario.fechaFin }} </p>
+        <p><strong>Fecha de Inicio:</strong> {{ cursousuario.fechaInicio | date: 'dd/MM/yyyy'}} </p>
+        <p><strong>Fecha de Final:</strong> {{ cursousuario.fechaFin | date: 'dd/MM/yyyy'}} </p>
         <p><strong>Estado:</strong> {{ cursousuario.estado }} </p>
       </div>
     </div>

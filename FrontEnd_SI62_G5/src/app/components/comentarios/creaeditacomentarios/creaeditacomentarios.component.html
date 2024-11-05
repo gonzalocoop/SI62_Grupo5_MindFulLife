@@ -30,32 +30,32 @@
                 <mat-datepicker #picker></mat-datepicker>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hfecha'].invalid && form.controls['hfecha'].touched">
-                    Llenar campo fecha
+                    Llenar campo fecha correctamente
                 </mat-error>
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <mat-label>Sesiones</mat-label>
+                <mat-label>Sesión</mat-label>
                 <mat-select formControlName="hsesiones">
                     @for (m of listaSesiones; track m) {
                     <mat-option [value]="m.id">{{m.titulo}}</mat-option>
                     }
                 </mat-select>
                 <mat-error *ngIf="form.controls['hsesiones'].hasError('required') && form.controls['hsesiones'].touched">
-                    Llenar campo Sesiones correctamente
+                    Llenar campo sesión correctamente
                 </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-                <mat-label>Usuarios</mat-label>
+                <mat-label>Usuario</mat-label>
                 <mat-select formControlName="husuarios">
                     @for (m of listaUsuarios; track m) {
                     <mat-option [value]="m.id">{{m.username}}</mat-option>
                     }
                 </mat-select>
                 <mat-error *ngIf="form.controls['husuarios'].hasError('required') && form.controls['husuarios'].touched">
-                    Llenar campo curso correctamente
+                    Llenar campo usuario correctamente
                 </mat-error>
             </mat-form-field>
             <div class>

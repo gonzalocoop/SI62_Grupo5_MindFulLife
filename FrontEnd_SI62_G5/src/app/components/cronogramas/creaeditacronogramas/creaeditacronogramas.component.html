@@ -9,12 +9,12 @@
             </mat-form-field>
             <br>
             <mat-form-field class="example-full-width">
-                <mat-label>Detalle</mat-label>
-                <input matInput placeholder="Detalle del Cronograma" formControlName="hdetalle">
-                <!-- Mostrar mensaje de error si el campo no es válido -->
-                <mat-error *ngIf="form.controls['hdetalle'].hasError('required') && form.controls['hdetalle'].touched">
-                  Llenar campo detalle correctamente
-                </mat-error>
+              <mat-label>Detalle</mat-label>
+              <textarea matInput placeholder="Detalle" formControlName="hdetalle"></textarea>
+              <!-- Mostrar mensaje de error si el campo no es válido -->
+              <mat-error *ngIf="form.controls['hdetalle'].invalid && form.controls['hdetalle'].touched">
+                Llenar campo detalle correctamente
+              </mat-error>
             </mat-form-field>
 
             <br>
@@ -26,7 +26,7 @@
                 <mat-datepicker #pickerLimite></mat-datepicker>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hfechaLimite'].invalid && form.controls['hfechaLimite'].touched">
-                    Llenar campo fecha
+                    Llenar campo fecha límite correctamente
                 </mat-error>
             </mat-form-field>
             <br>
@@ -39,32 +39,32 @@
                 </mat-select>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
                 <mat-error *ngIf="form.controls['hEstado'].invalid && form.controls['hEstado'].touched">
-                  Llenar campo marca
+                  Llenar campo estado correctamente
                 </mat-error>
               </mat-form-field>
 
             <br>
             <mat-form-field>
-                <mat-label>Curso-Usuario</mat-label>
+                <mat-label>Curso del Usuario</mat-label>
                 <mat-select formControlName="hCursoUsuario">
                   @for (m of listaCursosUsuarios; track m) {
-                    <mat-option [value]="m.id">{{m.estado}}</mat-option>
+                    <mat-option [value]="m.id">{{m.cur.titulo}}</mat-option>
                   }   
                 </mat-select>
                 <mat-error *ngIf="form.controls['hCursoUsuario'].hasError('required') && form.controls['hCursoUsuario'].touched">
-                  Llenar campo Curso-Usuario correctamente
+                  Llenar campo curso del usuario correctamente
                 </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-                <mat-label>Sesiones</mat-label>
+                <mat-label>Sesión</mat-label>
                 <mat-select formControlName="hSesiones">
                   @for (m of listaSesiones; track m) {
                     <mat-option [value]="m.id">{{m.titulo}}</mat-option>
                   }   
                 </mat-select>
                 <mat-error *ngIf="form.controls['hSesiones'].hasError('required') && form.controls['hSesiones'].touched">
-                  Llenar campo Sesion correctamente
+                  Llenar campo sesión correctamente
                 </mat-error>
             </mat-form-field>
             <br>

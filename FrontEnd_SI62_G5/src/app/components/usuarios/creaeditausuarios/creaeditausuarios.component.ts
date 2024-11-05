@@ -65,7 +65,7 @@ export class CreaeditausuariosComponent implements OnInit {
       hcodigo: [''], //para el modificar
       husername: [
         '',
-        [Validators.required, Validators.maxLength(25)],
+        [Validators.required, Validators.maxLength(20)],
         [this.usernameRepetido.bind(this)],
       ],
       hpassword: ['', Validators.required],
@@ -114,7 +114,7 @@ export class CreaeditausuariosComponent implements OnInit {
           hcodigo: new FormControl(data.id, Validators.required),
           husername: new FormControl(
             data.username,
-            [Validators.required, Validators.maxLength(25)],
+            [Validators.required, Validators.maxLength(20)],
             [this.usernameRepetido.bind(this)]
           ),
           hpassword: new FormControl(data.password, Validators.required),

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { Comentarios } from '../../../models/Comentarios';
 import { ComentariosService } from '../../../services/comentarios.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vercomentario',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,CommonModule],
   templateUrl: './vercomentario.component.html',
   styleUrl: './vercomentario.component.css'
 })
