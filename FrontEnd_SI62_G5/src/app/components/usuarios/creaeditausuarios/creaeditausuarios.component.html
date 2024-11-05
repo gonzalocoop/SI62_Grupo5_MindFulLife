@@ -1,1 +1,67 @@
-<p>creaeditausuarios works!</p>
+<div class="container">
+    <div>
+      <h1>Registro de Usuarios</h1>
+    </div>
+    <div>
+      <form class="example-form" [formGroup]="form" (submit)="aceptar()">
+        <!-- Este se usa en editar -->
+        <mat-form-field class="example-full-width" *ngIf="edicion">
+          <mat-label>Codigo</mat-label>
+          <input matInput formControlName="hcodigo" readonly="" />
+        </mat-form-field>
+  
+  
+        <mat-form-field class="example-full-width">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Username" formControlName="husername">
+          <!-- Mostrar mensaje de error si el campo no es válido -->
+          <mat-error *ngIf="form.controls['husername'].hasError('required') && form.controls['husername'].touched">
+            Llenar campo username correctamente
+          </mat-error>
+          <mat-error *ngIf="form.controls['husername'].hasError('maxlength') && form.controls['husername'].touched">
+            Máximo 35 caracteres
+          </mat-error>
+          <mat-error *ngIf="form.controls['husername'].hasError('usernameRepetido') && form.controls['husername'].touched">
+            El username ya existe. Por favor, elija uno diferente
+          </mat-error>
+        </mat-form-field>
+  
+        <br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <textarea matInput placeholder="Password" formControlName="hpassword"></textarea>
+          <!-- Mostrar mensaje de error si el campo no es válido -->
+          <mat-error *ngIf="form.controls['hpassword'].invalid && form.controls['hpassword'].touched">
+            Llenar campo password correctamente
+          </mat-error>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <textarea matInput placeholder="Email" formControlName="hemail"></textarea>
+            <!-- Mostrar mensaje de error si el campo no es válido -->
+            <mat-error *ngIf="form.controls['hemail'].invalid && form.controls['hemail'].touched">
+              Llenar campo email correctamente
+            </mat-error>
+          </mat-form-field>
+          <br>
+  
+        <mat-form-field>
+            <mat-label>Roles</mat-label>
+            <mat-select formControlName="hrol">
+              @for (m of listaRoles; track m) {
+                <mat-option [value]="m.id">{{m.nombre}}</mat-option>
+              }   
+            </mat-select>
+            <mat-error *ngIf="form.controls['hrol'].hasError('required') && form.controls['hrol'].touched">
+                Llenar campo roles correctamente
+              </mat-error>
+        </mat-form-field>
+  
+        <div class>
+          <button mat-flat-button>Aceptar</button>
+        </div>
+      </form>
+    </div>
+  </div>

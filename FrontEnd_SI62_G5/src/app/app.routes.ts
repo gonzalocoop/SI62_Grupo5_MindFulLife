@@ -34,6 +34,7 @@ import { VercursosComponent } from './components/cursosusuarios/vercursos/vercur
 import { IniciosesionComponent } from './components/iniciosesion/iniciosesion.component';
 import { VervideosdesesionesComponent } from './components/cursosusuarios/vervideosdesesiones/vervideosdesesiones.component';
 import { ObtenerurlComponent } from './components/cursosusuarios/obtenerurl/obtenerurl.component';
+import { VerdetallecronoComponent } from './components/cronogramas/verdetallecrono/verdetallecrono.component';
 
 export const routes: Routes = [
     {
@@ -182,6 +183,9 @@ export const routes: Routes = [
             },
             {
                 path:'ediciones/:id',component:CreaeditacronogramasComponent
+            },
+            {
+                path:'verdetallecrono/:id',component:VerdetallecronoComponent
             }
         ]
     },
