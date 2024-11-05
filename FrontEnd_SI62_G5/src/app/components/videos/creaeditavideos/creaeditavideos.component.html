@@ -76,6 +76,9 @@
                     <mat-option [value]="m.id">{{m.titulo}}</mat-option>
                   }   
                 </mat-select>
+                <mat-error *ngIf="form.controls['hsesion'].hasError('required') && form.controls['hsesion'].touched">
+                  Llenar campo sesion correctamente
+                </mat-error>
             </mat-form-field>
             <br>
               
