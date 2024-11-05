@@ -67,7 +67,7 @@ export class ListarusuariosComponent implements OnInit{
       .pipe(
         catchError((error) => {
           this.mensaje =
-            'No se puede eliminar, tiene un rol asigando en esta usuario';
+            'No se puede eliminar, tiene un componente ligado a este usuario';
           this.ocultarMensaje();
           return of(null);
         })

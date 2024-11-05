@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { Cronogramas } from '../../../models/Cronogramas';
 import { CronogramasService } from '../../../services/cronogramas.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-verdetallecrono',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,CommonModule],
   templateUrl: './verdetallecrono.component.html',
   styleUrl: './verdetallecrono.component.css'
 })
