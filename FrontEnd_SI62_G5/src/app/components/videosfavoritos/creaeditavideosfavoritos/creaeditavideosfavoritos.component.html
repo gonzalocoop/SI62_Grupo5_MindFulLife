@@ -9,20 +9,20 @@
         </mat-form-field>
   
         <mat-form-field>
-          <mat-label>usuarios</mat-label>
+          <mat-label>Usuario</mat-label>
           <mat-select formControlName="husuarios">
             @for (m of listaUsuarios; track m) {
               <mat-option [value]="m.id">{{m.username}}</mat-option>
             }   
           </mat-select>
           <mat-error *ngIf="form.controls['husuarios'].hasError('required') && form.controls['husuarios'].touched">
-            Llenar campo usuarios correctamente
+            Llenar campo usuario correctamente
           </mat-error>
       </mat-form-field>       
   
 
       <mat-form-field>
-        <mat-label>Sesiones</mat-label>
+        <mat-label>Video</mat-label>
         <mat-select formControlName="hvideos">
           @for (m of listaVideos; track m) {
             <mat-option [value]="m.id">{{m.titulo}}</mat-option>
