@@ -50,5 +50,16 @@ export class CursosUsuariosService {
   return this.http.post(urll, null); // Se envía null porque no hay cuerpo en la solicitud
     
   }
+
+  listSegunUsuarioYCurso(idCurso: number, idUsuario: number){
+    const urll = `${this.url}/listarseguncursousuario?idCurso=${idCurso}&idUsuario=${idUsuario}`;
+    return this.http.get<CursosUsuarios>(`${urll}`)
+  }
+
+  // Función para actualizar el progreso y el estado del curso usuario
+  actualizarProgresoYEstadoCursoUsuario(idCursoUsuario: number) {
+    const urll = `${this.url}/actualizarprogreso?idCursoUsuario=${idCursoUsuario}`;
+    return this.http.put(urll, null);
+  }
   
 }

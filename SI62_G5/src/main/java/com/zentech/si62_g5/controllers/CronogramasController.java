@@ -77,4 +77,16 @@ public class CronogramasController {
         CronogramasDTO dto=m.map(cS.listId(id),CronogramasDTO.class);
         return dto;
     }
+
+    @PostMapping("generar")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public void crearCronogramas(@RequestParam Integer idCursoUsuario) {
+        cS.crearCronogramasParaCursoUsuario(idCursoUsuario);
+    }
+
+    @PutMapping("/actualizarestado")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public void actualizarEstadoCronogramas(@RequestParam int idSesion, @RequestParam int idCursoUsuario) {
+        cS.actualizarEstadoCronogramas(idSesion, idCursoUsuario);
+    }
 }

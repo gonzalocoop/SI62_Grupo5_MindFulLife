@@ -10,6 +10,7 @@ import { catchError, of } from 'rxjs';
 import { CompartiruserService } from '../../../services/compartiruser.service';
 import { Usuarios } from '../../../models/Usuarios';
 import { CursosUsuariosService } from '../../../services/cursos-usuarios.service';
+import { CronogramasService } from '../../../services/cronogramas.service';
 
 @Component({
   selector: 'app-listarcursos',
@@ -28,7 +29,7 @@ export class ListarcursosComponent implements OnInit {
 
   selectedUser: Usuarios | null = null;
   // Inyecta el servicio `CursosService` para acceder a los datos de cursos
-  constructor(private cS: CursosService,  private usuariocompartido: CompartiruserService, private cuS: CursosUsuariosService) {}
+  constructor(private cS: CursosService,  private usuariocompartido: CompartiruserService, private cuS: CursosUsuariosService, private cR: CronogramasService) {}
 
   ngOnInit(): void {
     // Suscripción para obtener la lista completa de cursos y actualizar `pagedCursos`
@@ -105,6 +106,7 @@ export class ListarcursosComponent implements OnInit {
         usuario_id = 0; // Manejo del caso donde `id` es undefined
     }
 
+    // Registrar el usuario en el curso
     this.cuS.registrarUsuarioEnCurso(id, usuario_id).pipe(
         catchError((error) => {
             // Manejo de errores basado en el código de estado
@@ -119,6 +121,33 @@ export class ListarcursosComponent implements OnInit {
     ).subscribe(response => {
         // Si la operación fue exitosa
         if (response) {
+            this.mensaje = '¡Registrado con éxito al curso!';
+            this.ocultarMensaje();
+
+            // Aquí obtienes el curso_usuario usando los ids
+            this.cuS.listSegunUsuarioYCurso(id, usuario_id).pipe(
+                catchError(error => {
+                    this.mensaje = 'Error al obtener el curso usuario';
+                    this.ocultarMensaje();
+                    return of(null);
+                })
+            ).subscribe(cursoUsuario => {
+                if (cursoUsuario) {
+                    // Ahora tienes el `cursoUsuario` con su `id`
+                    const idCursoUsuario = cursoUsuario.id;
+
+                    // Llamas a la función para generar los cronogramas
+                    this.cR.generar(idCursoUsuario).subscribe(response => {
+                        // Aquí puedes manejar lo que quieras hacer después de generar el cronograma
+                        console.log('Cronogramas generados', response);
+                    });
+                } else {
+                    this.mensaje = 'No se encontró el curso usuario';
+                    this.ocultarMensaje();
+                }
+            });
+
+            // Refrescas los cursos, actualizas paginación, etc.
             this.cS.list().subscribe(data => {
                 this.cursos = data;
                 this.updatePagedCursos();

@@ -33,7 +33,11 @@
         </mat-error>
     </mat-form-field>
 
-
+    <!-- Error personalizado si el usuario ya tiene este video como favorito -->
+    <mat-error *ngIf="form.hasError('usuarioYaTieneEseVideoFavorito') && form.touched">
+      Este usuario ya tiene este video como favorito.
+    </mat-error>
+    
     <div class>
       <button mat-flat-button>Aceptar</button>
     </div>

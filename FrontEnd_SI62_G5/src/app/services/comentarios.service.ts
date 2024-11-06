@@ -44,10 +44,10 @@ export class ComentariosService {
   }
 
   // Función para buscar sesiones por título
-  listPorCurso(titulo: string): Observable<any> {
+  listPorSesion(titulo: string): Observable<any> {
     // Asegúrate de codificar el título para que sea seguro para la URL
     const encodedTitulo = encodeURIComponent(titulo);
-    const urll = `${this.url}/buscarsesionesporcurso?c=${encodedTitulo}`;
+    const urll = `${this.url}/sesiontitulocomentario?tituloSesion=${encodedTitulo}`;
     return this.http.get(urll);
   }
 }

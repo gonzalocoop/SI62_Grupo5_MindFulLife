@@ -30,9 +30,13 @@
                 <mat-datepicker-toggle matIconSuffix [for]="pickerFinal2"></mat-datepicker-toggle>
                 <mat-datepicker #pickerFinal2></mat-datepicker>
                 <!-- Mostrar mensaje de error si el campo no es válido -->
-                <mat-error *ngIf="form.controls['hfechaFin'].invalid && form.controls['hfechaFin'].touched">
-                  Llenar campo fecha final correctamente
+                <mat-error *ngIf="form.controls['hfechaFin'].hasError('required') && form.controls['hfechaFin'].touched">
+                   Llenar campo fecha final correctamente
                 </mat-error>
+                <!-- Mostrar mensaje personalizado si la fecha de fin es menor que la fecha de inicio -->
+                  <mat-error *ngIf="form.controls['hfechaFin'].hasError('fechaFinPosteriorAFechaInicioValidator') && form.controls['hfechaFin'].touched">
+                  La fecha final no puede ser anterior a la fecha de inicio. Volver a seleccionar esta fecha si hace cambios en fecha inicial
+                  </mat-error>
             </mat-form-field>
           <br>
 
@@ -59,6 +63,9 @@
                 <mat-error *ngIf="form.controls['husuario'].hasError('required') && form.controls['husuario'].touched">
                   Llenar campo usuario correctamente
                 </mat-error>
+                <mat-error *ngIf="form.controls['husuario'].hasError('usuarioYaTieneSuscripcion') && form.controls['husuario'].touched">
+                  El usuario ya tiene una suscripción
+                  </mat-error>
             </mat-form-field>
             <br>
               

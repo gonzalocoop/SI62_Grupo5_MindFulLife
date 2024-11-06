@@ -35,6 +35,7 @@ import { IniciosesionComponent } from './components/iniciosesion/iniciosesion.co
 import { VervideosdesesionesComponent } from './components/cursosusuarios/vervideosdesesiones/vervideosdesesiones.component';
 import { ObtenerurlComponent } from './components/cursosusuarios/obtenerurl/obtenerurl.component';
 import { VerdetallecronoComponent } from './components/cronogramas/verdetallecrono/verdetallecrono.component';
+import { VercomentariodesesionComponent } from './components/cursosusuarios/vercomentariodesesion/vercomentariodesesion.component';
 
 export const routes: Routes = [
     {
@@ -160,6 +161,9 @@ export const routes: Routes = [
             },
             {
                 path: 'obtenerurl/:idCursoUsuario', component: ObtenerurlComponent 
+            },
+            {
+                path: 'vercomentses/:idCursoUsuario/:idSesion', component: VercomentariodesesionComponent 
             }
 
         ]

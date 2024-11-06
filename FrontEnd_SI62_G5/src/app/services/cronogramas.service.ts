@@ -43,4 +43,14 @@ export class CronogramasService {
   update(c:Cronogramas){
     return this.http.put(this.url,c)
   }
+
+  generar( idCursoUsuario:number){
+    const urll = `${this.url}/generar?idCursoUsuario=${idCursoUsuario}`;
+    return this.http.post(urll,null);
+  }
+
+  actualizarEstadoCronogramas(idSesion: number, idCursoUsuario: number) {
+    const urll = `${this.url}/actualizarestado?idSesion=${idSesion}&idCursoUsuario=${idCursoUsuario}`;
+    return this.http.put(urll, null);
+  }
 }
