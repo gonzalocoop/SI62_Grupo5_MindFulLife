@@ -14,4 +14,8 @@ public interface ICronogramasService {
 
     List<Cronogramas> findByUsername(String username);
     public Cronogramas listId(int id);
+
+    public void crearCronogramasParaCursoUsuario(int idCursoUsuario);
+
+    public void actualizarEstadoCronogramas( int idSesion,  int idCursoUsuario);
 }

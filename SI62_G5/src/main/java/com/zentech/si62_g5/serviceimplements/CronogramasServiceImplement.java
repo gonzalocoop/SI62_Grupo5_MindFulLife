@@ -46,4 +46,14 @@ public class CronogramasServiceImplement implements ICronogramasService {
         return cR.findById(id).orElse(new Cronogramas());
     }
 
+    @Override
+    public void crearCronogramasParaCursoUsuario(int idCursoUsuario) {
+        cR.crearCronogramasParaCursoUsuario(idCursoUsuario);
+    }
+
+    @Override
+    public void actualizarEstadoCronogramas(int idSesion, int idCursoUsuario) {
+        cR.actualizarEstadoCronogramas(idSesion,idCursoUsuario);
+    }
+
 }

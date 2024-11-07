@@ -63,16 +63,11 @@ public class ComentariosController {
 
     @GetMapping("/sesiontitulocomentario")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
-    public List<SesionTituloComentarioDTO> buscarComentariosPorTituloSesion(@RequestParam String tituloSesion) {
-        List<Comentarios> comentarios = cS.buscarComentariosPorTituloSesion(tituloSesion);
-        List<SesionTituloComentarioDTO> list = new ArrayList<>();
-        for (Comentarios comentario : comentarios) {
-            SesionTituloComentarioDTO dto = new SesionTituloComentarioDTO();
-            dto.setComentario(comentario.getComentario());
-            dto.setTituloSesion(comentario.getSes().getTitulo());
-            list.add(dto);
-        }
-        return list;
+    public List<ComentariosDTO> buscarComentariosPorTituloSesion(@RequestParam String tituloSesion) {
+        return cS.buscarComentariosPorTituloSesion(tituloSesion).stream().map(x->{
+            ModelMapper m= new ModelMapper();
+            return m.map(x, ComentariosDTO.class);
+        }).collect(Collectors.toList());
     }
 
 

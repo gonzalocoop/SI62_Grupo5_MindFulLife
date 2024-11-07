@@ -41,11 +41,37 @@ public interface ICursoUsuarioRepository extends JpaRepository<CursosUsuarios,In
         // Método para insertar el registro
         @Modifying
         @Transactional
-        @Query(value = "INSERT INTO cursos_usuarios (estado,id_curso, id_usuario, fecha_inicio, fecha_fin, progreso, url) " +
-                "VALUES ('no completado',:idCurso, :idUsuario, CURRENT_DATE, CURRENT_DATE + INTERVAL '3 weeks', 0, " +
-                "CONCAT('https://mindfullife.com/curso/', :idCurso, '/', :idUsuario, '/', gen_random_uuid()))",
+        @Query(value = "INSERT INTO cursos_usuarios (estado, id_curso, id_usuario, fecha_inicio, fecha_fin, progreso, url) " +
+                " VALUES ('no completado', :idCurso, :idUsuario, CURRENT_DATE, " +
+                " CURRENT_DATE + (SELECT duracion FROM cursos WHERE id = :idCurso) * INTERVAL '1 day', 0, " +
+                " CONCAT('https://mindfullife.com/curso/', :idCurso, '/', :idUsuario, '/', gen_random_uuid()))",
                 nativeQuery = true)
         public void registrarCurso(@Param("idCurso") int idCurso, @Param("idUsuario") int idUsuario);
+
+        //NUEVO
+        @Query(value = "SELECT * FROM cursos_usuarios cu WHERE cu.id_curso = :idCurso AND cu.id_usuario = :idUsuario",
+                nativeQuery = true)
+        public CursosUsuarios findByCursoAndUsuario(@Param("idCurso") int idCurso, @Param("idUsuario") int idUsuario);
+
+        @Modifying
+        @Transactional
+        @Query(value = "UPDATE cursos_usuarios " +
+                " SET progreso = ( " +
+                "    SELECT COUNT(*) * 100 / (SELECT COUNT(*) FROM cronogramas WHERE id_cursos_usuarios = :idCursoUsuario) " +
+                "    FROM cronogramas " +
+                "    WHERE id_cursos_usuarios = :idCursoUsuario AND estado = 'completado' " +
+                "), " +
+                " estado = CASE " +
+                "    WHEN ( " +
+                "        SELECT COUNT(*) * 100 / (SELECT COUNT(*) FROM cronogramas WHERE id_cursos_usuarios = :idCursoUsuario) " +
+                "        FROM cronogramas " +
+                "        WHERE id_cursos_usuarios = :idCursoUsuario AND estado = 'completado' " +
+                "    ) = 100 THEN 'completado' " +
+                "    ELSE estado " +
+                " END " +
+                " WHERE id = :idCursoUsuario",
+                nativeQuery = true)
+        public void actualizarProgresoYEstado(@Param("idCursoUsuario") int idCursoUsuario);
 
 
 }
