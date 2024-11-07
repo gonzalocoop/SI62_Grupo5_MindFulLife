@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CursosUsuarios } from '../models/CursosUsuarios';
+import { CantCursCompleNoCompleDTO } from '../models/CantCursCompleNoCompleDTO';
 
 const base_url=environment.base
 
@@ -60,6 +61,10 @@ export class CursosUsuariosService {
   actualizarProgresoYEstadoCursoUsuario(idCursoUsuario: number) {
     const urll = `${this.url}/actualizarprogreso?idCursoUsuario=${idCursoUsuario}`;
     return this.http.put(urll, null);
+  }
+
+  cantidadCursosCompletadosYNoCompletados():Observable<CantCursCompleNoCompleDTO[]>{
+    return this.http.get<CantCursCompleNoCompleDTO[]>(`${this.url}/cantidaddecursoscompletadosynocompletados`);
   }
   
 }

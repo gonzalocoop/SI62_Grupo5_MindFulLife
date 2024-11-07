@@ -36,6 +36,16 @@ import { VervideosdesesionesComponent } from './components/cursosusuarios/vervid
 import { ObtenerurlComponent } from './components/cursosusuarios/obtenerurl/obtenerurl.component';
 import { VerdetallecronoComponent } from './components/cronogramas/verdetallecrono/verdetallecrono.component';
 import { VercomentariodesesionComponent } from './components/cursosusuarios/vercomentariodesesion/vercomentariodesesion.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
+import { TiempopromedioComponent } from './components/reportes/tiempopromedio/tiempopromedio.component';
+import { ContabilizarsesionesComponent } from './components/reportes/contabilizarsesiones/contabilizarsesiones.component';
+import { TituloduracionvideosComponent } from './components/reportes/tituloduracionvideos/tituloduracionvideos.component';
+import { UsuariosdesuscripcionesComponent } from './components/reportes/usuariosdesuscripciones/usuariosdesuscripciones.component';
+import { Top3cursosComponent } from './components/reportes/top3cursos/top3cursos.component';
+import { RecaudaciontotalsuscripcionComponent } from './components/reportes/recaudaciontotalsuscripcion/recaudaciontotalsuscripcion.component';
+import { CursoscompletadosynocompletadosComponent } from './components/reportes/cursoscompletadosynocompletados/cursoscompletadosynocompletados.component';
+import { CursosmasymenossuscripcionesdeusuariosComponent } from './components/reportes/cursosmasymenossuscripcionesdeusuarios/cursosmasymenossuscripcionesdeusuarios.component';
+import { ComentariosnegativosComponent } from './components/reportes/comentariosnegativos/comentariosnegativos.component';
 
 export const routes: Routes = [
     {
@@ -212,6 +222,39 @@ export const routes: Routes = [
     },
     {
         path:'iniciosesion',component:IniciosesionComponent,
+    },
+    {
+        path:'reportes',component:ReportesComponent,
+        children:[
+            {
+                path:'tiempopromedio', component:TiempopromedioComponent
+            },
+            {
+                path:'contabilizarsesiones',component:ContabilizarsesionesComponent
+            },
+            {
+                path:'tituloduracion',component:TituloduracionvideosComponent
+            },
+            {
+                path:'usuariossuscripcion',component:UsuariosdesuscripcionesComponent
+            },
+            {
+                path:'top3cursos',component:Top3cursosComponent
+            },
+            {
+                path:'recaudaciontotal',component:RecaudaciontotalsuscripcionComponent
+            },
+            {
+                path:'cursoscynoc',component:CursoscompletadosynocompletadosComponent
+            },
+            {
+                path:'cursosmasymenossucrip',component:CursosmasymenossuscripcionesdeusuariosComponent
+            },
+            {
+                path:'comentariosnegativos',component:ComentariosnegativosComponent
+            }
+            
+        ]
     }
     
 ];
