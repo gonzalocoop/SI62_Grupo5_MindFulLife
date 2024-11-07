@@ -43,8 +43,14 @@
               </mat-card-content>
               <mat-card-actions>
                 <button mat-icon-button color="warn" [routerLink]="['/cursosusuarios/vervideos',cursousuario.id ,sesion.id]">
-                  <mat-icon>drag_indicator</mat-icon>
+                  <mat-icon>video_call</mat-icon>
                 </button>
+                <button mat-icon-button color="warn" [routerLink]="['/cursosusuarios/vercomentses',cursousuario.id,sesion.id]">
+                  <mat-icon> chat</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="actualizar(sesion.id, cursousuario.id)">
+                  <mat-icon>all_out</mat-icon>
+              </button>
                 
               </mat-card-actions>
           </mat-card>

@@ -3,6 +3,7 @@ import { environment } from "../../environments/environment";
 import { Observable, Subject } from "rxjs";
 import { Comentarios } from "../models/Comentarios";
 import { HttpClient } from "@angular/common/http";
+import { CursoCantComentariosDTO } from "../models/CursoCantComentariosDTO";
 
 const base_url=environment.base
 
@@ -44,10 +45,21 @@ export class ComentariosService {
   }
 
   // Función para buscar sesiones por título
-  listPorCurso(titulo: string): Observable<any> {
+  listPorSesion(titulo: string): Observable<any> {
     // Asegúrate de codificar el título para que sea seguro para la URL
     const encodedTitulo = encodeURIComponent(titulo);
-    const urll = `${this.url}/buscarsesionesporcurso?c=${encodedTitulo}`;
+    const urll = `${this.url}/sesiontitulocomentario?tituloSesion=${encodedTitulo}`;
     return this.http.get(urll);
+  }
+
+  top3Cursos():Observable<CursoCantComentariosDTO[]>{
+    return this.http.get<CursoCantComentariosDTO[]>(`${this.url}/top3cursosmascomentarios`);
+  }
+
+  listarMalosComentarios(titulo: string): Observable<Comentarios[]> {
+    // Asegúrate de codificar el título para que sea seguro para la URL
+    const encodedTitulo = encodeURIComponent(titulo);
+    const urll = `${this.url}/listarmaloscomentarios?titulo=${encodedTitulo}`;
+    return this.http.get<Comentarios[]>(urll);
   }
 }
