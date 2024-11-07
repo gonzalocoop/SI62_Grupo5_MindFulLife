@@ -1,0 +1,18 @@
+<mat-toolbar class="custom-toolbar" >
+    <mat-icon >menu</mat-icon>
+    <div>
+    <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >Sección</button>
+    </div>
+   </mat-toolbar>
+   <mat-menu #menuG5="matMenu">
+    <button mat-menu-item routerLink="/reportes/tiempopromedio" >Tiempo promedio de duración de video por sesión</button>
+    <button mat-menu-item routerLink="/reportes/contabilizarsesiones" >Contabilizar las sesiones de cada curso</button>
+    <button mat-menu-item routerLink="/reportes/tituloduracion" >Obtener título y duración de videos por sesión</button>
+    <button mat-menu-item routerLink="/reportes/usuariossuscripcion">Obtener usuarios por nombre de suscripción</button>
+    <button mat-menu-item routerLink="/reportes/top3cursos">Obtener top 3 cursos con más comentarios</button>
+    <button mat-menu-item routerLink="/reportes/recaudaciontotal">Obtener recaudación total por tipo de suscripción</button>
+    <button mat-menu-item routerLink="/reportes/cursoscynoc">Obtener cantidad de cursos completados y no completados por usuario</button>
+    <button mat-menu-item routerLink="/reportes/cursosmasymenossucrip">Obtener el curso con más y menos suscripciones</button>
+    <button mat-menu-item routerLink="/reportes/comentariosnegativos">Obtener comentarios negativos por título de sesión</button>
+   </mat-menu>
+   <router-outlet></router-outlet>

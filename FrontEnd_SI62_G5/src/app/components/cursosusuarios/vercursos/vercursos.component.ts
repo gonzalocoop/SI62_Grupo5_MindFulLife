@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { Sesiones } from '../../../models/Sesiones';
 import { SesionesService } from '../../../services/sesiones.service';
+import { CronogramasService } from '../../../services/cronogramas.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class VercursosComponent implements OnInit{
 
 
   // Inyecta los servicios necesarios en el constructor
-  constructor(private sS: SesionesService,private route: ActivatedRoute, private cuS: CursosUsuariosService, private router: Router,    private usuariocompartido: CompartiruserService // Inyecta el servicio compartido
+  constructor(private cR:CronogramasService,private sS: SesionesService,private route: ActivatedRoute, private cuS: CursosUsuariosService, private router: Router,    private usuariocompartido: CompartiruserService // Inyecta el servicio compartido
   ) {}
 
   ngOnInit(): void {
@@ -82,5 +83,39 @@ export class VercursosComponent implements OnInit{
     });
     });
     
+  }
+
+  // Función para actualizar el estado del cronograma y del curso usuario
+  actualizar(idSesion: number, idCursoUsuario: number): void {
+    // Primero, actualizamos el estado del cronograma
+    this.cR.actualizarEstadoCronogramas(idSesion, idCursoUsuario).subscribe(() => {
+      // Después de actualizar el cronograma, actualizamos el progreso y estado del curso usuario
+      this.cuS.actualizarProgresoYEstadoCursoUsuario(idCursoUsuario).subscribe(() => {
+        // Si todo fue exitoso, puedes actualizar el estado o mostrar un mensaje de éxito
+        // Recargamos los datos después de la actualización
+        this.recargar();
+        alert('El cronograma y el progreso del curso han sido actualizados');
+        // Podrías agregar más lógica si deseas, como recargar los datos o redirigir al usuario
+      }, error => {
+        console.error('Error al actualizar el progreso del curso usuario:', error);
+        alert('Hubo un error al actualizar el progreso del curso.');
+      });
+    }, error => {
+      console.error('Error al actualizar el estado del cronograma:', error);
+      alert('Hubo un error al actualizar el cronograma.');
+    });
+  }
+
+  // Función para recargar los datos del curso y las sesiones
+  recargar(): void {
+    // Recargar los datos del curso
+    this.cuS.listId(this.id).subscribe((data: CursosUsuarios) => {
+      this.cursousuario = data; // Actualizar el objeto curso
+      // Recargar las sesiones
+      this.sS.listPorCurso(this.cursousuario.cur.titulo).subscribe(data => {
+        this.sesiones = data;  // Actualizar las sesiones
+        this.updatePagedSesiones();  // Actualizar la paginación
+      });
+    });
   }
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,6 +14,7 @@ import { UsuarioSuscripcionesService } from '../../../services/usuario-suscripci
 import { SuscripcionService } from '../../../services/suscripcion.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { catchError, map, Observable, of } from 'rxjs';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
   //Para traer los elementos de sesiones
   listaSuscripciones: Suscripciones[] = [];
   listaUsuarios: Usuarios[] = [];
- 
+  
   
 
 
@@ -50,11 +51,12 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
 
     this.form = this.formBuilder.group({
       hcodigo: [''], // para el modificar
-      hfechaInicio: ['', Validators.required],
-      hfechaFin: ['', Validators.required],
+      hfechaInicio: ['', [Validators.required]],
+      hfechaFin: ['', [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]],
       hsuscripciones: ['', Validators.required],
-      husuario: ['', Validators.required],
-    })
+      husuario: ['', [Validators.required], [this.usuarioUnico.bind(this)]],
+    }
+  )
     this.sS.list().subscribe(data=>{
       this.listaSuscripciones=data
     })
@@ -73,7 +75,6 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
    
       this.usuarioSuscripciones.fechaInicio=this.form.value.hfechaInicio;
       this.usuarioSuscripciones.fechaFin=this.form.value.hfechaFin;
-  
       this.usuarioSuscripciones.sus.id=this.form.value.hsuscripciones;
       this.usuarioSuscripciones.usu.id=this.form.value.husuario;
 
@@ -111,10 +112,11 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
         this.form=new FormGroup({
           hcodigo:new FormControl(data.id, Validators.required),
           hfechaInicio: new FormControl(data.fechaInicio, Validators.required),
-          hfechaFin: new FormControl(data.fechaFin, Validators.required),
+          hfechaFin: new FormControl(data.fechaFin, [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]),
           hsuscripciones:new FormControl(data.sus.id, Validators.required),
-          husuario:new FormControl(data.usu.id, Validators.required),
-        })
+          husuario:new FormControl(data.usu.id, [Validators.required], [this.usuarioUnico.bind(this)]),
+        }
+      )
         this.sS.list().subscribe(data=>{
           this.listaSuscripciones=data
         })
@@ -125,6 +127,47 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
       })
     }
   }
+
+
+
+  // Función de validación personalizada para la fecha final
+fechaFinPosteriorAFechaInicioValidator(control: AbstractControl): ValidationErrors | null {
+  const fechaInicio = this.form.get('hfechaInicio')?.value;
+  const fechaFin = control.value;
+
+  if (fechaInicio && fechaFin) {
+    const inicio = new Date(fechaInicio);
+    const fin = new Date(fechaFin);
+
+    // Si la fecha final es menor o igual a la fecha de inicio
+    if (fin <= inicio) {
+      return { fechaFinPosteriorAFechaInicioValidator: true };  // Retorna error
+    }
+  }
+  return null;  // Retorna null si la fecha final es válida
+}
+
+
+
+usuarioUnico(control: AbstractControl): Observable<ValidationErrors | null> {
+  // Si el campo está vacío, se considera válido
+  if (!control.value) {
+    return of(null);
+  }
+
+  // Llamamos al servicio para obtener la lista de suscripciones
+  return this.usS.list().pipe(  // 'usS.list()' es el método para obtener todas las suscripciones
+    map(suscripciones => {
+      // Verificamos si el usuario ya tiene una suscripción
+      const usuarioId = control.value; // El valor del control es el ID del usuario
+      const existeSuscripcion = suscripciones.some(suscripcion => suscripcion.usu.id === usuarioId && suscripcion.id != this.id);
+
+      return existeSuscripcion ? { usuarioYaTieneSuscripcion: true } : null;  // Retorna el error si el usuario ya tiene una suscripción
+    }),
+  );
+}
+
+
 
 
 }

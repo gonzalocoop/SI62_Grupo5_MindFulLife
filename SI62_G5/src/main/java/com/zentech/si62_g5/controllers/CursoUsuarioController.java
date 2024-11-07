@@ -106,4 +106,19 @@ public class CursoUsuarioController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(dto); // 409 Conflict
         }
     }
+
+
+    @GetMapping("listarseguncursousuario")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public CursoUsuarioDTO findByCursoAndUsuario(@RequestParam int idCurso, @RequestParam int idUsuario){
+        ModelMapper m=new ModelMapper();
+        CursoUsuarioDTO dto=m.map(cuS.findByCursoAndUsuario(idCurso,idUsuario),CursoUsuarioDTO.class);
+        return dto;
+    }
+
+    @PutMapping("/actualizarprogreso")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public void actualizarProgresoYEstado(@RequestParam int idCursoUsuario) {
+        cuS.actualizarProgresoYEstado(idCursoUsuario);
+    }
 }

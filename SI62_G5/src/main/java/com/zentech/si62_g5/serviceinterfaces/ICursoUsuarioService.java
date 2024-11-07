@@ -17,5 +17,10 @@ public interface ICursoUsuarioService {
     public CursosUsuarios listId(int id);
 
     public void registrarUsuarioEnCurso(int idCurso, int idUsuario);
+    //NUEVO
+    public CursosUsuarios findByCursoAndUsuario(int idCurso,int idUsuario);
+
+    //NUEVO 2
+    public void actualizarProgresoYEstado( int idCursoUsuario);
 
 }
