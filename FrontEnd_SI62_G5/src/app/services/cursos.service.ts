@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Cursos } from '../models/Cursos';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { CantSesionesCursoDTO } from '../models/CantSesionesCursoDTO';
+import { MaxMinUsuarioCursosDTO } from '../models/MaxMinUsuarioCursosDTO';
+import { Comentarios } from '../models/Comentarios';
 
 const base_url=environment.base
 
@@ -42,4 +45,12 @@ export class CursosService {
     return this.http.put(this.url,d)
   }
 
+  cantidadSesionesCurso():Observable<CantSesionesCursoDTO[]>{
+    return this.http.get<CantSesionesCursoDTO[]>(`${this.url}/cantidadsesionescurso`);
+  }
+
+  CursosMasMenosSuscripcionesDeUsuarios():Observable<MaxMinUsuarioCursosDTO[]>{
+    return this.http.get<MaxMinUsuarioCursosDTO[]>(`${this.url}/maxyminwsuariocursos`);
+  }
+  
 }

@@ -61,4 +61,14 @@ public class CursoUsuarioServiceImplement implements ICursoUsuarioService {
 
         }
     }
+
+    @Override
+    public CursosUsuarios findByCursoAndUsuario(int idCurso, int idUsuario) {
+        return cuR.findByCursoAndUsuario(idCurso,idUsuario);
+    }
+
+    @Override
+    public void actualizarProgresoYEstado(int idCursoUsuario) {
+        cuR.actualizarProgresoYEstado(idCursoUsuario);
+    }
 }

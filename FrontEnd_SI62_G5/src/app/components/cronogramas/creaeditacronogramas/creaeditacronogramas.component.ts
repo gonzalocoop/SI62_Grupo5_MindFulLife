@@ -37,7 +37,7 @@ export class CreaeditacronogramasComponent implements OnInit{
   listaSesiones: Sesiones[] = [];
   listaEstados:{value:string,viewValue:string}[]=[
     {value:'completado',viewValue:'completado'},
-    {value:'incompleto',viewValue:'incompleto'}
+    {value:'no completado',viewValue:'no completado'}
   ];
 
   constructor(private formBuilder:FormBuilder,private cuS:CursosUsuariosService, private sS:SesionesService,private cS:CronogramasService,private router:Router, private route:ActivatedRoute){}

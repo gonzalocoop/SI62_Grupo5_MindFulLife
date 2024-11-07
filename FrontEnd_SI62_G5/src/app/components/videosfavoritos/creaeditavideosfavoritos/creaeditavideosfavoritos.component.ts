@@ -49,7 +49,10 @@ export class CreaeditavideosfavoritosComponent implements OnInit {
       husuarios: ['', Validators.required],
       hvideos:['',Validators.required],
   
-    });
+    },{ 
+      asyncValidators: [this.videoFavoritoUnico.bind(this)] // Validación a nivel de formulario
+    }
+  );
     this.vS.list().subscribe(data=>{
       this.listaVideos=data
     })
@@ -98,6 +101,8 @@ aceptar(){
         husuarios: new FormControl(data.usu.id, Validators.required),
         hvideos: new FormControl(data.vid.id, Validators.required)
        
+      },{ 
+        asyncValidators: [this.videoFavoritoUnico.bind(this)] // Validación a nivel de formulario
       })
       this.vS.list().subscribe(data=>{
         this.listaVideos=data
@@ -108,4 +113,31 @@ aceptar(){
     })
   }
 }
+
+videoFavoritoUnico(): Observable<ValidationErrors | null> {
+  // Obtenemos los valores del formulario
+  const usuarioId = this.form.get('husuarios')?.value;
+  const videoId = this.form.get('hvideos')?.value;
+
+  // Si faltan valores (por ejemplo, si el usuario o el video no se han seleccionado), consideramos válido
+  if (!usuarioId || !videoId) {
+    return of(null);
+  }
+
+  // Llamamos al servicio para obtener la lista de favoritos
+  return this.fS.list().pipe(
+    map(videosfavos => {
+      // Verificamos si existe un favorito con el mismo usuario y video
+      const existeVideoFavorito = videosfavos.some(videof =>
+        videof.usu.id === usuarioId && videof.vid.id === videoId && videof.id != this.id
+      );
+
+      // Si existe, devolvemos un error, de lo contrario, retornamos null
+      return existeVideoFavorito ? { usuarioYaTieneEseVideoFavorito: true } : null;
+    }),
+  );
+}
+
+
+
 }

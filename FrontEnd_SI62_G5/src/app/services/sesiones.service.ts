@@ -3,6 +3,8 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Sesiones } from '../models/Sesiones';
+import { PromedioVideosDTO } from '../models/PromedioVideosDTO';
+import { SesionCantidadVideoDTO } from '../models/SesionCantidadVideoDTO';
 
 const base_url=environment.base
 
@@ -50,4 +52,13 @@ export class SesionesService {
     const urll = `${this.url}/buscarsesionesporcurso?c=${encodedTitulo}`;
     return this.http.get(urll);
   }
+
+  tiempoPromedio():Observable<PromedioVideosDTO[]>{
+    return this.http.get<PromedioVideosDTO[]>(`${this.url}/promediovideos`);
+  }
+
+  tituloDuracionVideos():Observable<SesionCantidadVideoDTO[]>{
+    return this.http.get<SesionCantidadVideoDTO[]>(`${this.url}/sesionvideoduracion`);
+  }
+  
 }
