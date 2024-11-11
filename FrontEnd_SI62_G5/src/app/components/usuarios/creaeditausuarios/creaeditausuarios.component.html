@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="verificar()">
     <div>
       <h1>Registro de Usuarios</h1>
     </div>
@@ -47,9 +47,9 @@
           </mat-form-field>
           <br>
   
-        <mat-form-field>
+        <mat-form-field *ngIf="isAdmin()">
             <mat-label>Rol</mat-label>
-            <mat-select formControlName="hrol">
+            <mat-select formControlName="hrol" >
               @for (m of listaRoles; track m) {
                 <mat-option [value]="m.id">{{m.nombre}}</mat-option>
               }   

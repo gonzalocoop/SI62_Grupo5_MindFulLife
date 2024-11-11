@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { CursosUsuarios } from '../../../models/CursosUsuarios';
 import { CursosUsuariosService } from '../../../services/cursos-usuarios.service';
+import { LoginService } from '../../../services/login.service';
 
 
 @Component({
@@ -17,6 +18,8 @@ import { CursosUsuariosService } from '../../../services/cursos-usuarios.service
   styleUrl: './listarcursosusuarios.component.css'
 })
 export class ListarcursosusuariosComponent implements OnInit{
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
   mensaje:string="";
   cursosUsuarios: CursosUsuarios[] = []; // Arreglo que contiene todos los cursos
   pagedCursosUsuarios: CursosUsuarios[] = []; // Cursos de la página actual para mostrar en las tarjetas
@@ -24,17 +27,24 @@ export class ListarcursosusuariosComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
   // Inyecta el servicio `CursosService` para acceder a los datos de cursos
-  constructor(private cS: CursosUsuariosService) {}
+  constructor(private lS: LoginService,private cS: CursosUsuariosService) {}
 
   ngOnInit(): void {
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
+    const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
     // Suscripción para obtener la lista completa de cursos y actualizar `pagedCursos`
-    this.cS.list().subscribe(data => {
-      this.cursosUsuarios = data;       // Guarda todos los cursos obtenidos
-      this.updatePagedCursos();  // Muestra solo los cursos de la página actual
-    });
-
-    // Escucha actualizaciones en el servicio y vuelve a cargar `cursos` y `pagedCursos`
-    this.cS.getList().subscribe(data => {
+    if (isAdmin) {
+      this.cS.list().subscribe(data => {
+        this.cursosUsuarios = data;       // Guarda todos los cursos obtenidos
+        this.updatePagedCursos();  // Muestra solo los cursos de la página actual
+      });
+    } else{
+      this.cS.cursousuarioPorusuario(this.selectedUser).subscribe((data) => {
+        this.cursosUsuarios = data; 
+        this.updatePagedCursos(); 
+      })
+    } 
+      this.cS.getList().subscribe(data => {
       this.cursosUsuarios = data;       // Guarda todos los cursos actualizados
       this.updatePagedCursos(); // Actualiza la vista con la página actual
     });
@@ -81,5 +91,18 @@ export class ListarcursosusuariosComponent implements OnInit{
     setTimeout(()=>{
       this.mensaje='';
     }, 3000);
+  }
+
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
   }
 }

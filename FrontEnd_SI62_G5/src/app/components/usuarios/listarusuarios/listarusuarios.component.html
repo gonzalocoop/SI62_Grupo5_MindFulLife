@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="verificar()">
     <div>
         <h1>Tabla De Usuarios</h1>
     </div>
@@ -14,7 +14,7 @@
                     <p><strong>Rol:</strong> {{ usuario.rol.nombre }}</p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-icon-button color="warn" (click)="eliminar(usuario.id)">
+                    <button mat-icon-button color="warn" *ngIf="isAdmin()" (click)="eliminar(usuario.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
                     <button mat-icon-button color="primary" [routerLink]="['ediciones', usuario.id]">

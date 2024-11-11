@@ -8,6 +8,7 @@ import { UsuarioSuscripciones } from '../../../models/UsuarioSuscripciones';
 import { UsuarioSuscripcionesService } from '../../../services/usuario-suscripciones.service';
 import { catchError, of } from 'rxjs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listarusuariossuscripciones',
@@ -17,6 +18,10 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   styleUrl: './listarusuariossuscripciones.component.css'
 })
 export class ListarusuariossuscripcionesComponent implements OnInit{
+
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
+
   mensaje:string="";
   usuarioSuscripciones: UsuarioSuscripciones[] = []; 
   dataSource: MatTableDataSource<UsuarioSuscripciones> = new MatTableDataSource();
@@ -25,17 +30,29 @@ export class ListarusuariossuscripcionesComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator; 
 
  
-  constructor(private usS: UsuarioSuscripcionesService) {}
+  constructor(private lS: LoginService,private usS: UsuarioSuscripcionesService) {}
  
   ngOnInit(): void {  //subscribe: patron de diseño de software para devolver datos, en este caso de 
-    this.usS.list().subscribe(data=>{
-      this.dataSource=new MatTableDataSource(data)
-      this.dataSource.paginator = this.paginator;  // Asignar el paginator a la dataSource aquí
-    })
-    this.usS.getList().subscribe(data=>{
-      this.dataSource=new MatTableDataSource(data)
-      this.dataSource.paginator = this.paginator;  // Asignar el paginator a la dataSource aquí
-    });
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
+    const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
+    
+    if (isAdmin) {
+      // Si es admin, obtener todos los videos favoritos
+      this.usS.list().subscribe(data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      });
+    } else {
+      
+      this.usS.listPorUsuario(this.selectedUser).subscribe(data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+      this.usS.getList().subscribe(data=>{
+        this.dataSource=new MatTableDataSource(data)
+        this.dataSource.paginator = this.paginator;  // Asignar el paginator a la dataSource aquí
+      });
 }
 //para que siempre funcione el paginator
 ngAfterViewInit(): void {
@@ -63,4 +80,16 @@ ocultarMensaje(){
   }, 3000);
 }
 
+
+verificar() {
+  this.role = this.lS.showRole();
+  return this.lS.verificar();
+}
+isAdmin() {
+  return this.role === 'ADMINISTRADOR';
+}
+
+isStudent() {
+  return this.role === 'ESTUDIANTE';
+}
 }

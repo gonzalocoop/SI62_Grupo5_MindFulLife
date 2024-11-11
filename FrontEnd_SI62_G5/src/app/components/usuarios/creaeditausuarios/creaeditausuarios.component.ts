@@ -19,6 +19,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { RolesService } from '../../../services/roles.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-creaeditausuarios',
@@ -35,6 +36,7 @@ import { map, Observable, of } from 'rxjs';
   styleUrl: './creaeditausuarios.component.css',
 })
 export class CreaeditausuariosComponent implements OnInit {
+  role: string = '';
   form: FormGroup = new FormGroup({});
   usuario: Usuarios = new Usuarios();
   //variables para trabajar el editar
@@ -48,10 +50,12 @@ export class CreaeditausuariosComponent implements OnInit {
     private uS: UsuariosService,
     private rS: RolesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private lS: LoginService,
   ) {}
 
   ngOnInit(): void {
+    this.role = this.lS.showRole();  
     //Para trabajar el editar
     this.route.params.subscribe((data: Params) => {
       //el  data['id'] es del id del parametro
@@ -147,5 +151,19 @@ export class CreaeditausuariosComponent implements OnInit {
         return existe ? { usernameRepetido: true } : null;
       })
     );
+  }
+
+
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
   }
 }

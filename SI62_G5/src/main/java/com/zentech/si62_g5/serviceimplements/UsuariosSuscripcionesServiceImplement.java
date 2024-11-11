@@ -64,5 +64,10 @@ public class UsuariosSuscripcionesServiceImplement implements IUsuariosSuscripci
         return listaDTO;
     }
 
+    @Override
+    public List<UsuariosSuscripciones> listaUsuarioSuscripcionUsuario(String username) {
+        return bR.listaUsuarioSuscripcionUsuario(username);
+    }
+
 
 }

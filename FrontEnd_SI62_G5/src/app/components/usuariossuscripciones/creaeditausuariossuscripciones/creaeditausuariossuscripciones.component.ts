@@ -15,6 +15,7 @@ import { SuscripcionService } from '../../../services/suscripcion.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
+import { LoginService } from '../../../services/login.service';
 
 
 @Component({
@@ -26,6 +27,9 @@ import { catchError, map, Observable, of } from 'rxjs';
   styleUrl: './creaeditausuariossuscripciones.component.css'
 })
 export class CreaeditausuariossuscripcionesComponent implements OnInit{
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
+
   form:FormGroup= new FormGroup({})
   usuarioSuscripciones:UsuarioSuscripciones=new UsuarioSuscripciones()
   //variables para trabajar el editar
@@ -38,8 +42,9 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
   
 
 
-  constructor(private formBuilder:FormBuilder,private usS:UsuarioSuscripcionesService, private sS:SuscripcionService,private uS:UsuariosService,private router:Router, private route:ActivatedRoute){}
+  constructor(private lS: LoginService,private formBuilder:FormBuilder,private usS:UsuarioSuscripcionesService, private sS:SuscripcionService,private uS:UsuariosService,private router:Router, private route:ActivatedRoute){}
   ngOnInit(): void {
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado
     //Para trabajar el editar
     this.route.params.subscribe((data:Params)=>{ //el  data['id'] es del id del parametro
       this.id=data['id'];
@@ -59,10 +64,18 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
   )
     this.sS.list().subscribe(data=>{
       this.listaSuscripciones=data
-    })
-    this.uS.list().subscribe(data=>{
-      this.listaUsuarios=data
-    })
+    });
+    if (this.isAdmin()) {
+      // Si es administrador, obtenemos todos los usuarios
+      this.uS.list().subscribe(data => {
+        this.listaUsuarios = data;
+      });
+    } else {
+      // Si no es administrador, solo añadimos el usuario seleccionado
+      this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
+        this.listaUsuarios = [data];
+      });
+    }
     
   
   }
@@ -119,10 +132,18 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
       )
         this.sS.list().subscribe(data=>{
           this.listaSuscripciones=data
-        })
-        this.uS.list().subscribe(data=>{
-          this.listaUsuarios=data
-        })
+        });
+        if (this.isAdmin()) {
+          // Si es administrador, obtenemos todos los usuarios
+          this.uS.list().subscribe(data => {
+            this.listaUsuarios = data;
+          });
+        } else {
+          // Si no es administrador, solo añadimos el usuario seleccionado
+          this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
+            this.listaUsuarios = [data];
+          });
+        }
         
       })
     }
@@ -167,7 +188,17 @@ usuarioUnico(control: AbstractControl): Observable<ValidationErrors | null> {
   );
 }
 
+verificar() {
+  this.role = this.lS.showRole();
+  return this.lS.verificar();
+}
+isAdmin() {
+  return this.role === 'ADMINISTRADOR';
+}
 
+isStudent() {
+  return this.role === 'ESTUDIANTE';
+}
 
 
 }

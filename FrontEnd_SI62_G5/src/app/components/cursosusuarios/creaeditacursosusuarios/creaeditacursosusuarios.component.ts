@@ -27,6 +27,7 @@ import { CursosUsuariosService } from '../../../services/cursos-usuarios.service
   styleUrl: './creaeditacursosusuarios.component.css'
 })
 export class CreaeditacursosusuariosComponent implements OnInit{
+  
   form:FormGroup= new FormGroup({})
   cursosUsuarios:CursosUsuarios=new CursosUsuarios()
   //variables para trabajar el editar

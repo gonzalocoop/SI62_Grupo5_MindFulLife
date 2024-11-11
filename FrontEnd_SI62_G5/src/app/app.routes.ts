@@ -46,6 +46,8 @@ import { RecaudaciontotalsuscripcionComponent } from './components/reportes/reca
 import { CursoscompletadosynocompletadosComponent } from './components/reportes/cursoscompletadosynocompletados/cursoscompletadosynocompletados.component';
 import { CursosmasymenossuscripcionesdeusuariosComponent } from './components/reportes/cursosmasymenossuscripcionesdeusuarios/cursosmasymenossuscripcionesdeusuarios.component';
 import { ComentariosnegativosComponent } from './components/reportes/comentariosnegativos/comentariosnegativos.component';
+import { seguridadGuard } from './guard/seguridad.guard';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
     {
@@ -82,7 +84,8 @@ export const routes: Routes = [
             {
                 path:'descripciones/:id',component:VerdescripcionComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'suscripciones',component:SuscripcionesComponent,
@@ -93,7 +96,8 @@ export const routes: Routes = [
             {
                 path:'ediciones/:id',component:CreaeditasuscripcionesComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'roles',component:RolesComponent,
@@ -104,7 +108,8 @@ export const routes: Routes = [
             {
                 path:'ediciones/:id',component:CreaeditarolesComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'sesiones',component:SesionesComponent,
@@ -118,7 +123,8 @@ export const routes: Routes = [
             {
                 path:'descripciones/:id',component:VerdescripcionsesComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'videos',component:VideosComponent,
@@ -129,7 +135,8 @@ export const routes: Routes = [
             {
                 path:'ediciones/:id',component:CreaeditavideosComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'videosfav',component:VideosfavoritosComponent,
@@ -140,7 +147,8 @@ export const routes: Routes = [
             {
                 path:'ediciones/:id',component:CreaeditavideosfavoritosComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'usuarios',component:UsuariosComponent,
@@ -151,7 +159,8 @@ export const routes: Routes = [
             {
                 path:'ediciones/:id',component:CreaeditausuariosComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'cursosusuarios',component:CursosusuariosComponent,
@@ -176,7 +185,8 @@ export const routes: Routes = [
                 path: 'vercomentses/:idCursoUsuario/:idSesion', component: VercomentariodesesionComponent 
             }
 
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'usuariossuscripciones',component:UsuariossuscripcionesComponent,
@@ -187,7 +197,8 @@ export const routes: Routes = [
             {
                 path:'ediciones/:id',component:CreaeditausuariossuscripcionesComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'cronogramas',component:CronogramasComponent,
@@ -201,7 +212,8 @@ export const routes: Routes = [
             {
                 path:'verdetallecrono/:id',component:VerdetallecronoComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'comentarios',component:ComentariosComponent,
@@ -215,7 +227,8 @@ export const routes: Routes = [
             {
                 path:'vercoment/:id',component:VercomentarioComponent
             }
-        ]
+        ],
+        canActivate: [seguridadGuard],
     },
     {
         path:'video',component:VideoPlayerComponent,
@@ -254,7 +267,13 @@ export const routes: Routes = [
                 path:'comentariosnegativos',component:ComentariosnegativosComponent
             }
             
-        ]
-    }
+        ],
+        canActivate: [seguridadGuard],
+    },
+    {
+      path: 'homes',
+      component: HomeComponent,
+      canActivate: [seguridadGuard], 
+    },
     
 ];
