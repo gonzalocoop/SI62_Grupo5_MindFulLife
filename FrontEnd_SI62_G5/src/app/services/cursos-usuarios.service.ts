@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { CursosUsuarios } from '../models/CursosUsuarios';
 import { CantCursCompleNoCompleDTO } from '../models/CantCursCompleNoCompleDTO';
+import { LoginService } from './login.service';
 
 const base_url=environment.base
 
@@ -14,7 +15,7 @@ export class CursosUsuariosService {
 
   private url=`${base_url}/cursoscsuarios`
   private listaCambio=new Subject<CursosUsuarios[]>()
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private loginService: LoginService) { }
 
   list(){
     return this.http.get<CursosUsuarios[]>(this.url)
@@ -29,8 +30,19 @@ export class CursosUsuariosService {
     return this.listaCambio.asObservable();
   }
 
-  setList(listaNueva:CursosUsuarios[]){
-    this.listaCambio.next(listaNueva); 
+
+  setList(listaNueva: CursosUsuarios[]) {
+    const role = this.loginService.showRole();  // Obtener el rol del usuario
+    const username = localStorage.getItem("username") ?? "";  // Obtener el nombre de usuario
+  
+    if (role === 'ADMINISTRADOR') {
+      // Si es admin, pasar todos los videos favoritos
+      this.listaCambio.next(listaNueva);
+    } else {
+      // Si no es admin, filtrar solo los videos del usuario actual
+      const filteredList = listaNueva.filter(curusu => curusu.usua.username === username);
+      this.listaCambio.next(filteredList);
+    }
   }
 
   delete(id:number){
@@ -67,4 +79,11 @@ export class CursosUsuariosService {
     return this.http.get<CantCursCompleNoCompleDTO[]>(`${this.url}/cantidaddecursoscompletadosynocompletados`);
   }
   
+
+  cursousuarioPorusuario(username: string): Observable<CursosUsuarios[]> {
+    
+    const encodedUsername = encodeURIComponent(username);
+    const urll = `${this.url}/buscarcursosusuariosporusuario?username=${encodedUsername}`;
+    return this.http.get<CursosUsuarios[]>(urll);
+  }
 }

@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { Comentarios } from "../../../models/Comentarios";
 import { catchError, of } from "rxjs";
 import { ComentariosService } from "../../../services/comentarios.service";
+import { LoginService } from "../../../services/login.service";
 
 @Component({
   selector: 'app-listarcomentarios',
@@ -15,8 +16,9 @@ import { ComentariosService } from "../../../services/comentarios.service";
   templateUrl: './listarcomentarios.component.html',
   styleUrl: './listarcomentarios.component.css'
 })
-export class ListarcomentariosComponent {
-
+export class ListarcomentariosComponent implements OnInit{
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
   mensaje:string="";
   comentarios: Comentarios[] = []; // Arreglo que contiene todos los cursos
   pagedComentarios: Comentarios[] = []; // Cursos de la página actual para mostrar en las tarjetas
@@ -24,15 +26,22 @@ export class ListarcomentariosComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
   // Inyecta el servicio `SesiionesService` para acceder a los datos de cursos
-  constructor(private cS: ComentariosService) {}
+  constructor(private cS: ComentariosService,private lS: LoginService) {}
 
   ngOnInit(): void {
-    // Suscripción para obtener la lista completa de cursos y actualizar `pagedCursos`
-    this.cS.list().subscribe(data => {
-      this.comentarios = data;       // Guarda todos los cursos obtenidos
-      this.updatePagedCursos();  // Muestra solo los cursos de la página actual
-    });
-
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
+    const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
+    if (isAdmin) {
+      this.cS.list().subscribe(data => {
+        this.comentarios = data;       // Guarda todos los cursos obtenidos
+        this.updatePagedCursos();  // Muestra solo los cursos de la página actual
+      });
+    } else{
+      this.cS.comentarioPorusuario(this.selectedUser).subscribe((data) => {
+        this.comentarios = data; 
+        this.updatePagedCursos(); 
+      })
+    }
     // Escucha actualizaciones en el servicio y vuelve a cargar `cursos` y `pagedCursos`
     this.cS.getList().subscribe(data => {
       this.comentarios = data;       // Guarda todos los cursos actualizados
@@ -81,6 +90,19 @@ export class ListarcomentariosComponent {
     setTimeout(()=>{
       this.mensaje='';
     }, 3000);
+  }
+
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
   }
 }
 

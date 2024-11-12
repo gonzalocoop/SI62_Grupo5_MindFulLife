@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { Cronogramas } from '../../../models/Cronogramas';
 import { CronogramasService } from '../../../services/cronogramas.service';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listarcronogramas',
@@ -23,19 +24,31 @@ import { CronogramasService } from '../../../services/cronogramas.service';
 })
 
 export class ListarcronogramasComponent implements OnInit {
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
+
   mensaje: string = '';
   Cronogramas: Cronogramas[] = []; // Arreglo que contiene todos los Cronogramas
   pagedCronogramas: Cronogramas[] = []; // Cursos de la página actual para mostrar en las tarjetas
 
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
-  constructor(private cS: CronogramasService) {}
+  constructor(private lS: LoginService,private cS: CronogramasService) {}
 
   ngOnInit(): void {
-    this.cS.list().subscribe((data) => {
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
+    const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
+    if (isAdmin) {
+      this.cS.list().subscribe((data) => {
       this.Cronogramas = data; 
       this.updatePagedCronogramas(); 
     });
+  }else{
+    this.cS.cronogramaPorusuario(this.selectedUser).subscribe((data) => {
+      this.Cronogramas = data; 
+      this.updatePagedCronogramas(); 
+    })
+  }
 
     this.cS.getList().subscribe((data) => {
       this.Cronogramas = data; 
@@ -87,5 +100,18 @@ export class ListarcronogramasComponent implements OnInit {
     setTimeout(() => {
       this.mensaje = '';
     }, 3000);
+  }
+
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
   }
 }

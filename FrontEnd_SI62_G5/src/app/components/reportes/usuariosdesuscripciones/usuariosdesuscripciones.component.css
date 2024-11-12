@@ -1,0 +1,40 @@
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+  
+.search-section {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    margin-top: 20px;
+}
+  
+table {
+    width: 100%;
+}
+  
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: #ff0707;
+}
+  
+mat-form-field {
+    width: 300px;
+}
+
+/* Título principal */
+h1 {
+    text-align: center;
+    color: #226c7f; /* Cambia este valor para el color del título */
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 700;
+  }

@@ -13,6 +13,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import { Usuarios } from '../../../models/Usuarios';
 import { VideosFavoritos } from '../../../models/VideosFavoritos';
 import { VideosFavoritosService } from '../../../services/videosfavoritos.service';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-creaeditavideosfavoritos',
@@ -22,6 +23,9 @@ import { VideosFavoritosService } from '../../../services/videosfavoritos.servic
   styleUrl: './creaeditavideosfavoritos.component.css'
 })
 export class CreaeditavideosfavoritosComponent implements OnInit {
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
+ 
   form:FormGroup= new FormGroup({})
   videosfavoritos:VideosFavoritos=new VideosFavoritos()
   //variables para trabajar el editar
@@ -34,8 +38,9 @@ export class CreaeditavideosfavoritosComponent implements OnInit {
   listaUsuarios: Usuarios[] = [];
 
 
-  constructor(private formBuilder:FormBuilder,private fS:VideosFavoritosService,private vS:VideosService,private uS:UsuariosService, private router:Router, private route:ActivatedRoute){}
+  constructor(private lS: LoginService,private formBuilder:FormBuilder,private fS:VideosFavoritosService,private vS:VideosService,private uS:UsuariosService, private router:Router, private route:ActivatedRoute){}
   ngOnInit(): void {
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado
     //Para trabajar el editar
     this.route.params.subscribe((data:Params)=>{ //el  data['id'] es del id del parametro
       this.id=data['id'];
@@ -55,10 +60,18 @@ export class CreaeditavideosfavoritosComponent implements OnInit {
   );
     this.vS.list().subscribe(data=>{
       this.listaVideos=data
-    })
-    this.uS.list().subscribe(data=>{
-      this.listaUsuarios=data
-    })
+    });
+    if (this.isAdmin()) {
+      // Si es administrador, obtenemos todos los usuarios
+      this.uS.list().subscribe(data => {
+        this.listaUsuarios = data;
+      });
+    } else {
+      // Si no es administrador, solo añadimos el usuario seleccionado
+      this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
+        this.listaUsuarios = [data];
+      });
+    }
 }
 aceptar(){
   if(this.form.valid){
@@ -106,10 +119,18 @@ aceptar(){
       })
       this.vS.list().subscribe(data=>{
         this.listaVideos=data
-      })
-      this.uS.list().subscribe(data=>{
-        this.listaUsuarios=data
-      })
+      });
+      if (this.isAdmin()) {
+        // Si es administrador, obtenemos todos los usuarios
+        this.uS.list().subscribe(data => {
+          this.listaUsuarios = data;
+        });
+      } else {
+        // Si no es administrador, solo añadimos el usuario seleccionado
+        this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
+          this.listaUsuarios = [data];
+        });
+      }
     })
   }
 }
@@ -138,6 +159,16 @@ videoFavoritoUnico(): Observable<ValidationErrors | null> {
   );
 }
 
+verificar() {
+  this.role = this.lS.showRole();
+  return this.lS.verificar();
+}
+isAdmin() {
+  return this.role === 'ADMINISTRADOR';
+}
 
+isStudent() {
+  return this.role === 'ESTUDIANTE';
+}
 
 }

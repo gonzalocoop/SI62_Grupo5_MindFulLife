@@ -36,7 +36,7 @@ public class UsuariosController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<UsuariosDTO> listar()
     {
         return uS.list().stream().map(x->{
@@ -91,5 +91,16 @@ public class UsuariosController {
             listaDTO.add(dto);
         }
         return listaDTO;
+    }
+
+
+
+
+    @GetMapping("/usuarioporusername")
+    public UsuariosDTO listarPorUsername(@RequestParam String u)
+    {
+        ModelMapper m=new ModelMapper();
+        UsuariosDTO dto=m.map(uS.findUsuarioByUsername(u),UsuariosDTO.class);
+        return dto;
     }
 }

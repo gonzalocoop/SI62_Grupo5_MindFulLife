@@ -33,7 +33,7 @@ public class UsuariosSuscripcionesController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<UsuariosSuscripcionesDTO> listar()
     {
         return bS.list().stream().map(x->{
@@ -43,7 +43,7 @@ public class UsuariosSuscripcionesController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void eliminar(@PathVariable("id") Integer id){
 
         bS.delete(id);
@@ -59,7 +59,7 @@ public class UsuariosSuscripcionesController {
 
 
     @PutMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void modificar(@RequestBody UsuariosSuscripcionesDTO dto){
         ModelMapper m = new ModelMapper();
         UsuariosSuscripciones b = m.map(dto, UsuariosSuscripciones.class);
@@ -89,4 +89,13 @@ public class UsuariosSuscripcionesController {
         return bS.obtenerRecaudacionPorSuscripcion(nombreSuscripcion, fechaInicio, fechaFin);
     }
 
+
+    @GetMapping("/buscarusuariosuscripcion")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public List<UsuariosSuscripcionesDTO>listarPorUsuarioSuscUsuario(@RequestParam String username){
+        return bS.listaUsuarioSuscripcionUsuario(username).stream().map(x->{
+            ModelMapper m= new ModelMapper();
+            return m.map(x, UsuariosSuscripcionesDTO.class);
+        }).collect(Collectors.toList());
+    }
 }

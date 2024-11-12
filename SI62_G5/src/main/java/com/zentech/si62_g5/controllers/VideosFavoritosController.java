@@ -31,7 +31,7 @@ public class VideosFavoritosController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<VideosFavoritosDTO> listar()
     {
         return fS.list().stream().map(x->{
