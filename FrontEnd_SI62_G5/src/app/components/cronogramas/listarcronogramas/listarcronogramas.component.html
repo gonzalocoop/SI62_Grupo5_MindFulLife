@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="verificar()">
     <div>
         <h1>Tabla De Cronogramas</h1>
     </div>
@@ -14,10 +14,10 @@
                     <p><strong>Estado:</strong> {{ Cronogramas.estado }}</p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-icon-button color="warn" (click)="eliminar(Cronogramas.id)">
+                    <button mat-icon-button color="warn" *ngIf="isAdmin()" (click)="eliminar(Cronogramas.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary" [routerLink]="['ediciones', Cronogramas.id]">
+                    <button mat-icon-button color="primary" *ngIf="isAdmin()" [routerLink]="['ediciones', Cronogramas.id]">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" [routerLink]="['verdetallecrono', Cronogramas.id]">

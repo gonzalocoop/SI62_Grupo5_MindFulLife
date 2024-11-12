@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="verificar()">
     <div>
         <h1>Tabla De Cursos de los Usuaros</h1>
     </div>
@@ -16,10 +16,10 @@
                     <p><strong>Estado:</strong> {{ curUsu.estado }}</p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-icon-button color="warn" (click)="eliminar(curUsu.id)">
+                    <button mat-icon-button color="warn" *ngIf="isAdmin()" (click)="eliminar(curUsu.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary" [routerLink]="['ediciones', curUsu.id]">
+                    <button mat-icon-button color="primary" *ngIf="isAdmin()" [routerLink]="['ediciones', curUsu.id]">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" [routerLink]="['vercursos', curUsu.id]">

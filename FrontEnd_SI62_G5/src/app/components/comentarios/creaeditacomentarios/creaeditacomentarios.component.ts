@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ComentariosService } from '../../../services/comentarios.service';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-creaeditacomentarios',
@@ -23,7 +24,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   templateUrl: './creaeditacomentarios.component.html',
   styleUrl: './creaeditacomentarios.component.css'
 })
-export class CreaeditacomentariosComponent {
+export class CreaeditacomentariosComponent implements OnInit{
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
+
   form:FormGroup= new FormGroup({})
   comentarios:Comentarios=new Comentarios()
   //variables para trabajar el editar
@@ -34,8 +38,9 @@ export class CreaeditacomentariosComponent {
   //Para traer los elementos de sesiones
   listaSesiones: Sesiones[] = [];
 
-    constructor(private formBuilder:FormBuilder,private cS:ComentariosService,private sS:SesionesService,private uS: UsuariosService, private router:Router, private route:ActivatedRoute){}
+    constructor(private lS: LoginService,private formBuilder:FormBuilder,private cS:ComentariosService,private sS:SesionesService,private uS: UsuariosService, private router:Router, private route:ActivatedRoute){}
   ngOnInit(): void {
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado
     //Para trabajar el editar
     this.route.params.subscribe((data:Params)=>{ //el  data['id'] es del id del parametro
       this.id=data['id'];
@@ -55,10 +60,25 @@ export class CreaeditacomentariosComponent {
     })
     this.sS.list().subscribe(data=>{
       this.listaSesiones=data
-    })
-    this.uS.list().subscribe(data=>{
-      this.listaUsuarios=data
-    })
+    });
+    // Si no es admin, establecer hfecha a la fecha actual
+    if (!this.isAdmin()) {
+      const today = new Date();
+      this.form.patchValue({
+      hfecha: today // Establecer la fecha actual en el campo hfecha
+      });
+    }
+    if (this.isAdmin()) {
+      // Si es administrador, obtenemos todos los usuarios
+      this.uS.list().subscribe(data => {
+        this.listaUsuarios = data;
+      });
+    } else {
+      // Si no es administrador, solo añadimos el usuario seleccionado
+      this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
+        this.listaUsuarios = [data];
+      });
+    }
 
     
   }
@@ -109,12 +129,39 @@ export class CreaeditacomentariosComponent {
         })
         this.sS.list().subscribe(data=>{
           this.listaSesiones=data
-        })
-        this.uS.list().subscribe(data=>{
-          this.listaUsuarios=data
-        })
+        });
+        if (!this.isAdmin()) {
+          const today = new Date();
+          this.form.patchValue({
+          hfecha: today // Establecer la fecha actual en el campo hfecha
+          });
+        }
+        if (this.isAdmin()) {
+          // Si es administrador, obtenemos todos los usuarios
+          this.uS.list().subscribe(data => {
+            this.listaUsuarios = data;
+          });
+        } else {
+          // Si no es administrador, solo añadimos el usuario seleccionado
+          this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
+            this.listaUsuarios = [data];
+          });
+        }
         
       })
     }
+  }
+
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+  
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
   }
 }

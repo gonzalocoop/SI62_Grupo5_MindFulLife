@@ -35,4 +35,8 @@ public interface IUsuariosRepository extends JpaRepository<Usuarios,Integer> {
             "WHERE \n" +
             "    Usuarios.username = :usuario;", nativeQuery = true)
     public List<String[]> comentarioUsuario(@Param("usuario") String usuario);
+
+
+    @Query(value = "SELECT * FROM Usuarios WHERE Usuarios.username = :username", nativeQuery = true)
+    public Usuarios findUsuarioByUsername(@Param("username") String username);
 }

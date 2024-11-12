@@ -50,4 +50,9 @@ public class UsuariosServiceImplement implements IUsuariosService {
     public List<String[]> comentarioUsuario(String usuario) {
         return uR.comentarioUsuario(usuario);
     }
+
+    @Override
+    public Usuarios findUsuarioByUsername(String username) {
+        return uR.findUsuarioByUsername(username);
+    }
 }

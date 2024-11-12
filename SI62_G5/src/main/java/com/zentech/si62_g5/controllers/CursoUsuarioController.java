@@ -30,7 +30,7 @@ public class CursoUsuarioController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<CursoUsuarioDTO> listar()
     {
         return cuS.list().stream().map(x->{
@@ -120,5 +120,14 @@ public class CursoUsuarioController {
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void actualizarProgresoYEstado(@RequestParam int idCursoUsuario) {
         cuS.actualizarProgresoYEstado(idCursoUsuario);
+    }
+
+    @GetMapping("buscarcursosusuariosporusuario")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public List<CursoUsuarioDTO> buscarPorUsuario(@RequestParam String username) {
+        return cuS.findByUsername(username).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, CursoUsuarioDTO.class);
+        }).collect(Collectors.toList());
     }
 }

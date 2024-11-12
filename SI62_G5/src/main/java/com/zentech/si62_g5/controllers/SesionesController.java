@@ -36,7 +36,7 @@ public class SesionesController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<SesionesDTO> listar()
     {
         return sS.list().stream().map(x->{

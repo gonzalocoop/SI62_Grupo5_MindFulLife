@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UsuariosTipoSuscripcionDTO } from '../models/UsuariosTipoSuscripcionDTO';
 import { RecaudacionSuscripcionDTO } from '../models/RecaudacionSuscripcionDTO';
+import { LoginService } from './login.service';
 
 const base_url=environment.base
 
@@ -15,7 +16,7 @@ export class UsuarioSuscripcionesService {
 
   private url=`${base_url}/usuariossuscripciones`
   private listaCambio=new Subject<UsuarioSuscripciones[]>()
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private loginService: LoginService) { }
 
 
   list(){
@@ -30,9 +31,18 @@ export class UsuarioSuscripcionesService {
   getList(){
     return this.listaCambio.asObservable();
   }
+ // this.listaCambio.next(listaNueva); 
 
   setList(listaNueva:UsuarioSuscripciones[]){
-    this.listaCambio.next(listaNueva); 
+    const role = this.loginService.showRole();  // Obtener el rol del usuario
+      const username = localStorage.getItem("username") ?? "";  // Obtener el nombre de usuario
+    
+      if (role === 'ADMINISTRADOR') {
+        this.listaCambio.next(listaNueva);
+      } else {
+        const filteredList = listaNueva.filter(usuariosusc => usuariosusc.usu.username === username);
+        this.listaCambio.next(filteredList);
+      }
   }
 
   delete(id:number){
@@ -57,5 +67,12 @@ export class UsuarioSuscripcionesService {
     const fechaFin = fechaF.toISOString().split('T')[0]; // Convierte la fecha a 'YYYY-MM-DD'
     const urll = `${this.url}/recaudacion?nombreSuscripcion=${encodedSuscripcion}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
     return this.http.get<RecaudacionSuscripcionDTO[]>(urll);
+}
+
+  listPorUsuario(username: string): Observable<any> {
+  // Asegúrate de codificar el título para que sea seguro para la URL
+  const encodedUsername = encodeURIComponent(username);
+  const urll = `${this.url}/buscarusuariosuscripcion?username=${encodedUsername}`;
+  return this.http.get(urll);
 }
 }

@@ -17,4 +17,6 @@ public interface IUsuariosService {
     public void cambioPassword(String usuario, String nuevaContra);
 
     List<String[]>comentarioUsuario(String usuario);
+
+    public Usuarios findUsuarioByUsername( String username);
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Usuarios } from '../models/Usuarios';
+import { LoginService } from './login.service';
 
 const base_url=environment.base
 
@@ -14,7 +15,7 @@ export class UsuariosService {
 
   private url=`${base_url}/usuarios`
   private listaCambio=new Subject<Usuarios[]>()
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private loginService: LoginService) { }
 
   list(){
     return this.http.get<Usuarios[]>(this.url)
@@ -29,9 +30,20 @@ export class UsuariosService {
     return this.listaCambio.asObservable();
   }
 
-  setList(listaNueva:Usuarios[]){
-    this.listaCambio.next(listaNueva); 
+  setList(listaNueva: Usuarios[]) {
+    const role = this.loginService.showRole();  // Obtener el rol del usuario
+    const username = localStorage.getItem("username") ?? "";  // Obtener el nombre de usuario
+  
+    if (role === 'ADMINISTRADOR') {
+      // Si es admin, pasar todos los videos favoritos
+      this.listaCambio.next(listaNueva);
+    } else {
+      // Si no es admin, filtrar solo los videos del usuario actual
+      const filteredList = listaNueva.filter(usuario => usuario.username === username);
+      this.listaCambio.next(filteredList);
+    }
   }
+
 
   delete(id:number){
     return this.http.delete(`${this.url}/${id}`);
@@ -42,5 +54,11 @@ export class UsuariosService {
   }
   update(u:Usuarios){
     return this.http.put(this.url,u)
+  }
+
+  usuarioPorUsername(username: string): Observable<Usuarios> {
+    const encodedUsername = encodeURIComponent(username);
+    const urll = `${this.url}/usuarioporusername?u=${encodedUsername}`;
+    return this.http.get<Usuarios>(urll);
   }
 }
