@@ -726,3 +726,33 @@ ul {
 
     }
 }
+
+
+.centered-content {
+    text-align: center; /* Centra el contenido dentro del contenedor */
+    display: flex; /* Utiliza Flexbox para centrar el contenido */
+    flex-direction: column; /* Organiza los elementos de arriba hacia abajo */
+    align-items: center; /* Centra todos los elementos de manera horizontal */
+    justify-content: center; /* Centra el contenido verticalmente */
+    max-width: 1200px; /* Limita el ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 20px; /* Añade algo de espacio alrededor del contenedor */
+    box-sizing: border-box; /* Incluye el padding y los bordes dentro del ancho del contenedor */
+}
+
+.centered-list {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    padding-left: 0; /* Elimina el padding izquierdo */
+    text-align: center; /* Centra el contenido dentro de cada <li> */
+    margin: 0;
+}
+
+.centered-list li {
+    display: inline-block; /* Hace que los elementos se alineen en línea, pero mantengan su estructura */
+    margin-bottom: 15px; /* Espacio entre los elementos */
+}
+
+.centered-list p {
+    margin: 0; /* Elimina márgenes extra en los párrafos */
+    text-align: center; /* Centra el texto dentro de cada párrafo */
+}

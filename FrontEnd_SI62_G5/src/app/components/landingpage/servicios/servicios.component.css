@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+
 :root{
     color: black;
     scroll-behavior: smooth;
@@ -267,7 +270,6 @@ section .container {
     flex-wrap: wrap;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 .overlay{
     align-items: center;

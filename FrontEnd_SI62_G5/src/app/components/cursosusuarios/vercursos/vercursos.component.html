@@ -15,12 +15,7 @@
       </div>
     </div>
 
-    <!-- Muestra el usuario seleccionado en el inicio de sesión -->
-    <div *ngIf="selectedUser" class="selected-user">
-      <h3>Usuario Seleccionado:</h3>
-      <p><strong>Username:</strong> {{ selectedUser.username }}</p>
-      <p><strong>ID:</strong> {{ selectedUser.id }}</p>
-    </div>
+    
     <button mat-icon-button color="warn" (click)="redirectToURL()">
       <mat-icon>mobile_screen_share</mat-icon>
     </button>
