@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { ListarcronogramasComponent } from './listarcronogramas/listarcronogramas.component';
+import { CommonModule } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-cronogramas',
@@ -17,11 +19,24 @@ import { ListarcronogramasComponent } from './listarcronogramas/listarcronograma
     MatMenuModule,
     MatButtonModule,
     RouterModule,
+    CommonModule
   ],
   templateUrl: './cronogramas.component.html',
   styleUrl: './cronogramas.component.css'
 })
 export class CronogramasComponent {
-  constructor(public route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute,private lS: LoginService) {}
+  role: string = '';
 
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
+  }
 }

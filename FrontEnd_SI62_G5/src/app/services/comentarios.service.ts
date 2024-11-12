@@ -4,6 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { Comentarios } from "../models/Comentarios";
 import { HttpClient } from "@angular/common/http";
 import { CursoCantComentariosDTO } from "../models/CursoCantComentariosDTO";
+import { LoginService } from "./login.service";
 
 const base_url=environment.base
 
@@ -14,7 +15,7 @@ export class ComentariosService {
 
   private url=`${base_url}/comentarios`
   private listaCambio=new Subject<Comentarios[]>()
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private loginService: LoginService) { }
 
   list(){
     return this.http.get<Comentarios[]>(this.url)
@@ -29,8 +30,18 @@ export class ComentariosService {
     return this.listaCambio.asObservable();
   }
 
-  setList(listaNueva:Comentarios[]){
-    this.listaCambio.next(listaNueva); 
+  setList(listaNueva: Comentarios[]) {
+    const role = this.loginService.showRole();  // Obtener el rol del usuario
+    const username = localStorage.getItem("username") ?? "";  // Obtener el nombre de usuario
+  
+    if (role === 'ADMINISTRADOR') {
+      // Si es admin, pasar todos los videos favoritos
+      this.listaCambio.next(listaNueva);
+    } else {
+      // Si no es admin, filtrar solo los videos del usuario actual
+      const filteredList = listaNueva.filter(coment => coment.usua.username === username);
+      this.listaCambio.next(filteredList);
+    }
   }
 
   delete(id:number){
@@ -60,6 +71,13 @@ export class ComentariosService {
     // Asegúrate de codificar el título para que sea seguro para la URL
     const encodedTitulo = encodeURIComponent(titulo);
     const urll = `${this.url}/listarmaloscomentarios?titulo=${encodedTitulo}`;
+    return this.http.get<Comentarios[]>(urll);
+  }
+
+  comentarioPorusuario(username: string): Observable<Comentarios[]> {
+    
+    const encodedUsername = encodeURIComponent(username);
+    const urll = `${this.url}/buscarcomentariousername?username=${encodedUsername}`;
     return this.http.get<Comentarios[]>(urll);
   }
 }

@@ -28,7 +28,7 @@ public class SuscripcionesController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<SuscripcionesDTO> listar()
     {
         return tS.list().stream().map(x->{

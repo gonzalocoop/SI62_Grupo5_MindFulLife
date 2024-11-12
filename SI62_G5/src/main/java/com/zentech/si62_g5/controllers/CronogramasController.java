@@ -37,7 +37,7 @@ public class CronogramasController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<CronogramasDTO> listar()
     {
         return cS.list().stream().map(x->{
@@ -62,7 +62,7 @@ public class CronogramasController {
     }
 
     @GetMapping("buscarcronogramaxusernameusuario")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<CronogramasDTO> buscarPorUsuario(@RequestParam String username) {
         return cS.findByUsername(username).stream().map(x -> {
             ModelMapper m = new ModelMapper();

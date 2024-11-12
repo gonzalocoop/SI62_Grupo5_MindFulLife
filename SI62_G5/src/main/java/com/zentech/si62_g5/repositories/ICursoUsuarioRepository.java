@@ -1,5 +1,6 @@
 package com.zentech.si62_g5.repositories;
 
+import com.zentech.si62_g5.entities.Comentarios;
 import com.zentech.si62_g5.entities.CursosUsuarios;
 import com.zentech.si62_g5.entities.Sesiones;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,15 +39,21 @@ public interface ICursoUsuarioRepository extends JpaRepository<CursosUsuarios,In
                 nativeQuery = true)
         public boolean existeRegistro(@Param("idUsuario") int idUsuario, @Param("idCurso") int idCurso);
 
+
         // Método para insertar el registro
         @Modifying
         @Transactional
         @Query(value = "INSERT INTO cursos_usuarios (estado, id_curso, id_usuario, fecha_inicio, fecha_fin, progreso, url) " +
                 " VALUES ('no completado', :idCurso, :idUsuario, CURRENT_DATE, " +
                 " CURRENT_DATE + (SELECT duracion FROM cursos WHERE id = :idCurso) * INTERVAL '1 day', 0, " +
-                " CONCAT('https://mindfullife.com/curso/', :idCurso, '/', :idUsuario, '/', gen_random_uuid()))",
+                " CASE " +
+                "   WHEN (CURRENT_DATE + (SELECT duracion FROM cursos WHERE id = :idCurso) * INTERVAL '1 day' - CURRENT_DATE) < INTERVAL '14 days' THEN 'https://ibb.co/YDSYmqT' " +
+                "   WHEN (CURRENT_DATE + (SELECT duracion FROM cursos WHERE id = :idCurso) * INTERVAL '1 day' - CURRENT_DATE) BETWEEN INTERVAL '14 days' AND INTERVAL '21 days' THEN 'https://ibb.co/ykQQbR4' " +
+                "   ELSE 'https://ibb.co/5v5CzCY' " +
+                " END)",
                 nativeQuery = true)
         public void registrarCurso(@Param("idCurso") int idCurso, @Param("idUsuario") int idUsuario);
+
 
         //NUEVO
         @Query(value = "SELECT * FROM cursos_usuarios cu WHERE cu.id_curso = :idCurso AND cu.id_usuario = :idUsuario",
@@ -74,4 +81,6 @@ public interface ICursoUsuarioRepository extends JpaRepository<CursosUsuarios,In
         public void actualizarProgresoYEstado(@Param("idCursoUsuario") int idCursoUsuario);
 
 
+        @Query("SELECT c FROM CursosUsuarios c WHERE c.usua.username = :username")
+        List<CursosUsuarios> findByUsername(String username);
 }

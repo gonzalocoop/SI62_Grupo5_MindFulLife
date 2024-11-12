@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.serviceimplements;
 
 import com.zentech.si62_g5.entities.Comentarios;
+import com.zentech.si62_g5.entities.Cronogramas;
 import com.zentech.si62_g5.repositories.IComentariosRepository;
 import com.zentech.si62_g5.serviceinterfaces.IComentariosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,11 @@ public class ComentariosServiceImplement implements IComentariosService {
     @Override
     public Comentarios listId(int id) {
         return oR.findById(id).orElse(new Comentarios());
+    }
+
+    @Override
+    public List<Comentarios> findByUsername(String username) {
+        return oR.findByUsername(username);
     }
 
 

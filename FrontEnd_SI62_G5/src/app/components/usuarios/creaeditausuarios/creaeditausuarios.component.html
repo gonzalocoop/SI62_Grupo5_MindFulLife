@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="verificar()">
     <div>
       <h1>Registro de Usuarios</h1>
     </div>
@@ -39,17 +39,20 @@
 
         <mat-form-field class="example-full-width">
             <mat-label>Correo</mat-label>
-            <textarea matInput placeholder="Email" formControlName="hemail"></textarea>
+            <input matInput placeholder="Email" formControlName="hemail">
             <!-- Mostrar mensaje de error si el campo no es válido -->
-            <mat-error *ngIf="form.controls['hemail'].invalid && form.controls['hemail'].touched">
-              Llenar campo correo correctamente
+            <mat-error *ngIf="form.controls['hemail'].hasError('required') && form.controls['hemail'].touched">
+              Llenar campo email correctamente
+            </mat-error>
+            <mat-error *ngIf="form.controls['hemail'].hasError('pattern') && form.controls['hemail'].touched">
+              Solo se permiten correos con estructura valida
             </mat-error>
           </mat-form-field>
           <br>
   
-        <mat-form-field>
+        <mat-form-field *ngIf="isAdmin()">
             <mat-label>Rol</mat-label>
-            <mat-select formControlName="hrol">
+            <mat-select formControlName="hrol" >
               @for (m of listaRoles; track m) {
                 <mat-option [value]="m.id">{{m.nombre}}</mat-option>
               }   

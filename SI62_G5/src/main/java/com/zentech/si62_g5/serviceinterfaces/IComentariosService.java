@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.serviceinterfaces;
 
 import com.zentech.si62_g5.entities.Comentarios;
+import com.zentech.si62_g5.entities.Cronogramas;
 
 import java.util.List;
 
@@ -13,6 +14,9 @@ public interface IComentariosService {
     public List<String[]> topComentariosCursos();
     public List<Comentarios> listBadComents(String titulovid);
     public Comentarios listId(int id);
+
+    List<Comentarios> findByUsername(String username);
+
 }
 
 

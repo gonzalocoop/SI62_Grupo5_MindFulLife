@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { ListarusuariosComponent } from './listarusuarios/listarusuarios.component';
+import { LoginService } from '../../services/login.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-usuarios',
@@ -17,11 +19,25 @@ import { ListarusuariosComponent } from './listarusuarios/listarusuarios.compone
     MatMenuModule,
     MatButtonModule,
     RouterModule,
+    CommonModule
   ],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })
 export class UsuariosComponent {
-  constructor(public route: ActivatedRoute) {}
+  constructor(private lS: LoginService,public route: ActivatedRoute) {}
+  role: string = '';
 
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
+  }
 }

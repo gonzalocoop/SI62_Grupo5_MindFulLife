@@ -37,7 +37,7 @@ public class VideosController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<VideosDTO> listar()
     {
         return vS.list().stream().map(x->{

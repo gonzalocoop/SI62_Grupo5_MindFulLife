@@ -11,6 +11,8 @@ import { CompartiruserService } from '../../../services/compartiruser.service';
 import { Usuarios } from '../../../models/Usuarios';
 import { CursosUsuariosService } from '../../../services/cursos-usuarios.service';
 import { CronogramasService } from '../../../services/cronogramas.service';
+import { UsuariosService } from '../../../services/usuarios.service';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listarcursos',
@@ -21,15 +23,17 @@ import { CronogramasService } from '../../../services/cronogramas.service';
   styleUrls: ['./listarcursos.component.css']
 })
 export class ListarcursosComponent implements OnInit {
+  role: string = '';
   mensaje:string="";
   cursos: Cursos[] = []; // Arreglo que contiene todos los cursos
   pagedCursos: Cursos[] = []; // Cursos de la página actual para mostrar en las tarjetas
-  
+  usuario: Usuarios = new Usuarios(); // Objeto para almacenar los detalles del curso
+  usuario_id: number=0;
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
-  selectedUser: Usuarios | null = null;
+  selectedUser: string = localStorage.getItem("username") ?? "";
   // Inyecta el servicio `CursosService` para acceder a los datos de cursos
-  constructor(private cS: CursosService,  private usuariocompartido: CompartiruserService, private cuS: CursosUsuariosService, private cR: CronogramasService) {}
+  constructor(private lS: LoginService,private uS:UsuariosService,private cS: CursosService,  private usuariocompartido: CompartiruserService, private cuS: CursosUsuariosService, private cR: CronogramasService) {}
 
   ngOnInit(): void {
     // Suscripción para obtener la lista completa de cursos y actualizar `pagedCursos`
@@ -43,10 +47,7 @@ export class ListarcursosComponent implements OnInit {
       this.cursos = data;       // Guarda todos los cursos actualizados
       this.updatePagedCursos(); // Actualiza la vista con la página actual
     });
-    // Suscribirse al usuario seleccionado desde el servicio compartido
-    this.usuariocompartido.selectedUser$.subscribe(user => {
-      this.selectedUser = user; // Asignar el usuario seleccionado a la variable
-    });
+    
   }
 
   // Después de que la vista se inicializa, suscríbete a cambios de página del paginador
@@ -98,16 +99,13 @@ export class ListarcursosComponent implements OnInit {
 
   
   postular(id: number): void {
-    let usuario_id: number;
+    
 
-    if (this.selectedUser?.id !== undefined) {
-        usuario_id = this.selectedUser.id; // Asignar si no es undefined
-    } else {
-        usuario_id = 0; // Manejo del caso donde `id` es undefined
-    }
-
+    this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
+      this.usuario = data; 
+      this.usuario_id=this.usuario.id
     // Registrar el usuario en el curso
-    this.cuS.registrarUsuarioEnCurso(id, usuario_id).pipe(
+    this.cuS.registrarUsuarioEnCurso(id, this.usuario_id).pipe(
         catchError((error) => {
             // Manejo de errores basado en el código de estado
             if (error.status === 409) { // El código que devuelve el backend para conflictos
@@ -125,7 +123,7 @@ export class ListarcursosComponent implements OnInit {
             this.ocultarMensaje();
 
             // Aquí obtienes el curso_usuario usando los ids
-            this.cuS.listSegunUsuarioYCurso(id, usuario_id).pipe(
+            this.cuS.listSegunUsuarioYCurso(id, this.usuario_id).pipe(
                 catchError(error => {
                     this.mensaje = 'Error al obtener el curso usuario';
                     this.ocultarMensaje();
@@ -156,5 +154,21 @@ export class ListarcursosComponent implements OnInit {
             });
         }
     });
+    });
+    
+}
+
+
+
+verificar() {
+  this.role = this.lS.showRole();
+  return this.lS.verificar();
+}
+isAdmin() {
+  return this.role === 'ADMINISTRADOR';
+}
+
+isStudent() {
+  return this.role === 'ESTUDIANTE';
 }
 }
