@@ -18,7 +18,7 @@
                 </mat-error>
                 <!-- Mostrar mensaje de error si no es un número -->
                 <mat-error *ngIf="form.controls['hprogreso'].hasError('pattern') && form.controls['hprogreso'].touched">
-                  Solo se permiten números positivos de dos decimales
+                  Solo se permiten números positivos enteros o de dos decimales
                 </mat-error>
                 <mat-error *ngIf="form.controls['hprogreso'].hasError('maxlength') && form.controls['hprogreso'].touched">
                   Máximo 6 caracateres 

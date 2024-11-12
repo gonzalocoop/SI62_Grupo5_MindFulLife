@@ -61,6 +61,13 @@ export class CreaeditacomentariosComponent implements OnInit{
     this.sS.list().subscribe(data=>{
       this.listaSesiones=data
     });
+    // Si no es admin, establecer hfecha a la fecha actual
+    if (!this.isAdmin()) {
+      const today = new Date();
+      this.form.patchValue({
+      hfecha: today // Establecer la fecha actual en el campo hfecha
+      });
+    }
     if (this.isAdmin()) {
       // Si es administrador, obtenemos todos los usuarios
       this.uS.list().subscribe(data => {
@@ -123,6 +130,12 @@ export class CreaeditacomentariosComponent implements OnInit{
         this.sS.list().subscribe(data=>{
           this.listaSesiones=data
         });
+        if (!this.isAdmin()) {
+          const today = new Date();
+          this.form.patchValue({
+          hfecha: today // Establecer la fecha actual en el campo hfecha
+          });
+        }
         if (this.isAdmin()) {
           // Si es administrador, obtenemos todos los usuarios
           this.uS.list().subscribe(data => {

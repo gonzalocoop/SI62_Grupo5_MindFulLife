@@ -35,7 +35,14 @@ export class ListarusuariossuscripcionesComponent implements OnInit{
   ngOnInit(): void {  //subscribe: patron de diseño de software para devolver datos, en este caso de 
     this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
     const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
-    
+    if (isAdmin) {
+      this.displayedColumns.push('accion02'); // Agregar "accion02" si es admin
+    }else {
+      const index = this.displayedColumns.indexOf('accion02');
+      if (index !== -1) {
+        this.displayedColumns.splice(index, 1); // Eliminar "accion02" si no es admin
+      }
+    }
     if (isAdmin) {
       // Si es admin, obtener todos los videos favoritos
       this.usS.list().subscribe(data => {

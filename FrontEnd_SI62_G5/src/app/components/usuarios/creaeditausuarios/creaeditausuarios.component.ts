@@ -73,7 +73,7 @@ export class CreaeditausuariosComponent implements OnInit {
         [this.usernameRepetido.bind(this)],
       ],
       hpassword: ['', Validators.required],
-      hemail: ['', Validators.required],
+      hemail: ['', [Validators.required,Validators.pattern(/^[^@]+@[^@]+\.[^@]+$/)]],
       hrol: ['', [Validators.required]],
     });
     this.rS.list().subscribe((data) => {
@@ -122,7 +122,7 @@ export class CreaeditausuariosComponent implements OnInit {
             [this.usernameRepetido.bind(this)]
           ),
           hpassword: new FormControl(data.password, Validators.required),
-          hemail: new FormControl(data.email, Validators.required),
+          hemail: new FormControl(data.email, [Validators.required,Validators.pattern(/^[^@]+@[^@]+\.[^@]+$/)]),
           hrol: new FormControl(data.rol.id, [Validators.required]),
         });
         this.rS.list().subscribe((data) => {

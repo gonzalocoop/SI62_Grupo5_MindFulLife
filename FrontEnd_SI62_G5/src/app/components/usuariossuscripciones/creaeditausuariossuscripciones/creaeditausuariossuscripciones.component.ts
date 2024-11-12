@@ -54,14 +54,28 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
       this.init();
     })
 
-    this.form = this.formBuilder.group({
-      hcodigo: [''], // para el modificar
-      hfechaInicio: ['', [Validators.required]],
-      hfechaFin: ['', [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]],
-      hsuscripciones: ['', Validators.required],
-      husuario: ['', [Validators.required], [this.usuarioUnico.bind(this)]],
+    if (!this.isAdmin()) {
+      const today = new Date();
+      const fechaInicio = today; // Fecha de inicio es hoy
+      const fechaFin = new Date(fechaInicio); // Copiar fecha de inicio para fecha final
+      fechaFin.setMonth(fechaFin.getMonth() + 1); // Sumar 1 mes a la fecha de inicio
+  
+      this.form = this.formBuilder.group({
+        hcodigo: [''], // para el modificar
+        hfechaInicio: [fechaInicio, [Validators.required]],
+        hfechaFin: [fechaFin, [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]],
+        hsuscripciones: ['', Validators.required],
+        husuario: ['', [Validators.required], [this.usuarioUnico.bind(this)]],
+      });
+    } else {
+      this.form = this.formBuilder.group({
+        hcodigo: [''], // para el modificar
+        hfechaInicio: ['', [Validators.required]],
+        hfechaFin: ['', [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]],
+        hsuscripciones: ['', Validators.required],
+        husuario: ['', [Validators.required], [this.usuarioUnico.bind(this)]],
+      });
     }
-  )
     this.sS.list().subscribe(data=>{
       this.listaSuscripciones=data
     });
@@ -117,35 +131,52 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
   }
 
   //para el modificar
-  init(){
-    if(this.edicion){
-      this.usS.listId(this.id).subscribe((data)=>{
+  init() {
+    if (this.edicion) {
+      this.usS.listId(this.id).subscribe((data) => {
         // Marca todos los campos como tocados para mostrar errores
-      this.form.markAllAsTouched();
-        this.form=new FormGroup({
-          hcodigo:new FormControl(data.id, Validators.required),
-          hfechaInicio: new FormControl(data.fechaInicio, Validators.required),
-          hfechaFin: new FormControl(data.fechaFin, [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]),
-          hsuscripciones:new FormControl(data.sus.id, Validators.required),
-          husuario:new FormControl(data.usu.id, [Validators.required], [this.usuarioUnico.bind(this)]),
+        this.form.markAllAsTouched();
+  
+        // Si no es admin, establecer fechas predeterminadas
+        if (!this.isAdmin()) {
+          const today = new Date();
+          const fechaInicio = today; // Fecha de inicio es hoy
+          const fechaFin = new Date(fechaInicio); // Copiar fecha de inicio para fecha final
+          fechaFin.setMonth(fechaFin.getMonth() + 1); // Sumar 1 mes a la fecha de inicio
+  
+          // Establecer las fechas en el formulario
+          this.form = new FormGroup({
+            hcodigo: new FormControl(data.id, Validators.required),
+            hfechaInicio: new FormControl(fechaInicio, Validators.required),
+            hfechaFin: new FormControl(fechaFin, [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]),
+            hsuscripciones: new FormControl(data.sus.id, Validators.required),
+            husuario: new FormControl(data.usu.id, [Validators.required], [this.usuarioUnico.bind(this)]),
+          });
+        } else {
+          // Si es admin, asignar las fechas originales del `data`
+          this.form = new FormGroup({
+            hcodigo: new FormControl(data.id, Validators.required),
+            hfechaInicio: new FormControl(data.fechaInicio, Validators.required),
+            hfechaFin: new FormControl(data.fechaFin, [Validators.required, this.fechaFinPosteriorAFechaInicioValidator.bind(this)]),
+            hsuscripciones: new FormControl(data.sus.id, Validators.required),
+            husuario: new FormControl(data.usu.id, [Validators.required], [this.usuarioUnico.bind(this)]),
+          });
         }
-      )
-        this.sS.list().subscribe(data=>{
-          this.listaSuscripciones=data
+  
+        this.sS.list().subscribe(data => {
+          this.listaSuscripciones = data;
         });
+  
         if (this.isAdmin()) {
-          // Si es administrador, obtenemos todos los usuarios
           this.uS.list().subscribe(data => {
             this.listaUsuarios = data;
           });
         } else {
-          // Si no es administrador, solo añadimos el usuario seleccionado
           this.uS.usuarioPorUsername(this.selectedUser).subscribe(data => {
             this.listaUsuarios = [data];
           });
         }
-        
-      })
+      });
     }
   }
 

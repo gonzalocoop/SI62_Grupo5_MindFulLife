@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container" *ngIf="verificar()">
     <div><h1>Registro de Suscripciones de Usuario </h1></div>
     <div>
         <form class="example-form" [formGroup]="form" (submit)="aceptar()">
@@ -11,7 +11,7 @@
             
          
             <br>
-            <mat-form-field>
+            <mat-form-field *ngIf="isAdmin()">
                 <mat-label>Elige una Fecha de Inicio</mat-label>
                 <input matInput [matDatepicker]="pickerInicio1" formControlName="hfechaInicio">
                 <mat-hint>DD/MM/YYYY</mat-hint>
@@ -23,7 +23,7 @@
                 </mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field>
+            <mat-form-field *ngIf="isAdmin()">
                 <mat-label>Elige una Fecha de Final</mat-label>
                 <input matInput [matDatepicker]="pickerFinal2" formControlName="hfechaFin">
                 <mat-hint>DD/MM/YYYY</mat-hint>

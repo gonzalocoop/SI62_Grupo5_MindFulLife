@@ -22,6 +22,8 @@ export class AppComponent {
   constructor(private lS: LoginService) {}
   cerrar() {
     sessionStorage.clear();
+    localStorage.clear();
+    
   }
 
   verificar() {
