@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { VideosFavoritos } from '../../../models/VideosFavoritos';
 import { VideosFavoritosService } from '../../../services/videosfavoritos.service';
 import { catchError, of } from 'rxjs';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listarvideosfavoritos',
@@ -16,19 +17,33 @@ import { catchError, of } from 'rxjs';
   styleUrl: './listarvideosfavoritos.component.css'
 })
 export class ListarvideosfavoritosComponent implements OnInit{
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
 
   dataSource: MatTableDataSource<VideosFavoritos> = new MatTableDataSource();
   mensaje:string="";
   displayedColumns:string[]=['c1','c2','c3','accion01','accion02'] //para indicar que es un conjunto o arreglo
   @ViewChild(MatPaginator) paginator!: MatPaginator;  // Referencia al paginator
   //ngOnInit: El segundo metodo en ejecutarse, luego del constructor, segun angular . material
-  constructor(private fS:VideosFavoritosService){}  //Inyectamos service
+  constructor(private lS: LoginService,private fS:VideosFavoritosService){}  //Inyectamos service
   
   ngOnInit(): void {  //subscribe: patron de diseño de software para devolver datos, en este caso de 
-      this.fS.list().subscribe(data=>{
-        this.dataSource=new MatTableDataSource(data)
-        this.dataSource.paginator = this.paginator;  // Asignar el paginator a la dataSource aquí
-      })
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
+    const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
+
+    if (isAdmin) {
+      // Si es admin, obtener todos los videos favoritos
+      this.fS.list().subscribe(data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      });
+    } else {
+      
+      this.fS.listPorUsuario(this.selectedUser).subscribe(data => {
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      });
+    }
       this.fS.getList().subscribe(data=>{
         this.dataSource=new MatTableDataSource(data)
         this.dataSource.paginator = this.paginator;  // Asignar el paginator a la dataSource aquí
@@ -58,5 +73,18 @@ export class ListarvideosfavoritosComponent implements OnInit{
     setTimeout(()=>{
       this.mensaje='';
     }, 3000);
+  }
+
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+  
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
   }
 }

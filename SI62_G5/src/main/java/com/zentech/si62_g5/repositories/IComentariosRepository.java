@@ -2,6 +2,7 @@ package com.zentech.si62_g5.repositories;
 
 import com.zentech.si62_g5.dtos.ComentariosDTO;
 import com.zentech.si62_g5.entities.Comentarios;
+import com.zentech.si62_g5.entities.Cronogramas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -41,6 +42,7 @@ public interface IComentariosRepository extends JpaRepository<Comentarios, Integ
             "            OR c.comentario LIKE '%terrible%')")
     public List<Comentarios> listaComentariosMalos(@Param("titulovid") String titulovid);
 
-
+    @Query("SELECT c FROM Comentarios c WHERE c.usua.username = :username")
+    List<Comentarios> findByUsername(String username);
 
 }

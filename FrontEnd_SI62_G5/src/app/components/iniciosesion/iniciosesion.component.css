@@ -1,90 +1,57 @@
-/* Estilo general */
-.container {
-  max-width: 400px;
+.login-container {
+  width: 100%;
+  max-width: 420px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f2f6fc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  position: relative; /* Para posicionar el rectángulo */
-  overflow: hidden;
-}
-
-/* Rectángulo celeste en la parte superior */
-.header-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background-color: #a3d2f7; /* Color celeste */
-  z-index: 1; /* Para asegurarse de que esté encima */
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
-h1 {
-  color: #2a71d0;
-  font-size: 24px;
-  margin-bottom: 20px;
-  margin-top: 60px; /* Separar el contenido del rectángulo */
-  position: relative;
-  z-index: 2; /* Para asegurar que el título esté encima del rectángulo */
-}
-
-.example-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  position: relative;
-  z-index: 2;
-}
-
-/* Estilos para los campos de formulario */
-mat-form-field {
-  width: 100%;
-}
-
-mat-label {
-  color: #2a71d0;
-  font-weight: bold;
-}
-
-.mat-select, mat-select::placeholder {
+  padding: 40px 30px;
   background-color: #ffffff;
-  border-radius: 4px;
+  border-radius: 20px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  background: linear-gradient(135deg, #e3f2fd, #1565c0);
 }
 
-.mat-form-field.mat-focused .mat-form-field-label {
-  color: #2a71d0;
-}
-
-.mat-form-field-underline {
-  background-color: #2a71d0;
-}
-
-.mat-form-field-ripple {
-  background-color: #2a71d0;
-}
-
-/* Botón de aceptar */
-button[mat-flat-button] {
-  background-color: #2a71d0;
+.login-container h2 {
   color: #ffffff;
+  font-family: 'Verdana', sans-serif;
   font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  font-size: 26px;
+  margin-bottom: 30px;
 }
 
-button[mat-flat-button]:hover {
-  background-color: #1d4f91;
+.custom-field {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+  background-color: #f0f9ff;
 }
 
+mat-form-field .mat-form-field-label {
+  color: #1565c0 !important;
+}
 
-.error-message {
-  color: red; /* Color rojo para el texto */
-  margin-top: 10px; /* Espacio superior para separación */
-  font-weight: bold; /* Opcional: texto en negrita */
+mat-form-field .mat-input-element {
+  color: #1565c0;
+  font-family: 'Verdana', sans-serif;
+}
+
+.login-button {
+  width: 100%;
+  background-color: #1565c0;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  margin-top: 30px;
+  border-radius: 12px;
+  font-family: 'Verdana', sans-serif;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #0d47a1;
+  transform: scale(1.05);
+}
+
+.login-button:active {
+  transform: scale(0.98);
 }

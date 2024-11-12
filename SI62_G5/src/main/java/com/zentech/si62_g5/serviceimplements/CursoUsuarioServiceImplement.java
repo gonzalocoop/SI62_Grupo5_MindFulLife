@@ -71,4 +71,9 @@ public class CursoUsuarioServiceImplement implements ICursoUsuarioService {
     public void actualizarProgresoYEstado(int idCursoUsuario) {
         cuR.actualizarProgresoYEstado(idCursoUsuario);
     }
+
+    @Override
+    public List<CursosUsuarios> findByUsername(String username) {
+        return cuR.findByUsername(username);
+    }
 }

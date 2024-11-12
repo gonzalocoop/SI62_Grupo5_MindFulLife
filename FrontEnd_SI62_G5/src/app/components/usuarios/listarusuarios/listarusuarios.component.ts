@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { Usuarios } from '../../../models/Usuarios';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { catchError, of } from 'rxjs';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-listarusuarios',
@@ -22,21 +23,32 @@ import { catchError, of } from 'rxjs';
   styleUrl: './listarusuarios.component.css',
 })
 export class ListarusuariosComponent implements OnInit{
+  role: string = '';
+  selectedUser: string = localStorage.getItem("username") ?? "";
+
   mensaje: string = '';
   usuarios: Usuarios[] = []; 
   pagedUsuarios: Usuarios[] = []; 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private uS: UsuariosService) {}
+  constructor(private lS: LoginService,private uS: UsuariosService) {}
 
   ngOnInit(): void {
-    // Suscripción para obtener la lista completa de cursos y actualizar `pagedCursos`
-    this.uS.list().subscribe((data) => {
+    this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
+    const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
+    if (isAdmin) {
+      this.uS.list().subscribe((data) => {
       this.usuarios = data; // Guarda todos los cursos obtenidos
       this.updatePagedRoles(); // Muestra solo los cursos de la página actual
     });
-
+  }  else{
+    this.uS.usuarioPorUsername(this.selectedUser).subscribe((data) => {
+      this.usuarios = [data]; // Guarda todos los cursos obtenidos
+      this.updatePagedRoles(); // Muestra solo los cursos de la página actual
+    })
+  }
+    
     // Escucha actualizaciones en el servicio y vuelve a cargar `cursos` y `pagedCursos`
     this.uS.getList().subscribe((data) => {
       this.usuarios = data; // Guarda todos los cursos actualizados
@@ -87,5 +99,18 @@ export class ListarusuariosComponent implements OnInit{
     setTimeout(() => {
       this.mensaje = '';
     }, 3000);
+  }
+
+
+  verificar() {
+    this.role = this.lS.showRole();
+    return this.lS.verificar();
+  }
+  isAdmin() {
+    return this.role === 'ADMINISTRADOR';
+  }
+
+  isStudent() {
+    return this.role === 'ESTUDIANTE';
   }
 }

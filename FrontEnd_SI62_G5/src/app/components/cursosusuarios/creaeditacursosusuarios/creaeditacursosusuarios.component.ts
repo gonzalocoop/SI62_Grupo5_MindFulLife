@@ -27,6 +27,7 @@ import { CursosUsuariosService } from '../../../services/cursos-usuarios.service
   styleUrl: './creaeditacursosusuarios.component.css'
 })
 export class CreaeditacursosusuariosComponent implements OnInit{
+  
   form:FormGroup= new FormGroup({})
   cursosUsuarios:CursosUsuarios=new CursosUsuarios()
   //variables para trabajar el editar
@@ -54,7 +55,7 @@ export class CreaeditacursosusuariosComponent implements OnInit{
 
     this.form = this.formBuilder.group({
       hcodigo: [''], // para el modificar
-      hprogreso: ['', [Validators.required, Validators.pattern('^[0-9]+\\.[0-9]{2}$'), Validators.maxLength(6),Validators.max(100),]],
+      hprogreso: ['', [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{2})?$'), Validators.maxLength(6),Validators.max(100),]],
       hfechaInicio: ['', Validators.required],
       hfechaFinal: ['', Validators.required],
       hestado: ['', Validators.required ],
@@ -116,7 +117,7 @@ export class CreaeditacursosusuariosComponent implements OnInit{
       this.form.markAllAsTouched();
         this.form=new FormGroup({
           hcodigo:new FormControl(data.id, Validators.required),
-          hprogreso: new FormControl(data.progreso, [Validators.required, Validators.pattern('^[0-9]+\\.[0-9]{2}$'), Validators.maxLength(6),Validators.max(100),]),
+          hprogreso: new FormControl(data.progreso, [Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{2})?$'), Validators.maxLength(6),Validators.max(100),]),
           hfechaInicio: new FormControl(data.fechaInicio, Validators.required),
           hfechaFinal: new FormControl(data.fechaFin, Validators.required),
           hestado: new FormControl(data.estado, Validators.required),

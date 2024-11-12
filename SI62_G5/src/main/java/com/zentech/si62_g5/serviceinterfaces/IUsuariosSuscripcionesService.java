@@ -16,4 +16,6 @@ public interface IUsuariosSuscripcionesService {
     public UsuariosSuscripciones listId(int id);
 
     List<RecaudacionSuscripcionDTO> obtenerRecaudacionPorSuscripcion(String nombreSuscripcion, LocalDate fechaInicio, LocalDate fechaFin);
+
+    public List<UsuariosSuscripciones> listaUsuarioSuscripcionUsuario(String username);
 }

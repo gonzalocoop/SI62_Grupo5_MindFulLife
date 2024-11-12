@@ -1,6 +1,7 @@
 package com.zentech.si62_g5.repositories;
 
 import com.zentech.si62_g5.entities.UsuariosSuscripciones;
+import com.zentech.si62_g5.entities.VideosFavoritos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -38,4 +39,7 @@ public interface IUsuariosSuscripcionesRepository extends JpaRepository<Usuarios
             @Param("fechaInicio") LocalDate fechaInicio,
             @Param("fechaFin") LocalDate fechaFin);
 
+
+    @Query("select us from UsuariosSuscripciones us where us.usu.username=:username")
+    public List<UsuariosSuscripciones> listaUsuarioSuscripcionUsuario(@Param("username")String username);
 }

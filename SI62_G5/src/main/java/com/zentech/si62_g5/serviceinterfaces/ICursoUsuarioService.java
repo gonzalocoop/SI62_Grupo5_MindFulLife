@@ -23,4 +23,6 @@ public interface ICursoUsuarioService {
     //NUEVO 2
     public void actualizarProgresoYEstado( int idCursoUsuario);
 
+    List<CursosUsuarios> findByUsername(String username);
+
 }

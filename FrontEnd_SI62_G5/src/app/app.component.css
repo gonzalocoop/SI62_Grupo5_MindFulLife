@@ -10,7 +10,7 @@
   
    .custom-menu-item {  
   
-    color: white; 
+    color: rgb(0, 0, 0); 
   
     &:hover {
   
@@ -19,3 +19,11 @@
     }
   
    }
+
+   .left-menu {
+    display: flex; /* Permite alinear los botones horizontalmente */
+  }
+  
+  .right-menu {
+    margin-left: auto; /* Empuja el menú de usuarios a la derecha */
+  }
