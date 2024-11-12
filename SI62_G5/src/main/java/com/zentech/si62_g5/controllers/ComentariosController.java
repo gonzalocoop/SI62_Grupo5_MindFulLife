@@ -37,7 +37,7 @@ public class ComentariosController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<ComentariosDTO> listar()
     {
         return cS.list().stream().map(x->{
@@ -98,5 +98,14 @@ public class ComentariosController {
         ModelMapper m=new ModelMapper();
         ComentariosDTO dto=m.map(cS.listId(id),ComentariosDTO.class);
         return dto;
+    }
+
+    @GetMapping("buscarcomentariousername")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public List<ComentariosDTO> buscarPorUsuario(@RequestParam String username) {
+        return cS.findByUsername(username).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, ComentariosDTO.class);
+        }).collect(Collectors.toList());
     }
 }

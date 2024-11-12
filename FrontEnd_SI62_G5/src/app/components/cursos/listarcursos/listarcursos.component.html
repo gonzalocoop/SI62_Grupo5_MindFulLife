@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="verificar()">
     <div>
         <h1>Tabla De Cursos</h1>
-        <p><strong>Usuario Seleccionado:</strong> {{ selectedUser?.username }}</p>
+        <p><strong>Usuario Seleccionado:</strong> {{ selectedUser }}</p>
     </div>
     <div class="curso-container">
         <div *ngFor="let curso of pagedCursos" class="curso-card">
@@ -14,10 +14,10 @@
                     <p><strong>Duración:</strong> {{ curso.duracion }} días</p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-icon-button color="warn" (click)="eliminar(curso.id)">
+                    <button mat-icon-button color="warn" *ngIf="isAdmin()" (click)="eliminar(curso.id)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button color="primary" [routerLink]="['ediciones', curso.id]">
+                    <button mat-icon-button color="primary" *ngIf="isAdmin()" [routerLink]="['ediciones', curso.id]">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" [routerLink]="['descripciones', curso.id]">

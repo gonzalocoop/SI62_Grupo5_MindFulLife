@@ -1,5 +1,5 @@
 
-<mat-toolbar class="custom-toolbar" >
+<mat-toolbar class="custom-toolbar" *ngIf="verificar()">
   <mat-icon >menu</mat-icon>
   <div>
   <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >Cursos</button>
@@ -7,7 +7,7 @@
  </mat-toolbar>
  <mat-menu #menuG5="matMenu">
   <button mat-menu-item routerLink="/cursos" >Listar</button>
-  <button mat-menu-item routerLink="/cursos/nuevo">Registrar</button>
+  <button mat-menu-item *ngIf="isAdmin()" routerLink="/cursos/nuevo">Registrar</button>
  </mat-menu>
 <div [hidden]="route.children.length !== 0">
   <app-listarcursos></app-listarcursos>

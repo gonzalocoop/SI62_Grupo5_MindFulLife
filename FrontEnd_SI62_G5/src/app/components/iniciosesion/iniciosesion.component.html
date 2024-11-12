@@ -1,31 +1,17 @@
+<div class="login-container">
+  <h2>Inicie sesión</h2>
 
-<!-- Rectángulo celeste -->
-<div class="header-bar"></div>
-<div class="container">
-    <div><h1>Inicio de Sesion</h1></div>
-    <div>
-        <form class="example-form" [formGroup]="form" (submit)="aceptar()">
-            <mat-form-field>
-                <mat-label>Usuarios</mat-label>
-                <mat-select formControlName="husuario">
-                  @for (m of listaUsuarios; track m) {
-                    <mat-option [value]="m.id">{{m.username}}</mat-option>
-                  }   
-                </mat-select>
-            </mat-form-field>
-            <p>Ignorar por ahora, lo estoy usando para pruebas. attw Gonzalo</p>
-            <p>Deben tener algun usuario en la base de datos para elegir y que les dedje seguir</p>
-            <br>
-              
-              <div class>
-                <button mat-flat-button>Aceptar</button>
-              </div>
-              <div class>
-                <button mat-flat-button (click)="salir()">Salir</button> <!-- Agrega esta línea -->
-              </div>
-              <!-- Mensaje de error -->
-            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-        </form>
-    </div>
+  <mat-form-field class="custom-field">
+    <mat-label>Usuario</mat-label>
+    <input matInput placeholder="Username" [(ngModel)]="username" />
+  </mat-form-field>
+
+  <mat-form-field class="custom-field">
+    <mat-label>Contraseña</mat-label>
+    <input type="password" matInput placeholder="Password" [(ngModel)]="password" />
+  </mat-form-field>
+
+  <button mat-raised-button class="login-button" (click)="login()">Ingresar</button>
+  <button mat-raised-button class="login-button" routerLink="/landing">Salir</button>
 </div>
 

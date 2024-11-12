@@ -1,1 +1,16 @@
-<p>contabilizarsesiones works!</p>
+<div>
+    <div class="title-container">
+      <h1 class="title">Contabilizar las sesiones de cada curso</h1>
+    </div>
+    <div class="chart-container" [ngStyle]="{'width': chartWidth}">
+      <canvas
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="barChartType"
+      ></canvas>
+    </div>
+  </div>
+  
