@@ -28,3 +28,13 @@ table {
 mat-form-field {
     width: 300px;
 }
+
+/* Título principal */
+h1 {
+    text-align: center;
+    color: #226c7f; /* Cambia este valor para el color del título */
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 700;
+  }

@@ -36,15 +36,15 @@
   
   
   
-   .title {
-  
-    font-family: 'Poppins', sans-serif;
-  
-    font-weight: 600;
-  
-    font-size: 2em;
-  
-    color: #333;
-  
-   }
+   /* Título principal */
+   h1 {
+    text-align: center;
+    color: #226c7f; /* Cambia este valor para el color del título */
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+   
   

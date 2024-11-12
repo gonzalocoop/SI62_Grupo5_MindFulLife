@@ -1,21 +1,37 @@
-.custom-toolbar {
+.toolbar-container {
+    display: flex;
+    
+  }
+  
+  .custom-toolbar {
+    background-color: #9fc5ff;
+    color: white;
+  }
+  
+  .custom-menu-item {
+    color: white;
+  }
+  
+  .custom-menu-item:hover {
+    color: rgb(99, 12, 12);
+  }
 
-    background-color: #9fc5ff; 
-  
-    color: white; 
-  
-   }
-  
-  
-  
-   .custom-menu-item {  
-  
-    color: white; 
-  
-    &:hover {
-  
-     color: rgb(99, 12, 12); 
-  
-    }
-  
-   }
+  .welcome-message {
+    background-color: #9fc5ff; /* Fondo celeste */
+    color: white; /* Texto en blanco */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    margin: 20px auto;
+    max-width: 80%;
+    border: 2px solid #ffffff; /* Borde blanco */
+}
+
+.welcome-message:hover {
+    background-color: #a3d1ff; /* Fondo más claro al pasar el mouse */
+    color: #f0f8ff; /* Color blanco más suave */
+    transition: background-color 0.3s ease-in-out;
+}
