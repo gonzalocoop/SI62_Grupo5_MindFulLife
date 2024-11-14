@@ -25,6 +25,7 @@ import { LoginService } from '../../services/login.service';
   styleUrl: './cronogramas.component.css'
 })
 export class CronogramasComponent {
+  selectedUser: string = localStorage.getItem("username") ?? "";
   constructor(public route: ActivatedRoute,private lS: LoginService) {}
   role: string = '';
 

@@ -83,4 +83,17 @@ public interface ICursoUsuarioRepository extends JpaRepository<CursosUsuarios,In
 
         @Query("SELECT c FROM CursosUsuarios c WHERE c.usua.username = :username")
         List<CursosUsuarios> findByUsername(String username);
+
+
+        @Query(value = "SELECT \n" +
+                "    estado,\n" +
+                "    COUNT(*) AS cantidad\n" +
+                " FROM \n" +
+                "    cursos_usuarios\n" +
+                " WHERE \n" +
+                "    estado IN ('completado', 'no completado')\n" +
+                " GROUP BY \n" +
+                "    estado;",
+                nativeQuery = true)
+        public List<String[]> CantidadCursoCompletadosNoCompletadosGeneral();
 }

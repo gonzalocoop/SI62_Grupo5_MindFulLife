@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-reportes',
@@ -16,8 +17,15 @@ import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/rout
 export class ReportesComponent implements OnInit{
 
   showWelcomeMessage = true;
+  selectedUser: string = localStorage.getItem("username") ?? "";
+  role: string = '';
+  constructor(private router: Router,private loginService: LoginService) {}
 
-  constructor(private router: Router) {}
+  verificar() {
+    this.role = this.loginService.showRole();
+    return this.loginService.verificar();
+  }
+
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {

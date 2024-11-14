@@ -130,4 +130,20 @@ public class CursoUsuarioController {
             return m.map(x, CursoUsuarioDTO.class);
         }).collect(Collectors.toList());
     }
+
+    @GetMapping("/cantidadtotalcursosUsuarioscompletadoyno")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public List<CantidadGeneralCursosUsuariosDTO>cantidadTotalCursosUsuarios(){
+        List<String[]> lista= cuS.CantidadCursoCompletadosNoCompletadosGeneral();
+        List<CantidadGeneralCursosUsuariosDTO>listaDTO=new ArrayList<>();
+        for (String[] columna : lista) {
+            CantidadGeneralCursosUsuariosDTO dto = new CantidadGeneralCursosUsuariosDTO();
+            dto.setEstado(columna[0]);
+            dto.setCantidad(columna[1]);
+
+
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
 }
