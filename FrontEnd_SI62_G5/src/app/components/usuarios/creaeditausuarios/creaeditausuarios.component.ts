@@ -121,10 +121,7 @@ export class CreaeditausuariosComponent implements OnInit {
             [Validators.required, Validators.maxLength(20)],
             [this.usernameRepetido.bind(this)]
           ),
-          hpassword: new FormControl(
-            this.isAdmin() ? data.password : '', 
-            Validators.required
-          ),
+          hpassword: new FormControl(data.password, Validators.required),
           hemail: new FormControl(data.email, [Validators.required,Validators.pattern(/^[^@]+@[^@]+\.[^@]+$/)]),
           hrol: new FormControl(data.rol.id, [Validators.required]),
         });
