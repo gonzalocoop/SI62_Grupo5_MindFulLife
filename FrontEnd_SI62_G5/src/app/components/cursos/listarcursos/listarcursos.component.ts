@@ -14,7 +14,6 @@ import { CronogramasService } from '../../../services/cronogramas.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { LoginService } from '../../../services/login.service';
 import { FormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-listarcursos',
   standalone: true,
@@ -91,10 +90,12 @@ export class ListarcursosComponent implements OnInit {
       // Actualizar la lista después de la eliminación
       this.cS.list().subscribe(data => {
         this.cursos = data;
+        this.filteredCursos = data;
         this.updatePagedCursos();
         // Resetear el paginador a la primera página
         this.paginator.pageIndex = 0; // Reiniciar a la primera página
         this.paginator.length = this.cursos.length; // Actualizar la longitud del paginador
+        this.updatePagedCursos(); // Actualizar los cursos paginados
       });
     });
   }
