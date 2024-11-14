@@ -55,5 +55,10 @@ public class CursosServiceImplement implements ICursosService {
         return cR.findById(id).orElse(new Cursos());
     }
 
+    @Override
+    public List<String[]> top5CursosPorSesionesYCantSesiones() {
+        return cR.top5CursosPorSesionesYCantSesiones();
+    }
+
 
 }

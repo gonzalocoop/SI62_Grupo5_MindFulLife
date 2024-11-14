@@ -25,13 +25,15 @@ import { CommonModule } from '@angular/common';
 })
 export class CursosComponent {
   constructor(public route: ActivatedRoute,private loginService: LoginService) {}
-  
+  selectedUser: string = localStorage.getItem("username") ?? "";
   role: string = '';
 
   verificar() {
     this.role = this.loginService.showRole();
     return this.loginService.verificar();
   }
+
+  
   isAdmin() {
     return this.role === 'ADMINISTRADOR';
   }

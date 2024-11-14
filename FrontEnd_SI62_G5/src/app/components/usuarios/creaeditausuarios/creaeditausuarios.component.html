@@ -29,7 +29,12 @@
         <br>
         <mat-form-field class="example-full-width">
           <mat-label>Contraseña</mat-label>
-          <input matInput placeholder="Password" formControlName="hpassword">
+          <input
+            matInput
+            placeholder="Password"
+            formControlName="hpassword"
+            [type]="isAdmin() ? 'text' : 'password'"
+           />
           <!-- Mostrar mensaje de error si el campo no es válido -->
           <mat-error *ngIf="form.controls['hpassword'].hasError('required') && form.controls['hpassword'].touched">
             Llenar campo contraseña correctamente

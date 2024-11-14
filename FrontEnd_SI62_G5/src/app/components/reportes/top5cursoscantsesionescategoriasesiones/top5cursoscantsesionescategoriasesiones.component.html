@@ -1,0 +1,27 @@
+<div>
+    <div style="text-align: center;">
+      <h1>Top 5 cursos con más sesiones y su categoría</h1>
+    </div>
+    
+    <div class="chart-container" style="text-align: center;">
+      <canvas
+        baseChart
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="barChartType"
+      >
+      </canvas>
+    </div>
+  
+    <!-- Leyenda explicativa -->
+    <div class="category-legend" style="text-align: center; margin-top: 20px;">
+      <ul>
+        <li><strong>Leyenda:</strong></li>
+        <li><span style="background-color: #4caf50; padding: 5px 10px; color: white;"></span>: Menos de 2 sesiones (Bajo)</li>
+        <li><span style="background-color: #ff9800; padding: 5px 10px; color: white;"></span>: Entre 2 y 5 sesiones (Medio)</li>
+        <li><span style="background-color: #f44336; padding: 5px 10px; color: white;"></span>: Más de 5 sesiones (Alto)</li>
+      </ul>
+    </div>
+</div>

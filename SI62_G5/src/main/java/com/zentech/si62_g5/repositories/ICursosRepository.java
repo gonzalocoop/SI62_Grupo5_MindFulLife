@@ -63,6 +63,24 @@ public interface ICursosRepository extends JpaRepository<Cursos,Integer> {
             "ORDER BY categoria, num_usuarios DESC;", nativeQuery = true)
     public List<String[]> MaxyMinUsuarioCursos();
 
-
+    @Query(value =" SELECT \n" +
+            "    c.titulo AS Curso,\n" +
+            "    COUNT(s.id) AS \"Cantidad de Sesiones\",\n" +
+            "    c.duracion AS \"Duracion de Curso\",\n" +
+            "    CASE \n" +
+            "        WHEN COUNT(s.id) > 5 THEN 'Alto'\n" +
+            "        WHEN COUNT(s.id) BETWEEN 3 AND 5 THEN 'Medio'\n" +
+            "        ELSE 'Bajo'\n" +
+            "    END AS \"Categoria según Cantidad de Sesiones\"\n" +
+            " FROM \n" +
+            "    cursos c\n" +
+            " LEFT JOIN \n" +
+            "    sesiones s ON c.id = s.id_cursos\n" +
+            " GROUP BY \n" +
+            "    c.titulo, c.duracion\n" +
+            " ORDER BY \n" +
+            "    \"Cantidad de Sesiones\" DESC\n" +
+            "LIMIT 5;",nativeQuery = true)
+    public List<String[]> top5CursosPorSesionesYCantSesiones();
 }
 

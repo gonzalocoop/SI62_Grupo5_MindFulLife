@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { CursosUsuarios } from '../models/CursosUsuarios';
 import { CantCursCompleNoCompleDTO } from '../models/CantCursCompleNoCompleDTO';
 import { LoginService } from './login.service';
+import { CantidadGeneralCursosUsuariosDTO } from '../models/CantidadGeneralCursosUsuariosDTO';
 
 const base_url=environment.base
 
@@ -85,5 +86,9 @@ export class CursosUsuariosService {
     const encodedUsername = encodeURIComponent(username);
     const urll = `${this.url}/buscarcursosusuariosporusuario?username=${encodedUsername}`;
     return this.http.get<CursosUsuarios[]>(urll);
+  }
+
+  cantidadTotaCursosCompletadosYNo():Observable<CantidadGeneralCursosUsuariosDTO[]>{
+    return this.http.get<CantidadGeneralCursosUsuariosDTO[]>(`${this.url}/cantidadtotalcursosUsuarioscompletadoyno`);
   }
 }

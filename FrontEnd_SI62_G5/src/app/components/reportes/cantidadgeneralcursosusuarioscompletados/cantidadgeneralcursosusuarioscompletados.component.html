@@ -1,0 +1,15 @@
+<div style="text-align: center;">
+    <h1>Porcentaje de Cursos de Usuarios Completados y No Completados en General</h1>
+  </div>
+  
+  <!-- Gráfico de Doughnut -->
+  <div class="chart-container" style="text-align: center;">
+    <canvas
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="true"
+      [type]="barChartType"
+    ></canvas>
+  </div>
