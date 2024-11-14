@@ -1,7 +1,11 @@
 <div *ngIf="verificar()">
     <div>
         <h1>Tabla De Cursos</h1>
-        <p><strong>Usuario Seleccionado:</strong> {{ selectedUser }}</p>
+    </div>
+    <!-- Input para filtrar por duración -->
+    <div class="filtro-container">
+        <label>Filtrar por duración:</label>
+        <input type="number" min="0" [(ngModel)]="duracionFiltro" (input)="filtrarCursosPorDuracion()" placeholder="Ingrese duración en días" />
     </div>
     <div class="curso-container">
         <div *ngFor="let curso of pagedCursos" class="curso-card">

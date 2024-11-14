@@ -6,11 +6,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { ListarsesionesComponent } from './listarsesiones/listarsesiones.component';
 import { ListarvideosComponent } from "../videos/listarvideos/listarvideos.component";
+import { CommonModule } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-sesiones',
   standalone: true,
   imports: [
+    CommonModule,
     RouterOutlet,
     ListarsesionesComponent,
     MatToolbarModule,
@@ -24,6 +27,13 @@ import { ListarvideosComponent } from "../videos/listarvideos/listarvideos.compo
   styleUrl: './sesiones.component.css'
 })
 export class SesionesComponent {
-  constructor(public route: ActivatedRoute) {}
+  constructor(public route: ActivatedRoute,private loginService: LoginService) {}
+  selectedUser: string = localStorage.getItem("username") ?? "";
+  role: string = '';
+
+  verificar() {
+    this.role = this.loginService.showRole();
+    return this.loginService.verificar();
+  }
 
 }

@@ -97,4 +97,20 @@ public class CursosController {
         CursosDTO dto=m.map(cS.listId(id),CursosDTO.class);
         return dto;
     }
+
+    @GetMapping("/top5cursossesiones")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
+    public List<CursosSesionesCantSesionesDTO> top5CursosSesionesCategoriaSesiones(){
+        List<String[]> lista= cS.top5CursosPorSesionesYCantSesiones();
+        List<CursosSesionesCantSesionesDTO> listaDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            CursosSesionesCantSesionesDTO dto=new CursosSesionesCantSesionesDTO();
+            dto.setCurso(columna[0]);
+            dto.setCantidadSesiones(Integer.parseInt(columna[1]));
+            dto.setDuracionCurso(Integer.parseInt(columna[2]));
+            dto.setCategoria(columna[3]);
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
 }

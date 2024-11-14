@@ -24,5 +24,5 @@ public interface ICursoUsuarioService {
     public void actualizarProgresoYEstado( int idCursoUsuario);
 
     List<CursosUsuarios> findByUsername(String username);
-
+    public List<String[]> CantidadCursoCompletadosNoCompletadosGeneral();
 }
