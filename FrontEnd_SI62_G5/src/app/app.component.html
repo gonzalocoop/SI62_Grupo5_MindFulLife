@@ -9,7 +9,7 @@
     </div>
     <div class="right-menu">
         <button mat-button [matMenuTriggerFor]="menuSalir" style="color: white">
-          <mat-icon>person</mat-icon>Usuario
+          <mat-icon>person</mat-icon>Cerrar Cuenta
         </button>
       </div>
 </mat-toolbar>
@@ -21,7 +21,7 @@
     <button mat-menu-item *ngIf="isAdmin()" routerLink="/sesiones">Sesiones</button>
     <button mat-menu-item *ngIf="isAdmin()" routerLink="/videos">Videos</button>
     <button mat-menu-item *ngIf="isAdmin() || isStudent()" routerLink="/videosfav">Videos Favoritos</button>
-    <button mat-menu-item  routerLink="/usuarios">Usuarios</button>
+    <button mat-menu-item *ngIf="isAdmin() || isStudent()" routerLink="/usuarios">Usuarios</button>
     <button mat-menu-item *ngIf="isAdmin() || isStudent()" routerLink="/cursosusuarios">Cursos de los Usuarios</button>
     <button mat-menu-item *ngIf="isAdmin() || isStudent()" routerLink="/usuariossuscripciones">Suscripciones de los Usuarios</button>
     <button mat-menu-item *ngIf="isAdmin() || isStudent()" routerLink="/cronogramas">Cronogramas</button>
@@ -33,10 +33,6 @@
     <button mat-menu-item routerLink="/iniciosesion" (click)="cerrar()" class="custom-menu-item">
       <mat-icon>logout</mat-icon>
       <span>Cerrar sesión</span>
-    </button>
-    <button mat-menu-item class="custom-menu-item"> 
-      Rol:
-      <span>{{ role }}</span>
     </button>
   </mat-menu>
 

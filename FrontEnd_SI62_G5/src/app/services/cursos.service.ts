@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { CantSesionesCursoDTO } from '../models/CantSesionesCursoDTO';
 import { MaxMinUsuarioCursosDTO } from '../models/MaxMinUsuarioCursosDTO';
 import { Comentarios } from '../models/Comentarios';
+import { CursosSesionesCantSesionesDTO } from '../models/CursosSesionesCantSesionesDTO';
 
 const base_url=environment.base
 
@@ -53,4 +54,7 @@ export class CursosService {
     return this.http.get<MaxMinUsuarioCursosDTO[]>(`${this.url}/maxyminwsuariocursos`);
   }
   
+  top5CantSesiones():Observable<CursosSesionesCantSesionesDTO[]>{
+    return this.http.get<CursosSesionesCantSesionesDTO[]>(`${this.url}/top5cursossesiones`);
+  }
 }

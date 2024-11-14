@@ -76,4 +76,9 @@ public class CursoUsuarioServiceImplement implements ICursoUsuarioService {
     public List<CursosUsuarios> findByUsername(String username) {
         return cuR.findByUsername(username);
     }
+
+    @Override
+    public List<String[]> CantidadCursoCompletadosNoCompletadosGeneral() {
+        return cuR.CantidadCursoCompletadosNoCompletadosGeneral();
+    }
 }
