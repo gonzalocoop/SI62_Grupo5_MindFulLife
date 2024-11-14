@@ -13,12 +13,12 @@ import { CursosUsuariosService } from '../../../services/cursos-usuarios.service
 import { CronogramasService } from '../../../services/cronogramas.service';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { LoginService } from '../../../services/login.service';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-listarcursos',
   standalone: true,
   // Módulos importados para usar tarjetas, íconos, paginación y enrutamiento en el HTML
-  imports: [CommonModule, MatPaginator, MatIconModule, MatCardModule, RouterModule],
+  imports: [FormsModule,CommonModule, MatPaginator, MatIconModule, MatCardModule, RouterModule],
   templateUrl: './listarcursos.component.html',
   styleUrls: ['./listarcursos.component.css']
 })
@@ -27,6 +27,8 @@ export class ListarcursosComponent implements OnInit {
   mensaje:string="";
   cursos: Cursos[] = []; // Arreglo que contiene todos los cursos
   pagedCursos: Cursos[] = []; // Cursos de la página actual para mostrar en las tarjetas
+  filteredCursos: Cursos[] = []; // Cursos filtrados por duración
+  duracionFiltro: number | null = null; // Filtro de duración
   usuario: Usuarios = new Usuarios(); // Objeto para almacenar los detalles del curso
   usuario_id: number=0;
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
@@ -36,18 +38,17 @@ export class ListarcursosComponent implements OnInit {
   constructor(private lS: LoginService,private uS:UsuariosService,private cS: CursosService,  private usuariocompartido: CompartiruserService, private cuS: CursosUsuariosService, private cR: CronogramasService) {}
 
   ngOnInit(): void {
-    // Suscripción para obtener la lista completa de cursos y actualizar `pagedCursos`
     this.cS.list().subscribe(data => {
-      this.cursos = data;       // Guarda todos los cursos obtenidos
-      this.updatePagedCursos();  // Muestra solo los cursos de la página actual
+      this.cursos = data;
+      this.filteredCursos = data; // Inicialmente, no hay filtro
+      this.updatePagedCursos();
     });
 
-    // Escucha actualizaciones en el servicio y vuelve a cargar `cursos` y `pagedCursos`
     this.cS.getList().subscribe(data => {
-      this.cursos = data;       // Guarda todos los cursos actualizados
-      this.updatePagedCursos(); // Actualiza la vista con la página actual
+      this.cursos = data;
+      this.filteredCursos = data;
+      this.updatePagedCursos();
     });
-    
   }
 
   // Después de que la vista se inicializa, suscríbete a cambios de página del paginador
@@ -58,14 +59,23 @@ export class ListarcursosComponent implements OnInit {
 
   // Actualiza los cursos visibles según el índice de página y el tamaño de página del paginador
   updatePagedCursos(): void {
-    if (this.paginator) { // Verificar que el paginador esté definido
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize; // Calcular índice inicial
-      const endIndex = startIndex + this.paginator.pageSize; // Calcular índice final
-      this.pagedCursos = this.cursos.slice(startIndex, endIndex); // Extraer cursos paginados
+    if (this.paginator) {
+      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      const endIndex = startIndex + this.paginator.pageSize;
+      this.pagedCursos = this.filteredCursos.slice(startIndex, endIndex);
     } else {
-      // Mostrar los primeros 10 cursos si el paginador no está disponible
-      this.pagedCursos = this.cursos.slice(0, 10);
+      this.pagedCursos = this.filteredCursos.slice(0, 10);
     }
+  }
+
+
+  filtrarCursosPorDuracion(): void {
+    // Si `duracionFiltro` tiene valor, filtra por duración; si no, muestra todos los cursos
+    this.filteredCursos = this.duracionFiltro ? this.cursos.filter(curso => curso.duracion === this.duracionFiltro) : this.cursos;
+    
+    // Reinicia el paginador y actualiza los cursos paginados
+    this.paginator.pageIndex = 0;
+    this.updatePagedCursos();
   }
 
   // Llama al servicio para eliminar un curso por ID y actualiza la lista de cursos y la vista de la página actual
@@ -80,10 +90,12 @@ export class ListarcursosComponent implements OnInit {
       // Actualizar la lista después de la eliminación
       this.cS.list().subscribe(data => {
         this.cursos = data;
+        this.filteredCursos = data;
         this.updatePagedCursos();
         // Resetear el paginador a la primera página
         this.paginator.pageIndex = 0; // Reiniciar a la primera página
         this.paginator.length = this.cursos.length; // Actualizar la longitud del paginador
+        this.updatePagedCursos(); // Actualizar los cursos paginados
       });
     });
   }

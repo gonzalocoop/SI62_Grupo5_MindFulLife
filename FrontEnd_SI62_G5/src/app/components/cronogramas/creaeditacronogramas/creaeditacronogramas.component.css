@@ -16,3 +16,9 @@ mat-form-field{
     text-align: center;
     margin:5%
    }
+
+   .right-menu {
+    margin-left: auto; /* Empuja el menú de usuarios a la derecha */
+    background-color: #9fc5ff; 
+    color: white; 
+  }

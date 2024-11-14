@@ -15,5 +15,6 @@ public interface ICursosService {
     public List<String[]> cantSesionesCurso();
     public List<String[]> MaxyMinUsuarioCursos();
     public Cursos listId(int id);
+    public List<String[]> top5CursosPorSesionesYCantSesiones();
 }
 

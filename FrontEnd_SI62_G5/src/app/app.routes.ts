@@ -48,6 +48,8 @@ import { CursosmasymenossuscripcionesdeusuariosComponent } from './components/re
 import { ComentariosnegativosComponent } from './components/reportes/comentariosnegativos/comentariosnegativos.component';
 import { seguridadGuard } from './guard/seguridad.guard';
 import { HomeComponent } from './components/home/home.component';
+import { Top5cursoscantsesionescategoriasesionesComponent } from './components/reportes/top5cursoscantsesionescategoriasesiones/top5cursoscantsesionescategoriasesiones.component';
+import { CantidadgeneralcursosusuarioscompletadosComponent } from './components/reportes/cantidadgeneralcursosusuarioscompletados/cantidadgeneralcursosusuarioscompletados.component';
 
 export const routes: Routes = [
     {
@@ -265,6 +267,12 @@ export const routes: Routes = [
             },
             {
                 path:'comentariosnegativos',component:ComentariosnegativosComponent
+            },
+            {
+                path:'top5cursosesiones',component:Top5cursoscantsesionescategoriasesionesComponent
+            },
+            {
+                path:'porcentajeGeneralCursosUsuarios',component:CantidadgeneralcursosusuarioscompletadosComponent
             }
             
         ],
