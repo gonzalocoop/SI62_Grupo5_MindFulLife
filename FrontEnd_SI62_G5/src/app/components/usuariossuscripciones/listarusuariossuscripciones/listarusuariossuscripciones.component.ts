@@ -36,7 +36,7 @@ export class ListarusuariossuscripcionesComponent implements OnInit{
     this.role = this.lS.showRole();  // Aquí te aseguras de que el rol esté actualizado  
     const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
     if (isAdmin) {
-      this.displayedColumns.push('accion02'); // Agregar "accion02" si es admin
+      this.displayedColumns.includes('accion02'); // Agregar "accion02" si es admin
     }else {
       const index = this.displayedColumns.indexOf('accion02');
       if (index !== -1) {

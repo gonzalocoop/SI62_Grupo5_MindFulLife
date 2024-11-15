@@ -1,8 +1,10 @@
 
 <mat-toolbar class="custom-toolbar" *ngIf="verificar()">
-  <mat-icon >menu</mat-icon>
+  
   <div>
-  <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >Cursos</button>
+  <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >
+    <mat-icon>book</mat-icon>
+    Cursos</button>
   </div>
   <div class="right-menu">
     <button mat-button [matMenuTriggerFor]="menuUsuario" style="color: white">

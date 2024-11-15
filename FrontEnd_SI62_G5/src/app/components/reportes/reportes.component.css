@@ -4,7 +4,7 @@
   }
   
   .custom-toolbar {
-    background-color: #9fc5ff;
+    background-color: #00838f;
     color: white;
   }
   
@@ -17,8 +17,8 @@
   }
 
   .welcome-message {
-    background-color: #9fc5ff; /* Fondo celeste */
-    color: white; /* Texto en blanco */
+    background-color: #009688; /* Fondo celeste */
+    color: rgb(0, 0, 0); /* Texto en blanco */
     padding: 20px;
     border-radius: 8px;
     text-align: center;
@@ -31,14 +31,14 @@
 }
 
 .welcome-message:hover {
-    background-color: #a3d1ff; /* Fondo más claro al pasar el mouse */
-    color: #f0f8ff; /* Color blanco más suave */
+    background-color: #b2dfdb; /* Fondo más claro al pasar el mouse */
+    color: #090909; /* Color blanco más suave */
     transition: background-color 0.3s ease-in-out;
 }
 
 
 .right-menu {
   margin-left: auto; /* Empuja el menú de usuarios a la derecha */
-  background-color: #9fc5ff; 
+  background-color: #00838f; 
   color: white; 
 }
