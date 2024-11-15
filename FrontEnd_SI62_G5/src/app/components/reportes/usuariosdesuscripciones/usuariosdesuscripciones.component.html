@@ -1,37 +1,36 @@
 <div class="container">
-    <h1>Buscar Usuarios por Suscripción</h1>
-  
-    <div class="search-section">
+  <h1>Buscar Usuarios por Suscripción</h1>
+
+  <div class="search-section">
       <mat-form-field appearance="fill">
-        <mat-label>Nombre de Suscripción</mat-label>
-        <input matInput [(ngModel)]="nombreSuscripcion" placeholder="Ingrese el nombre de la suscripción">
+          <mat-label>Nombre de Suscripción</mat-label>
+          <input matInput [(ngModel)]="nombreSuscripcion" placeholder="Ingrese el nombre de la suscripción">
       </mat-form-field>
-      
+
       <button mat-raised-button color="primary" (click)="buscarUsuarios()">
-        Buscar Usuarios
+          Buscar Usuarios
       </button>
-    </div>
-  
-    <div class="table-container" *ngIf="usuarios.length > 0">
-      <table mat-table [dataSource]="usuarios" class="mat-elevation-z8">
+  </div>
 
-        <ng-container matColumnDef="nombre">
-          <th mat-header-cell *matHeaderCellDef> Nombre </th>
-          <td mat-cell *matCellDef="let usuario"> {{usuario.nombre}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef> Username </th>
-          <td mat-cell *matCellDef="let usuario"> {{usuario.username}} </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <div class="table-container" *ngIf="usuarios.length > 0">
+      <table mat-table [dataSource]="usuarios" class="mat-elevation-z8 styled-table">
+
+          <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let usuario"> {{usuario.nombre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef> Username </th>
+              <td mat-cell *matCellDef="let usuario"> {{usuario.username}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-    </div>
-  
-    <div *ngIf="busquedaRealizada && usuarios.length === 0" class="no-results">
-        No se encontraron usuarios para esta suscripción
-    </div>
+  </div>
 
+  <div *ngIf="busquedaRealizada && usuarios.length === 0" class="no-results">
+      No se encontraron usuarios para esta suscripción
+  </div>
 </div>
