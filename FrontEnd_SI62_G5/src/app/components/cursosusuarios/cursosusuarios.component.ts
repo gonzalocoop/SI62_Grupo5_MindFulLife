@@ -26,6 +26,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CursosusuariosComponent {
   constructor(public route: ActivatedRoute, private lS:LoginService) {}
+  selectedUser: string = localStorage.getItem("username") ?? "";
   role: string = '';
   
 
