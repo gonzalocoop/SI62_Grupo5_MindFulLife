@@ -9,9 +9,9 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [BaseChartDirective, CommonModule],
   templateUrl: './tiempopromedio.component.html',
-  styleUrl: './tiempopromedio.component.css'
+  styleUrls: ['./tiempopromedio.component.css']
 })
-export class TiempopromedioComponent implements OnInit{
+export class TiempopromedioComponent implements OnInit {
   barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -20,26 +20,35 @@ export class TiempopromedioComponent implements OnInit{
   barChartLegend = false;
   barChartData: ChartDataset[] = [];
   chartWidth: string = '45%';
+  hayDatos: boolean = true; // Controla si hay datos disponibles
+
   constructor(private sS: SesionesService) {}
+
   ngOnInit(): void {
     this.sS.tiempoPromedio().subscribe((data) => {
-      this.barChartLabels = data.map((item) => item.tituloSesion);
-      this.barChartData = [
-        {
-          data: data.map((item) => item.duracionPromedio),
-          label: 'Duracion promedio',
-          backgroundColor: this.generateColors(data.length), // Genera colores dinámicamente
-          borderColor: '#e94215',
-          borderWidth: 1,
-        },
-      ];
+      if (data && data.length > 0) {
+        this.hayDatos = true;
+        this.barChartLabels = data.map((item) => item.tituloSesion);
+        this.barChartData = [
+          {
+            data: data.map((item) => item.duracionPromedio),
+            label: 'Duración promedio',
+            backgroundColor: this.generateColors(data.length), // Colores dinámicos
+            borderColor: '#e94215',
+            borderWidth: 1,
+          },
+        ];
+      } else {
+        this.hayDatos = false; // Si no hay datos, mostramos el mensaje de error
+      }
     });
   }
+
   generateColors(length: number): string[] {
     const colors: string[] = [];
     for (let i = 0; i < length; i++) {
-        const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-        colors.push(color);
+      const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+      colors.push(color);
     }
     return colors;
   }
