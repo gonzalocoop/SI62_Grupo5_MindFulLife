@@ -35,10 +35,10 @@ export class Top5cursoscantsesionescategoriasesionesComponent implements OnInit 
       // Colores dinámicos basados en la categoría del curso
       const backgroundColors = data.map(item => {
         switch(item.categoria) {
-          case 'Bajo': return '#4caf50'; // verde para Básico
-          case 'Medio': return '#ff9800'; // naranja para Intermedio
-          case 'Alto': return '#f44336'; // rojo para Avanzado
-          default: return '#2196f3'; // azul para otros
+          case 'Bajo': return '#A1887F'; // verde para Básico
+          case 'Medio': return '#FFE57F'; // naranja para Intermedio
+          case 'Alto': return '#B2DFDB'; // rojo para Avanzado
+          default: return '#A1887F'; // azul para otros
         }
       });
 
@@ -56,8 +56,8 @@ export class Top5cursoscantsesionescategoriasesionesComponent implements OnInit 
         {
           data: data.map(item => item.duracionCurso),
           label: 'Duración del Curso (días)',
-          backgroundColor:['#f08e79'],
-          borderColor: '#2196f3', // Color azul para duración
+          backgroundColor:['#B2DFDB'],
+          borderColor: '#000000', // Color azul para duración
           borderWidth: 2,
           borderDash: [5, 5], // Líneas punteadas para la duración
         }

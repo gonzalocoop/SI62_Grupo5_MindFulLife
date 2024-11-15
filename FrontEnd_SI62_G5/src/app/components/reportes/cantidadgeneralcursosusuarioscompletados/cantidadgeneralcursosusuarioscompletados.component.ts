@@ -62,7 +62,7 @@ export class CantidadgeneralcursosusuarioscompletadosComponent implements OnInit
         this.barChartData = [
           {
             data: [porcentajeCompletados, porcentajeNoCompletados],
-            backgroundColor: ['#4CAF50', '#f44336'], // Colores para completado y no completado
+            backgroundColor: ['#FFE57F', '#A1887F'], // Colores para completado y no completado
             borderColor: ['#fff', '#fff'],
             borderWidth: 1,
           },

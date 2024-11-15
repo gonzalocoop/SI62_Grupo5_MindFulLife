@@ -29,7 +29,7 @@ export class ContabilizarsesionesComponent implements OnInit {
           data: data.map((item) => item.quatitySesion),
           label: 'Cantidad de sesiones',
           backgroundColor: this.generateColors(data.length), // Genera colores dinámicamente
-          borderColor: '#e94215',
+          borderColor: '#000000',
           borderWidth: 1,
         },
       ];
@@ -46,12 +46,30 @@ export class ContabilizarsesionesComponent implements OnInit {
       }
     });
   }
-  generateColors(length: number): string[] {
-    const colors: string[] = [];
-    for (let i = 0; i < length; i++) {
-        const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-        colors.push(color);
-    }
-    return colors;
+  
+generateColors(length: number): string[] {
+  const predefinedColors: string[] = [
+    "#0a3866", "#004D40", "#FFE57F", "#ffb291", 
+    "#0f5194", "#009688", "#00838F", "#1375d6", 
+    "#B2DFDB", "#0097A7", "#807D7D", "#1b8eff", "#795548", 
+    "#B2EBF2",  "#61a8ef", "#A1887F"
+  ];
+
+  // Aseguramos que la longitud solicitada no supere la cantidad de colores disponibles
+  if (length > predefinedColors.length) {
+      throw new Error("La longitud solicitada excede la cantidad de colores disponibles.");
+  }
+
+  const colors: string[] = [];
+  const availableColors = [...predefinedColors]; // Copia del array original
+
+  for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * availableColors.length);
+      const color = availableColors.splice(randomIndex, 1)[0]; // Remueve y selecciona un color
+      colors.push(color);
+  }
+
+  return colors;
 }
+
 }

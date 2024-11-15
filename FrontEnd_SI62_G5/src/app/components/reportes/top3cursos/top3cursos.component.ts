@@ -27,8 +27,8 @@ export class Top3cursosComponent implements OnInit{
         {
           data:data.map(item=>item.cantidad),
           label:'Cantidad de comentarios',
-          backgroundColor:['#ee3007','#f08e79','#e98215'],
-          borderColor:'#e94215',
+          backgroundColor:['#0f5194','#ffb291','#FFE57F'],
+          borderColor:'#000000',
           borderWidth:1
         }
       ]
