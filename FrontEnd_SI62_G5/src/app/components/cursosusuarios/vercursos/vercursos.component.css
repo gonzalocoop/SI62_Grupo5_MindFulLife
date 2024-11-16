@@ -102,11 +102,13 @@ h1 {
 
 
 .container {
-    padding: 20px;
+    padding: 10px;
 }
   
-.header {
-    margin-bottom: 20px;
+header {
+    margin-bottom: 5px; /* Reducir el espacio inferior */
+    font-size: 16px; /* Ajustar el tamaño de la fuente si es necesario */
+    line-height: 1; 
 }
   
 .user-info {
@@ -127,3 +129,16 @@ h1 {
 .selected-user {
     margin-top: 20px; /* Espacio encima del usuario seleccionado */
 }
+
+.botones {
+    display: flex;
+    justify-content: center; /* Centrar los elementos horizontalmente */
+    margin-top: 20px; /* Espacio superior opcional */
+  }
+  
+  .botones-container {
+    display: flex;
+    gap: 15px; /* Espacio entre los botones */
+    align-items: center; /* Alinea verticalmente en el centro */
+  }
+  

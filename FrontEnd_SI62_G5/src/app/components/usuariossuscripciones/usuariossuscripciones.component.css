@@ -1,6 +1,6 @@
 .custom-toolbar {
 
-    background-color: #9fc5ff; 
+    background-color: #00838f; 
   
     color: white; 
   
@@ -22,6 +22,6 @@
 
    .right-menu {
     margin-left: auto; /* Empuja el menú de usuarios a la derecha */
-    background-color: #9fc5ff; 
+    background-color: #00838f; 
     color: white; 
   }

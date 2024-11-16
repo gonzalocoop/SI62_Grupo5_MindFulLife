@@ -61,4 +61,9 @@ export class UsuariosService {
     const urll = `${this.url}/usuarioporusername?u=${encodedUsername}`;
     return this.http.get<Usuarios>(urll);
   }
+
+  updateEncript(u:Usuarios){
+    const urll = `${this.url}/encript`;
+    return this.http.put(urll,u)
+  }
 }

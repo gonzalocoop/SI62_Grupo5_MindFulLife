@@ -1,8 +1,9 @@
 
 <mat-toolbar class="custom-toolbar" *ngIf="verificar()">
-    <mat-icon >menu</mat-icon>
+   
     <div>
-    <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >Usuarios</button>
+    <button mat-button [matMenuTriggerFor]="menuG5" style="color: white;" >
+      <mat-icon>supervised_user_circle</mat-icon>Usuarios</button>
     </div>
     <div class="right-menu">
       <button mat-button [matMenuTriggerFor]="menuUsuario" style="color: white">
