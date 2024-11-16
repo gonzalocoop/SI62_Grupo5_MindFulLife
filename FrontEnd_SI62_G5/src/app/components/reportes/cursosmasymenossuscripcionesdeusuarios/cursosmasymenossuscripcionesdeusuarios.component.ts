@@ -19,35 +19,35 @@ export class CursosmasymenossuscripcionesdeusuariosComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartData: ChartDataset[] = [];
-  hayDatos: boolean = false;  // Empezamos con false
+  hayDatos: boolean = false; // Empezamos con false
 
   constructor(private cS: CursosService) {}
 
   ngOnInit(): void {
     this.cS.CursosMasMenosSuscripcionesDeUsuarios().subscribe((data) => {
       console.log('Datos recibidos:', data);
-  
-      // Validación de que los datos son válidos (nombreCurso no vacío y numUsuarios mayor a 0)
-      const datosValidos = data.filter(item => item.nombreCurso.trim() !== "" && item.numUsuarios > 0);
-  
+
+      // Filtrar los datos válidos (nombreCurso no vacío y numUsuarios mayor a 0)
+      const datosValidos = data.filter(item => item.nombreCurso.trim() !== '' && item.numUsuarios > 0);
+
       if (datosValidos.length > 0) {
-        // Si hay datos válidos, actualizamos las variables para mostrar el gráfico
+        // Si hay datos válidos, mostramos el gráfico
         this.hayDatos = true;
         this.barChartLabels = datosValidos.map(item => item.nombreCurso);
         this.barChartData = [
           {
             data: datosValidos.map(item => item.numUsuarios),
             label: 'Cantidad de Usuarios',
-            backgroundColor: ['#ee3007', '#f08e79', '#e98215'],
-            borderColor: '#e94215',
-            borderWidth: 1
-          }
+            backgroundColor: ['#009688', '#0097A7', '#61a8ef'], // Combinación de colores
+            borderColor: ['#000000'], // Bordes combinados
+            borderWidth: 1,
+          },
         ];
       } else {
-        // Si no hay datos válidos, mostramos el mensaje de error y vaciamos los datos del gráfico
+        // Si no hay datos válidos, mostramos el mensaje de error
         this.hayDatos = false;
-        this.barChartData = [];  // Vaciar los datos del gráfico
-        this.barChartLabels = [];  // Vaciar las etiquetas del gráfico
+        this.barChartData = []; // Vaciar los datos del gráfico
+        this.barChartLabels = []; // Vaciar las etiquetas del gráfico
       }
     });
   }

@@ -1,16 +1,11 @@
-<div class="container" *ngIf="verificar()">
+
+<div class="container">
     <div>
-      <h1>Registro de Usuarios</h1>
+      <h1>Registro para Estudiantes Nuevos</h1>
     </div>
     <div>
       <form class="example-form" [formGroup]="form" (submit)="aceptar()">
-        <!-- Este se usa en editar -->
-        <mat-form-field class="example-full-width" *ngIf="edicion">
-          <mat-label>Codigo</mat-label>
-          <input matInput formControlName="hcodigo" readonly="" />
-        </mat-form-field>
-  
-  
+        
         <mat-form-field class="example-full-width">
           <mat-label>Nombre de Usuario</mat-label>
           <input matInput placeholder="Username" formControlName="husername">
@@ -33,7 +28,7 @@
             matInput
             placeholder="Password"
             formControlName="hpassword"
-            [type]="isAdmin() ? 'text' : 'password'"
+            type="password"
            />
           <!-- Mostrar mensaje de error si el campo no es válido -->
           <mat-error *ngIf="form.controls['hpassword'].hasError('required') && form.controls['hpassword'].touched">
@@ -55,7 +50,7 @@
           </mat-form-field>
           
           <br>
-        <mat-form-field *ngIf="isAdmin()">
+        <mat-form-field>
             <mat-label>Rol</mat-label>
             <mat-select formControlName="hrol" >
               @for (m of listaRoles; track m) {
@@ -66,13 +61,11 @@
                 Llenar campo rol correctamente
               </mat-error>
         </mat-form-field>
-        <br>
-        <div class="checkbox-container" *ngIf="edicion && isAdmin()">
-          <mat-checkbox formControlName="hactivo">¿El usario está activado?</mat-checkbox>
-        </div>
-        <div class>
-          <button mat-flat-button>Aceptar</button>
-        </div>
+       
+        <div class="button-container">
+          <button mat-flat-button class="custom-button">Aceptar</button>
+          <button mat-flat-button class="custom-button" routerLink="/landing">Cancelar</button>
+      </div>
       </form>
     </div>
   </div>

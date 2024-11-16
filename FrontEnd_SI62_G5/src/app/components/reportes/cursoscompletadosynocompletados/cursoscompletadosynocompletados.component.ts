@@ -20,15 +20,15 @@ export class CursoscompletadosynocompletadosComponent implements OnInit {
       {
         data: [],
         label: 'Cursos Completados',
-        backgroundColor: '#4CAF50',
-        borderColor: '#45a049',
+        backgroundColor: '#FFE57F',
+        borderColor: '#000000',
         borderWidth: 1
       },
       {
         data: [],
         label: 'Cursos No Completados',
-        backgroundColor: '#f44336',
-        borderColor: '#da190b',
+        backgroundColor: '#1375d6',
+        borderColor: '#000000',
         borderWidth: 1
       }
     ],

@@ -12,6 +12,7 @@
                 <mat-card-content>
                     <p><strong>Email:</strong> {{ usuario.email }}</p>
                     <p><strong>Rol:</strong> {{ usuario.rol.nombre }}</p>
+                    <p *ngIf="isAdmin()"><strong>¿La cuenta está activa?:</strong> {{ usuario.activo }}</p>
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-icon-button color="warn" *ngIf="isAdmin()" (click)="eliminar(usuario.id)">
