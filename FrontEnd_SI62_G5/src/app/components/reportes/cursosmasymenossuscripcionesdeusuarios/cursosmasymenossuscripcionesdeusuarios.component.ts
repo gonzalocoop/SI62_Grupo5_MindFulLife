@@ -27,8 +27,8 @@ export class CursosmasymenossuscripcionesdeusuariosComponent implements OnInit {
         {
           data:data.map(item=>item.numUsuarios),
           label:'Cantidad de Usuarios',
-          backgroundColor:['#ee3007','#f08e79','#e98215'],
-          borderColor:'#e94215',
+          backgroundColor:['#009688','#0097A7','#61a8ef'],
+          borderColor:'#000000',
           borderWidth:1
         }
       ]
