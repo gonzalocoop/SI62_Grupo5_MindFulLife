@@ -53,8 +53,8 @@
               Solo se permiten correos con estructura valida
             </mat-error>
           </mat-form-field>
+          
           <br>
-  
         <mat-form-field *ngIf="isAdmin()">
             <mat-label>Rol</mat-label>
             <mat-select formControlName="hrol" >
@@ -66,7 +66,12 @@
                 Llenar campo rol correctamente
               </mat-error>
         </mat-form-field>
-  
+        <br>
+        <div class="example-full-width" *ngIf="edicion && isAdmin()">
+          <mat-checkbox formControlName="hactivo">
+            Activo
+          </mat-checkbox>
+        </div>
         <div class>
           <button mat-flat-button>Aceptar</button>
         </div>

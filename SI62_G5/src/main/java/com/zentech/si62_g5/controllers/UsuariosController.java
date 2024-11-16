@@ -2,7 +2,6 @@ package com.zentech.si62_g5.controllers;
 
 
 import com.zentech.si62_g5.dtos.ComentariosUsuarioDTO;
-import com.zentech.si62_g5.dtos.SuscripcionesDTO;
 import com.zentech.si62_g5.dtos.UsuariosDTO;
 import com.zentech.si62_g5.entities.Usuarios;
 import com.zentech.si62_g5.serviceinterfaces.IUsuariosService;
@@ -26,7 +25,6 @@ public class UsuariosController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public void registrar(@RequestBody UsuariosDTO dto){
         ModelMapper m = new ModelMapper();
         Usuarios s= m.map(dto, Usuarios.class);
@@ -65,12 +63,8 @@ public class UsuariosController {
     public void modificar(@RequestBody UsuariosDTO dto){
         ModelMapper m = new ModelMapper();
         Usuarios s = m.map(dto, Usuarios.class);
-        String encodedPassword = passwordEncoder.encode(s.getPassword());
-        s.setPassword(encodedPassword);
         uS.update(s);
     }
-
-
 
     @PutMapping("/cambiocoontraseña")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
@@ -93,8 +87,15 @@ public class UsuariosController {
         return listaDTO;
     }
 
-
-
+    @PutMapping("/encript")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
+    public void modificarEncript(@RequestBody UsuariosDTO dto){
+        ModelMapper m = new ModelMapper();
+        Usuarios s = m.map(dto, Usuarios.class);
+        String encodedPassword = passwordEncoder.encode(s.getPassword());
+        s.setPassword(encodedPassword);
+        uS.update(s);
+    }
 
     @GetMapping("/usuarioporusername")
     public UsuariosDTO listarPorUsername(@RequestParam String u)
@@ -103,4 +104,6 @@ public class UsuariosController {
         UsuariosDTO dto=m.map(uS.findUsuarioByUsername(u),UsuariosDTO.class);
         return dto;
     }
+
+
 }
