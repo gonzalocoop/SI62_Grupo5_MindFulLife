@@ -50,6 +50,7 @@ import { seguridadGuard } from './guard/seguridad.guard';
 import { HomeComponent } from './components/home/home.component';
 import { Top5cursoscantsesionescategoriasesionesComponent } from './components/reportes/top5cursoscantsesionescategoriasesiones/top5cursoscantsesionescategoriasesiones.component';
 import { CantidadgeneralcursosusuarioscompletadosComponent } from './components/reportes/cantidadgeneralcursosusuarioscompletados/cantidadgeneralcursosusuarioscompletados.component';
+import { RegistrarestudianteComponent } from './components/registrarestudiante/registrarestudiante.component';
 
 export const routes: Routes = [
     {
@@ -239,6 +240,9 @@ export const routes: Routes = [
         path:'iniciosesion',component:IniciosesionComponent,
     },
     {
+        path:'registrarestudiante',component:RegistrarestudianteComponent,
+    },
+    {
         path:'reportes',component:ReportesComponent,
         children:[
             {
@@ -282,6 +286,6 @@ export const routes: Routes = [
       path: 'homes',
       component: HomeComponent,
       canActivate: [seguridadGuard], 
-    },
+    }
     
 ];
