@@ -34,7 +34,6 @@ public class UsuariosController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<UsuariosDTO> listar()
     {
         return uS.list().stream().map(x->{
