@@ -19,6 +19,7 @@ import { RolesService } from '../../services/roles.service';
 import {  Router, RouterModule } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RegistrarestudianteService } from '../../services/registrarestudiante.service';
 
 
 @Component({
@@ -45,9 +46,8 @@ export class RegistrarestudianteComponent implements OnInit {
   listaRoles: Roles[] = [];
   constructor(
     private formBuilder: FormBuilder,
-    private uS: UsuariosService,
-    private rS: RolesService,
-    private router: Router
+    private router: Router,
+    private reS:RegistrarestudianteService
   ) {}
 
   
@@ -65,7 +65,7 @@ export class RegistrarestudianteComponent implements OnInit {
       hemail: ['', [Validators.required,Validators.pattern(/^[^@]+@[^@]+\.[^@]+$/)]],
       hrol: ['', [Validators.required]],
     });
-    this.rS.list().subscribe((data) => {
+    this.reS.listRoles().subscribe((data) => {
       // Filtrar los roles donde el nombre del rol sea "ESTUDIANTE"
       this.listaRoles = data.filter(role => role.nombre === 'ESTUDIANTE');
     });
@@ -78,10 +78,8 @@ export class RegistrarestudianteComponent implements OnInit {
       this.usuario.password = this.form.value.hpassword;
       this.usuario.email = this.form.value.hemail;
       this.usuario.rol.id = this.form.value.hrol;
-      this.uS.insert(this.usuario).subscribe((data) => {
-        this.uS.list().subscribe((data) => {
-          this.uS.setList(data);
-        });
+      this.reS.insert(this.usuario).subscribe((data) => {
+        this.reS.listUsuarios()
       });
       alert("¡Cuenta creada exitosamente!, ahora inicie sesión");
       this.router.navigate(['iniciosesion']);
@@ -101,7 +99,7 @@ export class RegistrarestudianteComponent implements OnInit {
     }
 
     // Llama a la lista de cursos y verifica si hay títulos repetidos
-    return this.uS.list().pipe(
+    return this.reS.listUsuarios().pipe(
       map((usuarios) => {
         // Compara títulos y excluye el curso en edición usando this.id
         const existe = usuarios.some(

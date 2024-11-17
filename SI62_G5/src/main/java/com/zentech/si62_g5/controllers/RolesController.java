@@ -29,6 +29,7 @@ public class RolesController {
     }
     
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','ESTUDIANTE')")
     public List<RolesDTO> listar()
     {
         return rS.list().stream().map(x->{
