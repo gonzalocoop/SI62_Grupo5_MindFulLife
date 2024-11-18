@@ -31,7 +31,6 @@ export class UsuarioSuscripcionesService {
   getList(){
     return this.listaCambio.asObservable();
   }
- // this.listaCambio.next(listaNueva); 
 
   setList(listaNueva:UsuarioSuscripciones[]){
     const role = this.loginService.showRole();  // Obtener el rol del usuario
