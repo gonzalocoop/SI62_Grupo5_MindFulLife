@@ -45,7 +45,7 @@ export class VideosService {
   }
 
 
-  // Función para buscar sesiones por título
+  // Función para buscar videos por título de sesion
   listPorSesion(titulo: string): Observable<any> {
     // Asegúrate de codificar el título para que sea seguro para la URL
     const encodedTitulo = encodeURIComponent(titulo);

@@ -35,10 +35,10 @@ export class CronogramasService {
     const username = localStorage.getItem("username") ?? "";  // Obtener el nombre de usuario
   
     if (role === 'ADMINISTRADOR') {
-      // Si es admin, pasar todos los videos favoritos
+      // Si es admin, pasar todos los cronogramas
       this.listaCambio.next(listaNueva);
     } else {
-      // Si no es admin, filtrar solo los videos del usuario actual
+      // Si no es admin, filtrar solo los cronogramas del usuario actual
       const filteredList = listaNueva.filter(crono => crono.curUsu.usua.username === username);
       this.listaCambio.next(filteredList);
     }
