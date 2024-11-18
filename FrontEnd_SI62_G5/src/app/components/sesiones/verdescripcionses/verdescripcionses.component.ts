@@ -12,24 +12,24 @@ import { Sesiones } from '../../../models/Sesiones';
   styleUrl: './verdescripcionses.component.css'
 })
 export class VerdescripcionsesComponent implements OnInit{
-  sesion: Sesiones = new Sesiones(); // Objeto para almacenar los detalles del curso
-  id: number = 0; // ID del curso
+  sesion: Sesiones = new Sesiones(); // Objeto para almacenar los detalles de la sesion
+  id: number = 0; // ID de la sesion
 
   // Inyecta los servicios necesarios en el constructor
   constructor(private route: ActivatedRoute, private sS: SesionesService, private router: Router) {}
 
   ngOnInit(): void {
-    // Suscribirse a los parámetros de la ruta para obtener el ID del curso
+    // Suscribirse a los parámetros de la ruta para obtener el ID de la sesion
     this.route.params.subscribe((data: Params) => {
-      this.id = data['id']; // Obtener el ID del curso de los parámetros
-      this.obtenerCurso(); // Llamar a la función para obtener el curso
+      this.id = data['id']; // Obtener el ID de la sesion de los parámetros
+      this.obtenerSesion(); // Llamar a la función para obtener la sesion
     });
   }
 
   // Función para obtener el curso por ID desde el servicio
-  obtenerCurso(): void {
+  obtenerSesion(): void {
     this.sS.listId(this.id).subscribe((data: Sesiones) => {
-      this.sesion = data; // Asignar el curso obtenido al objeto curso
+      this.sesion = data; // Asignar la sesion obtenido al objeto sesion
     });
   }
 

@@ -16,11 +16,11 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrl: './vercomentariodesesion.component.css'
 })
 export class VercomentariodesesionComponent implements OnInit{
-  idSesion: number = 0; // ID del curso
+  idSesion: number = 0; // ID de la sesion
   idCursoUsuario: number = 0; // Variable para almacenar el ID del curso usuario
   sesion: Sesiones= new Sesiones();
-  comentarios: Comentarios[] = []; // Arreglo que contiene todos los cursos
-  pagedComentarios: Comentarios[] = []; // Cursos de la página actual para mostrar en las tarjetas
+  comentarios: Comentarios[] = []; // Arreglo que contiene todos los comentarios
+  pagedComentarios: Comentarios[] = []; // Comentarios de la página actual para mostrar en las tarjetas
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
 
@@ -28,11 +28,11 @@ export class VercomentariodesesionComponent implements OnInit{
   constructor(private sS:SesionesService,private cS: ComentariosService,private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    // Suscribirse a los parámetros de la ruta para obtener el ID del curso
+    // Suscribirse a los parámetros de la ruta para obtener el ID del curso usuario y sesión
     this.route.params.subscribe((data: Params) => {
-      this.idCursoUsuario = +data['idCursoUsuario'];
-      this.idSesion = data['idSesion']; // Obtener el ID del curso de los parámetros
-      this.obtenerComentarios(); // Llamar a la función para obtener el curso
+      this.idCursoUsuario = +data['idCursoUsuario']; // Obtener el ID del cursoUsuario de los parámetros
+      this.idSesion = data['idSesion']; // Obtener el ID de la sesión de los parámetros
+      this.obtenerComentarios(); // Llamar a la función para obtener el comentario
     });
 
   }
@@ -40,19 +40,19 @@ export class VercomentariodesesionComponent implements OnInit{
   
   // Después de que la vista se inicializa, suscríbete a cambios de página del paginador
   ngAfterViewInit(): void {
-    // Actualiza los cursos que se muestran en cada cambio de página
+    // Actualiza los comentarios que se muestran en cada cambio de página
     this.paginator.page.subscribe(() => this.updatePagedComentarios());
   }
 
 
-  // Actualiza los cursos visibles según el índice de página y el tamaño de página del paginador
+  // Actualiza los comentarios visibles según el índice de página y el tamaño de página del paginador
   updatePagedComentarios(): void {
     if (this.paginator) { // Verificar que el paginador esté definido
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize; // Calcular índice inicial
       const endIndex = startIndex + this.paginator.pageSize; // Calcular índice final
-      this.pagedComentarios = this.comentarios.slice(startIndex, endIndex); // Extraer cursos paginados
+      this.pagedComentarios = this.comentarios.slice(startIndex, endIndex); // Extraer comentarios paginados
     } else {
-      // Mostrar los primeros 10 cursos si el paginador no está disponible
+      // Mostrar los primeros 10 comentarios si el paginador no está disponible
       this.pagedComentarios = this.comentarios.slice(0, 10);
     }
   }

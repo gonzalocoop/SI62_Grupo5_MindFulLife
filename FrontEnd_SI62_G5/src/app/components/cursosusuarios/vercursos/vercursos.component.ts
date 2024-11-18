@@ -52,10 +52,10 @@ export class VercursosComponent implements OnInit{
 
  
 
-  // Actualiza los cursos visibles según el índice de página y el tamaño de página del paginador
+  // Actualiza las sesiones visibles según el índice de página y el tamaño de página del paginador
   updatePagedSesiones(): void {
     
-      // Mostrar los primeros 10 cursos si el paginador no está disponible
+      // Mostrar las primeros 10 sesiones si el paginador no está disponible
       this.pagedSesiones = this.sesiones.slice(0, 10);
     
   }
@@ -74,11 +74,11 @@ export class VercursosComponent implements OnInit{
       this.cursousuario = data; // Asignar el curso obtenido al objeto curso
       //Obtener sesiones
     this.sS.listPorCurso(this.cursousuario.cur.titulo).subscribe(data => {
-      this.sesiones = data;       // Guarda todos los cursos obtenidos
-      this.updatePagedSesiones();  // Muestra solo los cursos de la página actual
-    })// Escucha actualizaciones en el servicio y vuelve a cargar `cursos` y `pagedCursos`
+      this.sesiones = data;       // Guarda todos las sesiones obtenidos
+      this.updatePagedSesiones();  // Muestra solo las sesiones de la página actual
+    })// Escucha actualizaciones en el servicio y vuelve a cargar `sesiones` y `pagedSesiones`
     this.sS.getList().subscribe(data => {
-      this.sesiones = data;       // Guarda todos los cursos actualizados
+      this.sesiones = data;       // Guarda todos los sesiones actualizados
       this.updatePagedSesiones(); // Actualiza la vista con la página actual
     });
     });

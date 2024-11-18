@@ -39,36 +39,36 @@ export class ListarusuariosComponent implements OnInit{
     const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
     if (isAdmin) {
       this.uS.list().subscribe((data) => {
-      this.usuarios = data; // Guarda todos los cursos obtenidos
-      this.updatePagedRoles(); // Muestra solo los cursos de la página actual
+      this.usuarios = data; // Guarda todos los usuarios obtenidos
+      this.updatePagedUsuarios(); // Muestra solo los usuarios de la página actual
     });
   }  else{
     this.uS.usuarioPorUsername(this.selectedUser).subscribe((data) => {
-      this.usuarios = [data]; // Guarda todos los cursos obtenidos
-      this.updatePagedRoles(); // Muestra solo los cursos de la página actual
+      this.usuarios = [data]; // Guarda todos los usuarios obtenidos
+      this.updatePagedUsuarios(); // Muestra solo los usuarios de la página actual
     })
   }
     
-    // Escucha actualizaciones en el servicio y vuelve a cargar `cursos` y `pagedCursos`
+    // Escucha actualizaciones en el servicio y vuelve a cargar `usuarios` y `pagedUsuarios`
     this.uS.getList().subscribe((data) => {
-      this.usuarios = data; // Guarda todos los cursos actualizados
-      this.updatePagedRoles(); // Actualiza la vista con la página actual
+      this.usuarios = data; // Guarda todos los usuarios actualizados
+      this.updatePagedUsuarios(); // Actualiza la vista con la página actual
     });
   }
 
   ngAfterViewInit(): void {
-    // Actualiza los cursos que se muestran en cada cambio de página
-    this.paginator.page.subscribe(() => this.updatePagedRoles());
+    // Actualiza los usuarios que se muestran en cada cambio de página
+    this.paginator.page.subscribe(() => this.updatePagedUsuarios());
   }
 
-  updatePagedRoles(): void {
+  updatePagedUsuarios(): void {
     if (this.paginator) {
       // Verificar que el paginador esté definido
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize; // Calcular índice inicial
       const endIndex = startIndex + this.paginator.pageSize; // Calcular índice final
-      this.pagedUsuarios = this.usuarios.slice(startIndex, endIndex); // Extraer cursos paginados
+      this.pagedUsuarios = this.usuarios.slice(startIndex, endIndex); // Extraer usuarios paginados
     } else {
-      // Mostrar los primeros 10 cursos si el paginador no está disponible
+      // Mostrar los primeros 10 usuarios si el paginador no está disponible
       this.pagedUsuarios = this.usuarios.slice(0, 10);
     }
   }
@@ -88,7 +88,7 @@ export class ListarusuariosComponent implements OnInit{
         // Actualizar la lista después de la eliminación
         this.uS.list().subscribe((data) => {
           this.usuarios = data;
-          this.updatePagedRoles();
+          this.updatePagedUsuarios();
           // Resetear el paginador a la primera página
           this.paginator.pageIndex = 0; // Reiniciar a la primera página
           this.paginator.length = this.usuarios.length; // Actualizar la longitud del paginador

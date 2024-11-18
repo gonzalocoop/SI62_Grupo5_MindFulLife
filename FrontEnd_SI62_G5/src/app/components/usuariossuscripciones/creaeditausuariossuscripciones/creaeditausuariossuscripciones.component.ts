@@ -35,7 +35,7 @@ export class CreaeditausuariossuscripcionesComponent implements OnInit{
   //variables para trabajar el editar
   id:number=0
   edicion:boolean=false
-  //Para traer los elementos de sesiones
+  //Para traer los elementos de suscripciones y usuarios
   listaSuscripciones: Suscripciones[] = [];
   listaUsuarios: Usuarios[] = [];
   
@@ -208,7 +208,7 @@ usuarioUnico(control: AbstractControl): Observable<ValidationErrors | null> {
   }
 
   // Llamamos al servicio para obtener la lista de suscripciones
-  return this.usS.list().pipe(  // 'usS.list()' es el método para obtener todas las suscripciones
+  return this.usS.list().pipe(  // 'usS.list()' es el método para obtener todas las suscripciones de usuarios
     map(suscripciones => {
       // Verificamos si el usuario ya tiene una suscripción
       const usuarioId = control.value; // El valor del control es el ID del usuario
