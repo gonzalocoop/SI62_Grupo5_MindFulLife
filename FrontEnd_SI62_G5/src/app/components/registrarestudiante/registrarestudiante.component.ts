@@ -41,7 +41,6 @@ import { RegistrarestudianteService } from '../../services/registrarestudiante.s
 export class RegistrarestudianteComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   usuario: Usuarios = new Usuarios();
-  //variables para trabajar el editar
   id: number = 0;
   listaRoles: Roles[] = [];
   constructor(
@@ -52,7 +51,7 @@ export class RegistrarestudianteComponent implements OnInit {
 
   
   ngOnInit(): void {
-    //Para evitar errores
+    //Para evitar errores por el SesionStorage
     if (typeof window !== 'undefined' && typeof sessionStorage !== 'undefined') {
       sessionStorage.clear();
       localStorage.clear();
@@ -73,7 +72,7 @@ export class RegistrarestudianteComponent implements OnInit {
 
   aceptar() {
     if (this.form.valid) {
-      //Para el modificar
+      
       this.usuario.username = this.form.value.husername;
       this.usuario.password = this.form.value.hpassword;
       this.usuario.email = this.form.value.hemail;

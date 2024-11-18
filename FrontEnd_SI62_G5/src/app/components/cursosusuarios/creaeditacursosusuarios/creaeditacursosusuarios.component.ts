@@ -33,7 +33,7 @@ export class CreaeditacursosusuariosComponent implements OnInit{
   //variables para trabajar el editar
   id:number=0
   edicion:boolean=false
-  //Para traer los elementos de sesiones
+  //Para traer los elementos de cursos_usuarios
   listaCursos: Cursos[] = [];
   listaUsuarios: Usuarios[] = [];
   listaEstados:{value:string,viewValue:string}[]=[
