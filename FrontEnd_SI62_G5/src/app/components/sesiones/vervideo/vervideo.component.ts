@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './vervideo.component.css'
 })
 export class VervideoComponent {
-
+  //NADA
 }

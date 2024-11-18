@@ -29,7 +29,7 @@ export class ListarcursosComponent implements OnInit {
   pagedCursos: Cursos[] = []; // Cursos de la página actual para mostrar en las tarjetas
   filteredCursos: Cursos[] = []; // Cursos filtrados por duración
   duracionFiltro: number | null = null; // Filtro de duración
-  usuario: Usuarios = new Usuarios(); // Objeto para almacenar los detalles del curso
+  usuario: Usuarios = new Usuarios(); // Objeto para almacenar los detalles del usuario
   usuario_id: number=0;
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 

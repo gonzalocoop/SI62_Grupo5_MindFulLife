@@ -26,7 +26,7 @@ export class ListarcursosusuariosComponent implements OnInit{
   
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
-  // Inyecta el servicio `CursosService` para acceder a los datos de cursos
+  // Inyecta el servicio `CursosUsuariosService` para acceder a los datos de cursos
   constructor(private lS: LoginService,private cS: CursosUsuariosService) {}
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class ListarcursosusuariosComponent implements OnInit{
     }
   }
 
-  // Llama al servicio para eliminar un curso por ID y actualiza la lista de cursos y la vista de la página actual
+  // Llama al servicio para eliminar un curso_usuario por ID y actualiza la lista de cursos_usuarios y la vista de la página actual
   eliminar(id: number): void {
     this.cS.delete(id).pipe(
       catchError((error)=>{

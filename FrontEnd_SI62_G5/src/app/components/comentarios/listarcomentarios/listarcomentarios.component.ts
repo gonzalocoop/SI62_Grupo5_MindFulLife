@@ -20,12 +20,12 @@ export class ListarcomentariosComponent implements OnInit{
   role: string = '';
   selectedUser: string = localStorage.getItem("username") ?? "";
   mensaje:string="";
-  comentarios: Comentarios[] = []; // Arreglo que contiene todos los cursos
-  pagedComentarios: Comentarios[] = []; // Cursos de la página actual para mostrar en las tarjetas
+  comentarios: Comentarios[] = []; // Arreglo que contiene todos los comentarios
+  pagedComentarios: Comentarios[] = []; // Comentarios de la página actual para mostrar en las tarjetas
   
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Referencia al paginador para controlarlo
 
-  // Inyecta el servicio `SesiionesService` para acceder a los datos de cursos
+  // Inyecta el servicio `ComentariosService` para acceder a los datos de cursos
   constructor(private cS: ComentariosService,private lS: LoginService) {}
 
   ngOnInit(): void {
@@ -33,8 +33,8 @@ export class ListarcomentariosComponent implements OnInit{
     const isAdmin = this.isAdmin(); // Verificar si el usuario es admin
     if (isAdmin) {
       this.cS.list().subscribe(data => {
-        this.comentarios = data;       // Guarda todos los cursos obtenidos
-        this.updatePagedCursos();  // Muestra solo los cursos de la página actual
+        this.comentarios = data;       // Guarda todos los comentarios obtenidos
+        this.updatePagedCursos();  // Muestra solo los comentarios de la página actual
       });
     } else{
       this.cS.comentarioPorusuario(this.selectedUser).subscribe((data) => {
@@ -42,32 +42,32 @@ export class ListarcomentariosComponent implements OnInit{
         this.updatePagedCursos(); 
       })
     }
-    // Escucha actualizaciones en el servicio y vuelve a cargar `cursos` y `pagedCursos`
+    // Escucha actualizaciones en el servicio y vuelve a cargar `comentarios` y `pagedComentarios`
     this.cS.getList().subscribe(data => {
-      this.comentarios = data;       // Guarda todos los cursos actualizados
+      this.comentarios = data;       // Guarda todos los comentarios actualizados
       this.updatePagedCursos(); // Actualiza la vista con la página actual
     });
   }
 
   // Después de que la vista se inicializa, suscríbete a cambios de página del paginador
   ngAfterViewInit(): void {
-    // Actualiza los cursos que se muestran en cada cambio de página
+    // Actualiza los comentarios que se muestran en cada cambio de página
     this.paginator.page.subscribe(() => this.updatePagedCursos());
   }
 
-  // Actualiza los cursos visibles según el índice de página y el tamaño de página del paginador
+  // Actualiza los comentarios visibles según el índice de página y el tamaño de página del paginador
   updatePagedCursos(): void {
     if (this.paginator) { // Verificar que el paginador esté definido
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize; // Calcular índice inicial
       const endIndex = startIndex + this.paginator.pageSize; // Calcular índice final
-      this.pagedComentarios = this.comentarios.slice(startIndex, endIndex); // Extraer cursos paginados
+      this.pagedComentarios = this.comentarios.slice(startIndex, endIndex); // Extraer comentarios paginados
     } else {
-      // Mostrar los primeros 10 cursos si el paginador no está disponible
+      // Mostrar los primeros 10 comentarios si el paginador no está disponible
       this.pagedComentarios = this.comentarios.slice(0, 10);
     }
   }
 
-  // Llama al servicio para eliminar un curso por ID y actualiza la lista de cursos y la vista de la página actual
+  // Llama al servicio para eliminar un comentarios por ID y actualiza la lista de comentarios y la vista de la página actual
   eliminar(id: number): void {
     this.cS.delete(id).pipe(
       catchError((error)=>{

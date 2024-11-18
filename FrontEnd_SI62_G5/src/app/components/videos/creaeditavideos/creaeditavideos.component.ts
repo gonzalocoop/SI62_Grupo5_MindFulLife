@@ -119,10 +119,10 @@ export class CreaeditavideosComponent implements OnInit{
         return of(null); // Retorna válido si el campo está vacío
     }
 
-    // Llama a la lista de cursos y verifica si hay títulos repetidos
+    // Llama a la lista de videos y verifica si hay títulos repetidos
     return this.vS.list().pipe(
         map(videos => {
-            // Compara títulos y excluye el curso en edición usando this.id
+            // Compara títulos y excluye el video en edición usando this.id
             const existe = videos.some(video => video.titulo === control.value && video.id != this.id);
             return existe ? { tituloRepetido: true } : null;
         })

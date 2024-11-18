@@ -15,7 +15,7 @@ export class ObtenerurlComponent implements OnInit{
 
   cursoUsuario: CursosUsuarios = new CursosUsuarios(); // Objeto para almacenar los detalles del curso
   id: number = 0; // ID del curso
-  url: string = 'https://ibb.co/ZSXchyk';
+  url: string = 'https://ibb.co/ZSXchyk'; //Esto ya no se usa, pero se deja para tener un ejemplo de las url
   // Inyecta los servicios necesarios en el constructor
   constructor(private route: ActivatedRoute, private cuS: CursosUsuariosService, private router: Router) {}
 
