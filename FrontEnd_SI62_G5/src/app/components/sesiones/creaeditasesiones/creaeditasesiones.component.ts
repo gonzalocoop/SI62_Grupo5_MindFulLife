@@ -120,10 +120,10 @@ export class CreaeditasesionesComponent implements OnInit{
         return of(null); // Retorna válido si el campo está vacío
     }
 
-    // Llama a la lista de cursos y verifica si hay títulos repetidos
+    // Llama a la lista de sesiones y verifica si hay títulos repetidos
     return this.sS.list().pipe(
         map(sesiones => {
-            // Compara títulos y excluye el curso en edición usando this.id
+            // Compara títulos y excluye la sesion en edición usando this.id
             const existe = sesiones.some(sesion => sesion.titulo === control.value && sesion.id != this.id);
             return existe ? { tituloRepetido: true } : null;
         })

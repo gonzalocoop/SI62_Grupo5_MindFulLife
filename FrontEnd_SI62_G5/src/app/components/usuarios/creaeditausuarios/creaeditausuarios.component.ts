@@ -139,11 +139,11 @@ export class CreaeditausuariosComponent implements OnInit {
       if (this.form.controls['husername'].dirty && this.usuarioPrevioCambio === this.selectedUser) {
        alert("Cambio en el nombre de usuario detectado, reidirigiendo a Login, actualice la pagina al llegar y vuelva a iniciar sesión")
       
-        // 1. Limpiar la sesión solo después de verificar que el cambio es real.
+        // Limpiar la sesión solo después de verificar que el cambio es real.
         sessionStorage.clear();
         localStorage.clear();
       
-        // 2. Redirigir al login (asegúrate de que la ruta está correctamente configurada en las rutas de la aplicación)
+        // Redirigir al login
         this.router.navigate(['iniciosesion']).then(() => {
         });
       }

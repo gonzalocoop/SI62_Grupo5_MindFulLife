@@ -98,10 +98,10 @@ export class CreaeditasuscripcionesComponent implements OnInit{
         return of(null); // Retorna válido si el campo está vacío
     }
 
-    // Llama a la lista de cursos y verifica si hay títulos repetidos
+    // Llama a la lista de la suscripcion y verifica si hay títulos repetidos
     return this.dS.list().pipe(
         map(suscripciones => {
-            // Compara títulos y excluye el curso en edición usando this.id
+            // Compara títulos y excluye la suscripcion en edición usando this.id
             const existe = suscripciones.some(suscripcion => suscripcion.nombre === control.value && suscripcion.id != this.id);
             return existe ? { tituloRepetido: true } : null;
         })

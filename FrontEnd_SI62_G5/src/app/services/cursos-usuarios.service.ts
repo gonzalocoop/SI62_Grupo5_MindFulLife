@@ -37,10 +37,10 @@ export class CursosUsuariosService {
     const username = localStorage.getItem("username") ?? "";  // Obtener el nombre de usuario
   
     if (role === 'ADMINISTRADOR') {
-      // Si es admin, pasar todos los videos favoritos
+      // Si es admin, pasar todos los cursos de los usuarios
       this.listaCambio.next(listaNueva);
     } else {
-      // Si no es admin, filtrar solo los videos del usuario actual
+      // Si no es admin, filtrar solo los cursos del usuario actual
       const filteredList = listaNueva.filter(curusu => curusu.usua.username === username);
       this.listaCambio.next(filteredList);
     }
